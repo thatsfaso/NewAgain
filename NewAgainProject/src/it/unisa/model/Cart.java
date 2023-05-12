@@ -1,0 +1,30 @@
+package it.unisa.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Cart {
+
+	private List<Prodotto> products;
+	
+	public Cart() {
+		products = new ArrayList<Prodotto>();
+	}
+	
+	public void addProduct(Prodotto product) {
+		products.add(product);
+	}
+	
+	public void deleteProduct(Prodotto product) {
+		for(Prodotto prod : products) {
+			if(prod.getID() == product.getID()) {
+				products.remove(prod);
+				break;
+			}
+		}
+ 	}
+	
+	public List<Prodotto> getProducts() {
+		return  products;
+	}
+}
