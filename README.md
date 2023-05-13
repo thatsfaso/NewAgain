@@ -1,8 +1,9 @@
 # NewAgain
 Progetto di Tecnologie Software per il Web - UNISA2023
 
-Progetto riguardo la creazione di una e-commerce che permette l'acquisto di capi vintage
-
+Progetto riguardo la creazione di una e-commerce che permette l'acquisto di capi vintage.
+<br>
+<br>
 L'obiettivo principale del progetto è quello di offrire una selezione unica e di alta qualità di capi d'abbigliamento vintage agli acquirenti, consentendo loro di trovare pezzi unici che non sono disponibili nei negozi tradizionali. 
 <br>
 Inoltre, l'obiettivo è anche quello di creare una comunità di appassionati di moda vintage, informata sulle tendenze vintage, sulla storia della moda e su come indossare i capi vintage in modo moderno e fresco. 
