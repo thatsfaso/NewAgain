@@ -10,112 +10,110 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style>
-		body{
-			margin: 0;
-		}
-		/* Stile per il contenitore dello slideshow */
-		.slideshow-container {
-		  width: 100%;
-		  position: relative;
-		  margin: auto;
-		  height: 
-		}
+body {
+	margin: 0;
+}
+/* Stile per il contenitore dello slideshow */
+.slideshow-container {
+	width: 100%;
+	position: relative;
+	margin: auto;
+	height:
+}
 
-		/* Nasconde tutte le immagini inizialmente */
-		.mySlides {
-		  display: none;
-		}
+/* Nasconde tutte le immagini inizialmente */
+.mySlides {
+	display: none;
+}
 
-		/* Stile per i pulsanti del cambio immagine */
-		.prev, .next {
-		  cursor: pointer;
-		  position: absolute;
-		  top: 50%;
-		  width: auto;
-		  margin-top: -22px;
-		  padding: 16px;
-		  color: white;
-		  font-weight: bold;
-		  font-size: 18px;
-		  transition: 0.6s ease;
-		  border-radius: 0 3px 3px 0;
-		}
+/* Stile per i pulsanti del cambio immagine */
+.prev, .next {
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	width: auto;
+	margin-top: -22px;
+	padding: 16px;
+	color: white;
+	font-weight: bold;
+	font-size: 18px;
+	transition: 0.6s ease;
+	border-radius: 0 3px 3px 0;
+}
 
-		/* Stile per il pulsante prev */
-		.prev {
-		  left: 0;
-		  border-radius: 3px 0 0 3px;
-		}
+/* Stile per il pulsante prev */
+.prev {
+	left: 0;
+	border-radius: 3px 0 0 3px;
+}
 
-		/* Stile per il pulsante next */
-		.next {
-		  right: 0;
-		  border-radius: 3px 0 0 3px;
-		}
+/* Stile per il pulsante next */
+.next {
+	right: 0;
+	border-radius: 3px 0 0 3px;
+}
 
-		/* Stile per il punto attivo */
-		.dot {
-		  cursor: pointer;
-		  height: 15px;
-		  width: 15px;
-		  margin: 0 2px;
-		  background-color: #bbb;
-		  border-radius: 50%;
-		  display: inline-block;
-		  transition: background-color 0.6s ease;
-		}
+/* Stile per il punto attivo */
+.dot {
+	cursor: pointer;
+	height: 15px;
+	width: 15px;
+	margin: 0 2px;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+	transition: background-color 0.6s ease;
+}
 
-		/* Stile per il punto attivo */
-		.active, .dot:hover {
-		  background-color: #717171;
-		}
-		/*PER LE COSE SOTTO*/
-		.container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 20vw;
-		}
+/* Stile per il punto attivo */
+.active, .dot:hover {
+	background-color: #717171;
+}
+/*PER LE COSE SOTTO*/
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 20vw;
+}
 
-		.container img {
-			margin: 0 30px;
-			width: 250px;
-			height: auto;
-			margin-top: 0;
-		}
-		
-		.banner {
-			background-color: rgba(235, 235, 240, 0.66); 
-			position: relative; 
-			height: 90px;
-			width: 100%;
-		}
-		
-		#image {
-			position: absolute; 
-			top: 5px; 
-			left: 10px;
-			z-index: 1; 
-			width: 80px;
-			height: 80px;
-		}
-		
-		.dx{
-			position: absolute; 
-			top: 20px; 
-			right: 5px; 
-			z-index: 1;
-		}
-		
-		.dx img{
-			width: 40px;
-			height: 40px;
-			margin-left: 15px;
-			margin-right: 15px;
-		}
-		
-		
-	</style>
+.container img {
+	margin: 0 30px;
+	width: 250px;
+	height: auto;
+	margin-top: 0;
+}
+
+.banner {
+	background-color: rgba(235, 235, 240, 0.66);
+	position: relative;
+	height: 90px;
+	width: 100%;
+}
+
+#image {
+	position: absolute;
+	top: 5px;
+	left: 10px;
+	z-index: 1;
+	width: 80px;
+	height: 80px;
+}
+
+.dx {
+	position: absolute;
+	top: 20px;
+	right: 5px;
+	z-index: 1;
+}
+
+.dx img {
+	width: 40px;
+	height: 40px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+</style>
 </head>
 <body>
 	<div class="banner"> 
@@ -139,15 +137,15 @@
 	<div class="slideshow-container">
 
 		<!-- Prima immagine -->
-		<div class="mySlides fade">
+		<div class="mySlides">
 			<img src="slideshow1.png" style="width:100%">
 		</div>
 		<!-- Seconda immagine -->
-		<div class="mySlides fade">
+		<div class="mySlides">
 			<img src="slideshow3.png" style="width:100%">
 		</div>
 		<!-- terza immagine -->
-		<div class="mySlides fade">
+		<div class="mySlides">
 			<img src="slideshow4.png" style="width:100%">
 		</div>
 
