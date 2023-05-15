@@ -158,6 +158,7 @@ public class ProductDao {
 
 			while (rs.next()) {
 				bean.setID(rs.getInt("id"));
+				bean.setNome(rs.getString("nome"));
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setQuantita(rs.getInt("quantita"));
@@ -249,6 +250,7 @@ public class ProductDao {
 				bean.setQuantita(rs.getInt("quantita"));
 				Blob blob = rs.getBlob("foto");
 				bean.setSesso(rs.getString("sesso"));
+				bean.setNome(rs.getString("nome"));
 				byte[] imageByte = blob.getBytes(1,(int) blob.length());
 				bean.setImg(imageByte);
 				products.add(bean);
@@ -287,6 +289,7 @@ public class ProductDao {
 				bean.setPrezzo(rs.getInt("prezzo"));
 				bean.setQuantita(rs.getInt("quantita"));
 				bean.setSesso(rs.getString("sesso"));
+				bean.setNome(rs.getString("nome"));
 				Blob blob = rs.getBlob("foto");
 				byte[] imageByte = blob.getBytes(1,(int) blob.length());
 				bean.setImg(imageByte);
