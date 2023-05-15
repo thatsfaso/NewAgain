@@ -216,8 +216,8 @@
 		<img src="acc.png" alt="Immagine 3">
 		<a href="product?action=all"><img src="all.png" alt="Immagine 4"></a>
 	</div>
-
-
+<br><br><br>
+<jsp:include page="footer.jsp"/>
 
 </body>
 </html>

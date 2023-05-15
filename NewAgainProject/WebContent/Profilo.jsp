@@ -167,6 +167,7 @@ if (session.getAttribute("email") == null) {
 }
 %>
 
-
+	<br><br><br>
+	<jsp:include page="footer.jsp"/>
 </body>
 </html>

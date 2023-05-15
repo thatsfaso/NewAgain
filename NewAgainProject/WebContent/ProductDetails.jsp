@@ -15,13 +15,8 @@
 	<link href="ProductStyle.css" rel="stylesheet" type="text/css">
 	<title>Product Details</title>
 	<style>
-	footer {
-  text-align: center;
-  padding: 3px;
-  background-color: DarkSalmon;
-  color: white;
-}
-.banner {
+	
+		.banner {
 			background-color: rgba(235, 235, 240, 0.66); 
 			position: relative; 
 			height: 90px;
@@ -119,10 +114,8 @@
 		  }
 		}}
 	%>
+
 	<br><br><br>
-	<footer>
-  		<p>Author: New Again<br>
-  		<a href="mailto:hege@example.com">nwagn@example.com</a></p>
-	</footer>
+	<jsp:include page="footer.jsp"/>
 </body>
 </html>

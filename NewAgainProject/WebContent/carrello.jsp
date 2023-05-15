@@ -55,9 +55,6 @@
 	%>	
 	<a href="Home.jsp">Back</a>
 	<br><br><br>
-	<footer>
-  		<p>Author: New Again<br>
-  		<a href="mailto:hege@example.com">nwagn@example.com</a></p>
-	</footer>
+	<jsp:include page="footer.jsp"/>
 </body>
 </html>
