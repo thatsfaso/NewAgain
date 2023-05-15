@@ -50,13 +50,12 @@ CREATE TABLE composizione(
     foreign key (numeroO) REFERENCES Ordine(numeroOrdine)
 );
 
-INSERT INTO product (descrizione,prezzo,quantita,sesso,nome) VALUES ("Cargo Nike nero donna",12,2,'F', "Cargo Nike Donna");
-INSERT INTO product (descrizione,prezzo,quantita,sesso) VALUES ('Maglietta Nike grigia uomo', 29.99, 10, 'M');
-INSERT INTO product (descrizione,prezzo,quantita,sesso) VALUES ('Polo Ralph Lauren nera uomo', 59.99, 5, 'M');
-INSERT INTO product (descrizione,prezzo,quantita,sesso) VALUES ('Felpa Nike nera unisex', 49.99, 8, 'U');
-INSERT INTO product (descrizione,prezzo,quantita,sesso) VALUES ('Jeans Levi\'s color jeans uomo', 89.99, 3, 'M');
-INSERT INTO product (descrizione,prezzo,quantita,sesso,nome) VALUES ('Maglione Lacoste beige donna', 79.99, 6,'F', "Maglione Lacoste Donna");
-
+INSERT INTO product (descrizione,prezzo,quantita,sesso,nome) VALUES ("Cargo Nike nero",12,2,'F', "Cargo Nike Donna");
+INSERT INTO product (descrizione,prezzo,quantita,sesso) VALUES ('Maglietta Nike grigia', 29.99, 10, 'M');
+INSERT INTO product (descrizione,prezzo,quantita,sesso) VALUES ('Polo Ralph Lauren nera ', 59.99, 5, 'M');
+INSERT INTO product (descrizione,prezzo,quantita,sesso) VALUES ('Felpa Nike nera', 49.99, 8, 'U');
+INSERT INTO product (descrizione,prezzo,quantita,sesso) VALUES ('Jeans Levi\'s color jeans ', 89.99, 3, 'M');
+INSERT INTO product (descrizione,prezzo,quantita,sesso,nome) VALUES ('Maglione Lacoste beige', 79.99, 6,'F', "Maglione Lacoste Donna");
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
