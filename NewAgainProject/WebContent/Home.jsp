@@ -45,12 +45,14 @@ body {
 .prev {
 	left: 0;
 	border-radius: 3px 0 0 3px;
+	text-decoration:none;
 }
 
 /* Stile per il pulsante next */
 .next {
 	right: 0;
 	border-radius: 3px 0 0 3px;
+	text-decoration:none;
 }
 
 /* Stile per il punto attivo */
