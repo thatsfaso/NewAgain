@@ -18,7 +18,6 @@ body {
 	width: 100%;
 	position: relative;
 	margin: auto;
-	height:
 }
 
 /* Nasconde tutte le immagini inizialmente */
@@ -81,7 +80,7 @@ body {
 
 .container img {
 	margin: 0 30px;
-	width: 250px;
+	width: 18vw;
 	height: auto;
 	margin-top: 0;
 }
@@ -213,7 +212,7 @@ body {
 	<div class="container">
 		<a href="product?action=dettaglio&sesso=F"><img src="DONNA.png" alt="Immagine 1"></a>
 		<a href="product?action=dettaglio&sesso=M"><img src="uomo.png" alt="Immagine 2"></a>
-		<img src="acc.png" alt="Immagine 3">
+		<img src="acc.png" alt="Immagine 3"> 
 		<a href="product?action=all"><img src="all.png" alt="Immagine 4"></a>
 	</div>
 <br><br><br>
