@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class Prodotto {
 	int id;
 	int Quantita;
+	String Nome;
 	String Descrizione;
 	double Prezzo;
 	String Sesso;
 	byte [] img;
 	ArrayList<immagine> allimg;
-	
 	
 	public int getID() {
 		return id;
@@ -29,6 +29,12 @@ public class Prodotto {
 	}
 	public void setDescrizione(String descrizione) {
 		Descrizione = descrizione;
+	}
+	public String getNome() {
+		return Nome;
+	}
+	public void setNome(String nome) {
+		Nome = nome;
 	}
 	public double getPrezzo() {
 		return Prezzo;
