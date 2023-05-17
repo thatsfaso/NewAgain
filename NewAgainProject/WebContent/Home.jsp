@@ -131,7 +131,7 @@ body {
 </head>
 <body>
 	<div class="banner"> 
-	<a href="Home.jsp"><img src="newlogo.png" id="image"></a>
+	<a href="Home.jsp"><img src="./nuovologo.png" id="image"></a>
 	<div class="dx">
     <% if (session.getAttribute("email") == null) { %>
         <a href="http://www.google.com"><img src="cerca.png"></a>
