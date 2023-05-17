@@ -18,7 +18,6 @@ body {
 	width: 100%;
 	position: relative;
 	margin: auto;
-	height:
 }
 
 /* Nasconde tutte le immagini inizialmente */
@@ -45,12 +44,14 @@ body {
 .prev {
 	left: 0;
 	border-radius: 3px 0 0 3px;
+	text-decoration:none;
 }
 
 /* Stile per il pulsante next */
 .next {
 	right: 0;
 	border-radius: 3px 0 0 3px;
+	text-decoration:none;
 }
 
 /* Stile per il punto attivo */
@@ -69,19 +70,32 @@ body {
 .active, .dot:hover {
 	background-color: #717171;
 }
+
 /*PER LE COSE SOTTO*/
-.container {
+.container1 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 20vw;
+	width: 100%;
 }
 
-.container img {
+.container1 img {
 	margin: 0 30px;
-	width: 250px;
+	width: 18vw;
 	height: auto;
 	margin-top: 0;
+}
+@media only screen and (max-width: 768px) {
+  .container1 {
+    flex-wrap: wrap;
+    height: auto;
+  }
+
+  .container1 img {
+    width: 40vw;
+    margin: 10px;
+  }
 }
 
 .banner {
@@ -93,11 +107,11 @@ body {
 
 #image {
 	position: absolute;
-	top: 5px;
+	top: -18px;
 	left: 10px;
 	z-index: 1;
-	width: 80px;
-	height: 80px;
+	width: 125px;
+	height: auto;
 }
 
 .dx {
@@ -117,7 +131,7 @@ body {
 </head>
 <body>
 	<div class="banner"> 
-	<a href="Home.jsp"><img src="logo.png" id="image"></a>
+	<a href="Home.jsp"><img src="newlogo.png" id="image"></a>
 	<div class="dx">
     <% if (session.getAttribute("email") == null) { %>
         <a href="http://www.google.com"><img src="cerca.png"></a>
@@ -208,10 +222,10 @@ body {
 	setInterval(autoSlides, 2000);
 </script>
 
-	<div class="container">
+	<div class="container1">
 		<a href="product?action=dettaglio&sesso=F"><img src="DONNA.png" alt="Immagine 1"></a>
 		<a href="product?action=dettaglio&sesso=M"><img src="uomo.png" alt="Immagine 2"></a>
-		<img src="acc.png" alt="Immagine 3">
+		<img src="acc.png" alt="Immagine 3"> 
 		<a href="product?action=all"><img src="all.png" alt="Immagine 4"></a>
 	</div>
 <br><br><br>
