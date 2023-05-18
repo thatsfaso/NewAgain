@@ -36,9 +36,9 @@ CREATE TABLE ordine (
   stato VARCHAR(50),
   email VARCHAR(50),
   indirizzo VARCHAR(100),
-    citta VARCHAR(50),
-    provincia VARCHAR(50),
-    cap VARCHAR(10),
+  citta VARCHAR(50),
+  provincia VARCHAR(50),
+  cap VARCHAR(10),
   FOREIGN KEY (email) REFERENCES utente(email)
 );
 
@@ -52,6 +52,20 @@ CREATE TABLE composizione(
     foreign key (email) REFERENCES utente(email),
     foreign key (numeroO) REFERENCES Ordine(numeroOrdine)
 );
+
+CREATE TABLE pagamento(
+	id_pagamento int,
+    tipo ENUM('Carta di Credito', 'PayPal', 'Apple Pay'),
+	titolare varchar(80),
+	numero_carta varchar(16),
+	meseScadenza int,
+    annoScadenza int,
+	CVV int,
+	n_Ordine INT,
+  PRIMARY KEY (id_pagamento),
+  FOREIGN KEY (n_Ordine) REFERENCES ordine(numeroOrdine)
+);
+
 
 INSERT INTO product (descrizione,prezzo,quantita,sesso,nome) VALUES ("Cargo Nike nero",12,2,'F', "Cargo Nike Donna");
 INSERT INTO product (descrizione,prezzo,quantita,sesso) VALUES ('Maglietta Nike grigia', 29.99, 10, 'M');
@@ -70,3 +84,6 @@ INSERT INTO utente (email, nome, cognome, indirizzo, citta, provincia, cap, pass
 INSERT INTO utente (email, nome, cognome, indirizzo, citta, provincia, cap, pass) VALUES ('angelo.genito.000@gmail.com', 'Angelo', 'Genito', 'Contrada Olmeri 1', 'Benevento', 'Benevento', '82100', 'angelo123');
 Insert into ordine (dataOrdine, totale, stato, email) VALUES ("2022-11-10",22,"ordine consegnato", "palmadaniela218@gmail.com");
 insert into composizione (quantita, totale, email, numeroO) values (1, 22.6, "palmadaniela218@gmail.com", 1);
+
+INSERT INTO pagamento (id_pagamento, tipo, titolare, numero_carta, meseScadenza, annoScadenza, CVV, n_Ordine) VALUES (1, 'Carta di Credito', 'Iliano Fasolino', '5354566943441223', 12, 24, 666, 1);
+
