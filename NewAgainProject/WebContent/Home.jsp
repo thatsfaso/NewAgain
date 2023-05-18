@@ -139,7 +139,7 @@ body {
         <a href="product?action=viewC"><img src="cart.png"></a>
     <% } else { %>
         <a href="http://www.google.com"><img src="cerca.png"></a>
-        <a href="Profilo.jsp"><img src="utente.png"></a>
+        <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png"></a>
         <a href="registration?action=logout"><img src="logout.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
     <% } %>

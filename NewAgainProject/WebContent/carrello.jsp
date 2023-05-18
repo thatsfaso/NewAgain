@@ -174,7 +174,7 @@
   </tr>
   <%} %>
 </table>
-<a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>">profilo</a>
+
 <% 
   if(cart != null) {
 %>
