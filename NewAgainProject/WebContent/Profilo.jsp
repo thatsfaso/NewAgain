@@ -6,7 +6,7 @@
 	/*Cart cart = (Cart) request.getAttribute("cart");*/
 %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <link href="LoginStyle.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="UTF-8">

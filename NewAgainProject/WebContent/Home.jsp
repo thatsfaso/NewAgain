@@ -4,7 +4,7 @@
 <%@ page import="javax.servlet.http.HttpServletResponse" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 	<title>Homepage</title>
 	<meta charset="utf-8">

@@ -4,7 +4,7 @@ String mess = (String) request.getAttribute("errore");
 String mess2 = (String) request.getAttribute("errore2");
 %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*, it.unisa.control.*,java.sql.Connection, java.sql.*, it.unisa.model.*"%>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
