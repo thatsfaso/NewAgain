@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.control.*,it.unisa.model.*"%>
+<%
+	List<Ordine> ordini = (List <Ordine>) request.getAttribute("ordini");
+	
+	/*Cart cart = (Cart) request.getAttribute("cart");*/
+%>
 <!DOCTYPE html>
 <html>
 <link href="LoginStyle.css" rel="stylesheet" type="text/css">
@@ -43,6 +48,27 @@
 			margin-left: 15px;
 			margin-right: 15px;
 		}
+		.order-table {
+  		margin-top: 20px;
+ 		 border-spacing: 0;
+		}
+
+.order-table th,
+.order-table td {
+  padding: 10px;
+}
+
+.order-table th {
+  background-color: #f0f0f0;
+}
+
+.order-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.order-table tr:hover {
+  background-color: #eaeaea;
+}
 		
 </style>
 </head>
@@ -132,16 +158,9 @@ if (session.getAttribute("email") == null) {
     <input type="submit" value="Salva modifiche">
 </form>
 
-<%
-	List<Ordine> ordini = null;
-	
-	if (ordineDAO != null) {
-	    ordini = ordineDAO.getOrdini("email");
-	}
-	%>
 	
 	<h2>I tuoi ordini</h2>
-	<table align=center>
+	<table class="order-table">
 	  <tr>
 	    <th>Numero ordine</th>
 	    <th>Data</th>

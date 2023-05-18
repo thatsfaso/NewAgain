@@ -50,12 +50,25 @@ public class OrdineDAO {
 	        ResultSet rs = preparedStatement.executeQuery();
 
 	        if (rs.next()) {
-                int numeroOrdine = rs.getInt("numero_ordine");
-                Date data = rs.getDate("data");
+                int numeroOrdine = rs.getInt("numeroOrdine");
+                Date data = rs.getDate("dataOrdine");
                 double totale = rs.getDouble("totale");
                 String stato = rs.getString("stato");
+                String indirizzo = rs.getString("indirizzo");
+                String cap = rs.getString("cap");
+                String provincia = rs.getString("provincia");
+                String citta = rs.getString("citta");
+                
 
-                Ordine ordine = new Ordine(numeroOrdine, data, totale, stato);
+                Ordine ordine = new Ordine();
+                ordine.setCap(cap);
+                ordine.setCitta(citta);
+                ordine.setData(data);
+                ordine.setIndirizzo(indirizzo);
+                ordine.setProvincia(provincia);
+                ordine.setTotale(totale);
+                ordine.setNumeroOrdine(numeroOrdine);
+                ordine.setStato(stato);
                 ordini.add(ordine);
 	        }
 

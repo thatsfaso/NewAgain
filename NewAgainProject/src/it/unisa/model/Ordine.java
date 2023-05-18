@@ -4,17 +4,14 @@ import java.util.Date;
 
 public class Ordine {
     private int numeroOrdine;
+    private String indirizzo;
+    private String cap;
+    private String provincia ;
+    private String citta;
     private Date dataOrdine;
     private double totale;
     private String stato;
     
-    // Costruttore
-    public Ordine(int numeroOrdine, Date dataOrdine, double totale, String stato) {
-        this.numeroOrdine = numeroOrdine;
-        this.dataOrdine = dataOrdine;
-        this.totale = totale;
-        this.stato = stato;
-    }
     
     // Metodi getter e setter
     public int getNumeroOrdine() {
@@ -25,7 +22,41 @@ public class Ordine {
         this.numeroOrdine = numeroOrdine;
     }
     
-    public Date getData() {
+    
+    
+    public String getIndirizzo() {
+		return indirizzo;
+	}
+
+	public void setIndirizzo(String indirizzo) {
+		this.indirizzo = indirizzo;
+	}
+
+	public String getCap() {
+		return cap;
+	}
+
+	public void setCap(String cap) {
+		this.cap = cap;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getCitta() {
+		return citta;
+	}
+
+	public void setCitta(String citta) {
+		this.citta = citta;
+	}
+
+	public Date getData() {
         return dataOrdine;
     }
     

@@ -18,6 +18,14 @@
     <servlet-name>ProductControl</servlet-name>
     <url-pattern>/product</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>OrdineControl</servlet-name>
+    <servlet-class>it.unisa.control.OrdineControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrdineControl</servlet-name>
+    <url-pattern>/ordine</url-pattern>
+  </servlet-mapping>
   
      <servlet>
     <servlet-name>RegistrationControl</servlet-name>

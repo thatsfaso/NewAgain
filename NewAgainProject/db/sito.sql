@@ -29,13 +29,16 @@ CREATE TABLE immagini (
   img mediumblob,
   foreign key (codprodotto) references product(id)
 );
-
 CREATE TABLE ordine (
   numeroOrdine INT PRIMARY KEY auto_increment,
   dataOrdine DATE,
-  totale DECIMAL(10, 2),
+  totale double,
   stato VARCHAR(50),
   email VARCHAR(50),
+  indirizzo VARCHAR(100),
+    citta VARCHAR(50),
+    provincia VARCHAR(50),
+    cap VARCHAR(10),
   FOREIGN KEY (email) REFERENCES utente(email)
 );
 
