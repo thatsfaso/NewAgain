@@ -39,7 +39,7 @@ html, body {
   background-color: #f6f5f7;
   flex-direction: column;
   text-align: center;
-  height: 130vh;
+  height: 220vh;
   padding: 20px;
 }
 
@@ -50,7 +50,7 @@ html, body {
   justify-content: flex-start;
   align-items: flex-start;
   background-color: #FF6848;
-  height: 130vh;
+  height: 220vh;
   padding: 20px;
 }
 
