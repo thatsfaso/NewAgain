@@ -78,10 +78,10 @@ INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
 
-INSERT INTO utente (email, nome, cognome, indirizzo, citta, provincia, cap, pass) VALUES ('mario.rossi@gmail.com', 'Mario', 'Rossi', 'Via Roma 1', 'Milano', 'Milano', '20121', 'mario123');
-INSERT INTO utente (email, nome, cognome, indirizzo, citta, provincia, cap, pass) VALUES ('giulia.verdi@gmail.com', 'Giulia', 'Verdi', 'Via Garibaldi 2', 'Firenze', 'Firenze', '50122', 'giulia123');
-INSERT INTO utente (email, nome, cognome, indirizzo, citta, provincia, cap, pass) VALUES ('palmadaniela218@gmail.com', 'Daniela', 'Palma', 'Contrada Carrara 13', 'Castelpoto', 'Benevento', '82030', 'dani123');
-INSERT INTO utente (email, nome, cognome, indirizzo, citta, provincia, cap, pass) VALUES ('angelo.genito.000@gmail.com', 'Angelo', 'Genito', 'Contrada Olmeri 1', 'Benevento', 'Benevento', '82100', 'angelo123');
+INSERT INTO utente (email, nome, cognome, indirizzo, citta, provincia, cap, pass) VALUES ('mario.rossi@gmail.com', 'Mario', 'Rossi', 'Via Roma 1', 'Milano', 'MI', '20121', 'mario123');
+INSERT INTO utente (email, nome, cognome, indirizzo, citta, provincia, cap, pass) VALUES ('giulia.verdi@gmail.com', 'Giulia', 'Verdi', 'Via Garibaldi 2', 'Firenze', 'FI', '50122', 'giulia123');
+INSERT INTO utente (email, nome, cognome, indirizzo, citta, provincia, cap, pass) VALUES ('palmadaniela218@gmail.com', 'Daniela', 'Palma', 'Contrada Carrara 13', 'Castelpoto', 'BN', '82030', 'dani123');
+INSERT INTO utente (email, nome, cognome, indirizzo, citta, provincia, cap, pass) VALUES ('angelo.genito.000@gmail.com', 'Angelo', 'Genito', 'Contrada Olmeri 1', 'Benevento', 'BN', '82100', 'angelo123');
 Insert into ordine (dataOrdine, totale, stato, email) VALUES ("2022-11-10",22,"ordine consegnato", "palmadaniela218@gmail.com");
 insert into composizione (quantita, totale, email, numeroO) values (1, 22.6, "palmadaniela218@gmail.com", 1);
 

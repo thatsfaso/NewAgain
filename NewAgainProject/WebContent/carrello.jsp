@@ -11,66 +11,132 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="ProductStyle.css" rel="stylesheet" type="text/css">
+	<link href="CartStyle.css" rel="stylesheet" type="text/css">
 	<title>Cart</title>
 	<style>
-	.scaled-svg {
-          transform: scale(0.5);
-        }
-	html, body{
-		width: 100%;
-		background-color: #f6f5f7;
-	}
-	footer {
-  text-align: center;
-  padding: 3px;
-  background-color: DarkSalmon;
-  color: white;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
- .container {
-        display: flex;
-        width: 100%;
-    }
 
-    .left-column {
-        width: 50%;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        background-color: #f6f5f7;
-        flex-direction: column;
-        text-align: center;
-        height: 400vh;
-    }
+html, body {
+  width: 100%;
+  background-color: #f5f5f7;
+}
 
-    .right-column {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        background-color: #FF4B2B;
-        height: 400vh;
-    }
-        #address-form {
-            flex-grow: 1;
-        }
-	
-	.cart-table {
-        border-collapse: separate;
-        border-spacing: 0;
-        border: none;
-    }
-    .cart-table td,
-    .cart-table th {
-        border: none; /* Rimuove i bordi dalle celle */
-        padding: 10px;
-    }
-    .logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    margin-top: 20px;
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.left-column {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  background-color: #f6f5f7;
+  flex-direction: column;
+  text-align: center;
+  height: 130vh;
+  padding: 20px;
+}
+
+.right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: #FF6848;
+  height: 130vh;
+  padding: 20px;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*! margin-top: 20px; */
+}
+
+h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  padding: 10px;
+  background-color: #333;
+  color: #1B1B1B;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+form {
+  margin-top: 20px;
+}
+
+label {
+
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+input[type="submit"]:hover {
+  background-color: #FF6848;
+  border-radius: 14px;
+}
+
+.total-price {
+  margin-top: 20px;
+}
+
+.total-price h3 {
+  color: #fff;
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+  }
 }
 
 	</style>
@@ -81,24 +147,19 @@
 <div class="container">
 <div class="left-column">
     <div class="logo-container">
-        <a href="Home.jsp"><img src="nuovologo.png" width=50px></a>
+        <a href="Home.jsp"><img src="nuovologo.png" width="130px"></a>
     </div>
     <br><br>
-    <h2>Scelta Consegna</h2>
+    <h2>Tipo di Consegna</h2>
 
     <table>
-        <tr>
-            <th>Opzione</th>
-            <th>Descrizione</th>
-        </tr>
         <% if((session.getAttribute("indirizzo") != null) &&
             (session.getAttribute("citta") != null) &&
             (session.getAttribute("provincia") != null) &&
             (session.getAttribute("cap") != null)) { %>
             <tr id="address-form-row">
                 <td>
-                    <input type="radio" name="delivery-option" id="existing-address-option" value="existing-address" onclick="hideAddressForm()">
-                    <br>
+                    <input type="radio" name="delivery-option" id="existing-address-option" value="existing-address" onclick="hideAddressForm()">  
                     <label for="existing-address-option">Consegna a Casa</label>
                 </td>
                 <td>
@@ -112,16 +173,15 @@
         <tr>
             <td>
                 <input type="radio" name="delivery-option" id="delivery-option" value="home" onclick="showAddressForm()"><br>
-                <label for="delivery-option">Consegna a un altro indirizzo</label>
+                <label for="delivery-option">Altro indirizzo</label>
             </td>
             <td>
-                Seleziona questa opzione se desideri ricevere la consegna a un altro indirizzo
+                Seleziona questa opzione se desideri ricevere la consegna ad un altro indirizzo
             </td>
         </tr>
         <tr>
             <td>
                 <input type="radio" name="delivery-option" id="pickup-option" value="pickup" onclick="hideAddressForm()">
-                <br>
                 <label for="pickup-option">Punto di Ritiro</label>
             </td>
             <td>
@@ -130,73 +190,63 @@
         </tr>
     </table>
 
-    <div id="address-form" style="display: none;">
-        <br><br><br><br>
-        <h3>Inserisci i Recapiti per la Consegna</h3>
+   <div id="address-form" style="display: none; margin: 0 auto; width: 80%;">
+        <br>
 
         <form>
-            <label for="citta">Citta:</label>
-            <input type="text" id="citta" name="citta"><br>
-            <label for="cap">CAP:</label>
-            <input type="text" id="cap" name="cap"><br>
-            <label for="provincia">Provincia:</label>
-            <input type="text" id="provincia" name="provincia"><br>
-            <label for="address">Indirizzo:</label>
-            <input type="text" id="address" name="address"><br>
-            <input type="submit" value="Conferma Consegna">
+            <input type="text" id="address" name="address" placeholder="Indirizzo"><br>
+            <input type="text" id="citta" name="citta" placeholder="Città"><br>
+            <input type="text" id="cap" name="cap" placeholder="CAP" maxlength="5"><br>
+            <input type="text" id="provincia" name="provincia" placeholder="Provincia" maxlength="2"><br>
+
+            <input type="submit" value="Conferma">
         </form>
+        <br><br>
     </div>
+    <br>
+    <h2>Metodo di Pagamento</h2>
      <table>
     <tr>
         <td>
             <input type="radio" name="Pagamento" id="CartaDiCredito" value="Carta di credito" onclick="mostraFormCarta()">
             <label for="CartaDiCredito">Carta di Credito</label>
         </td>
-        <td>
-          <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/0169695890db3db16bfe.svg" role="img" width="38" height="24">
-            <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/ae9ceec48b1dc489596c.svg" role="img" width="38" height="24">
-            <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/37fc65d0d7ac30da3b0c.svg" role="img" width="38" height="24">
+        <td style="text-align: right;">
+          <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/0169695890db3db16bfe.svg" role="img" width="48" height="34">
+            <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/ae9ceec48b1dc489596c.svg" role="img" width="48" height="34">
+            <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/37fc65d0d7ac30da3b0c.svg" role="img" width="48" height="34">
         </td>
-    </tr>
-    <tr>
-        <td>
-            <form id="formCarta" style="display: none;">
-              <label for="card-number">Numero carta:</label>
-              <input type="text" id="card-number" name="card-number" placeholder="Numero carta" maxlength="16" required>
-              <br>
-              <label for="card-holder">Nome titolare:</label>
-              <input type="text" id="card-holder" name="card-holder" placeholder="Nome titolare" maxlength="255" required>
-              <br>
-              <label for="expiration-date">Data scadenza:</label>
-              <input type="text" id="expiration-date" name="expiration-date" placeholder="MM/AA" maxlength="5" required>
-            
-              <label for="cvv">CVV:</label>
-              <input type="text" id="cvv" name="cvv" placeholder="CVV" maxlength="3" required>
-              <br><br>
-              <input type="submit" value="Invia">
-            </form>
-        </td>
-        <td></td>
     </tr>
     <tr>
         <td>
             <input type="radio" name="Pagamento" id="Paypal" value="Paypal" onclick="nascondiFormCarta()">
             <label for="Paypal">Paypal</label>
         </td>
-        <td>
-            <img alt="" src="https://cdn.pixabay.com/photo/2015/05/26/09/37/paypal-784404_1280.png" role="img" width="38" height="24">
+        <td style="text-align: right;">
+            <img alt="" src="https://cdn.pixabay.com/photo/2015/05/26/09/37/paypal-784404_1280.png" role="img" width="90" height="50">
         </td>
     </tr>
     <tr>
         <td>
             <input type="radio" name="Pagamento" id="ApplePay" value="ApplePay" onclick="nascondiFormCarta()">
-            <label for="ApplePay">ApplePay</label>
+            <label for="ApplePay">Apple Pay</label>
         </td>
-        <td>
-            <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1024px-Apple_Pay_logo.svg.png?20170518220303" role="img" width="38" height="20">
+        <td style="text-align: right;">
+            <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1024px-Apple_Pay_logo.svg.png?20170518220303" role="img" width="75" height="30">
         </td>
     </tr>
 </table>
+<form id="formCarta" style="display: none;">
+              <input type="text" id="card-number" name="card-number" placeholder="Numero carta" maxlength="16" required>
+              <br>
+              <input type="text" id="card-holder" name="card-holder" placeholder="Nome titolare" maxlength="255" required>
+              <br>
+              <input type="text" id="expiration-date" name="expiration-date" placeholder="MM/AA" maxlength="5" required>
+  			  <br>
+              <input type="text" id="cvv" name="cvv" placeholder="CVV" maxlength="3" required>
+              <br><br>
+              <input type="submit" value="Conferma">
+            </form>
   </div>
 <div class="right-column">
 	<% double prezzotot=0;
