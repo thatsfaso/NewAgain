@@ -3,6 +3,7 @@
 <html lang="it">
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<link href="CartStyle.css" rel="stylesheet" type="text/css">
 	<title>Footer</title>
 	<style>
 	
@@ -204,7 +205,7 @@
 			#items{
 				margin-top: -3vw;
 			}
-	</style>
+	</style> 
 </head>
 <body>
 	<div class="footer">
