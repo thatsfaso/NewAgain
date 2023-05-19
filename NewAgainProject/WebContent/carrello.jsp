@@ -71,6 +71,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+  border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
