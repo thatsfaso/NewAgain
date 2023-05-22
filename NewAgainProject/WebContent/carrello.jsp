@@ -301,7 +301,7 @@ table.cart-table {
 	<% double prezzotot=0;
 	if(cart != null) { %>
 		
-		<table class="cart-table" border="1">
+		<table class="cart-table" border="1" id="table1">
   <%  	
      for(Prodotto p: cart.getProducts()){
        byte[] imageB = p.getImg();
