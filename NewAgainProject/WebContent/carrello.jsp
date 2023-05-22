@@ -1,20 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.util.Base64" %>
-
 <%
 	Cart cart = (Cart) request.getAttribute("cart");
 %>
-
 <!DOCTYPE html>
 <html lang="it">
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.model.*"%>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="CartStyle.css" rel="stylesheet" type="text/css">
 	<title>Cart</title>
 	<style>
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -23,24 +19,30 @@
 
 html, body {
   width: 100%;
+  margin-top: 0;
   background-color: #f5f5f7;
+  border: none;
+  font-family: Arial, sans-serif;
 }
 
-.container {
+.cont {
   display: flex;
   width: 100%;
+  height: auto;
+  overflow: hidden;
 }
 
 .left-column {
+margin-top: 0;
   width: 50%;
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
   background-color: #f6f5f7;
   flex-direction: column;
   text-align: center;
-  height: 130vh;
   padding: 20px;
+  height: auto;
 }
 
 .right-column {
@@ -52,13 +54,14 @@ html, body {
   background-color: #FF6848;
   height: 130vh;
   padding: 20px;
+  border: none;
+  height: auto;
 }
 
 .logo-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  /*! margin-top: 20px; */
 }
 
 h2 {
@@ -70,14 +73,18 @@ h2 {
 table {
   width: 100%;
   border-collapse: collapse;
+  border-spacing: 0;
   margin-bottom: 20px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-top: none;
+  border: none;
 }
 
 th, td {
   padding: 10px;
   text-align: left;
+  border: 1px solid #ccc;
 }
 
 th {
@@ -86,16 +93,43 @@ th {
   color: #1B1B1B;
 }
 
+th:first-child,
+td:first-child {
+  border-left: none;
+  border-top: none;
+}
+
+th:last-child,
+td:last-child {
+  border-right: none;
+  border-top: none;
+}
+
+tr:first-child th {
+  border-top: none;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
 input[type="radio"] {
   margin-right: 5px;
 }
 
 form {
-  margin-top: 20px;
+  max-width: 500px;
+  width: 100%;
+  margin: auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 2px;
 }
 
 label {
-
   display: block;
   margin-bottom: 5px;
 }
@@ -130,7 +164,7 @@ input[type="submit"]:hover {
 }
 
 @media (max-width: 768px) {
-  .container {
+  .cont {
     flex-direction: column;
   }
 
@@ -140,17 +174,19 @@ input[type="submit"]:hover {
   }
 }
 
+table.cart-table {
+  border: none !important;
+  width: 100%;
+}
 	</style>
 </head>
 
 <body>
-
-<div class="container">
+<div class="cont">
 <div class="left-column">
     <div class="logo-container">
         <a href="Home.jsp"><img src="nuovologo.png" width="130px"></a>
     </div>
-    <br><br>
     <h2>Tipo di Consegna</h2>
 
     <table>
@@ -192,7 +228,6 @@ input[type="submit"]:hover {
     </table>
 
    <div id="address-form" style="display: none; margin: 0 auto; width: 80%;">
-        <br>
 
         <form>
             <input type="text" id="address" name="address" placeholder="Indirizzo"><br>
@@ -204,7 +239,7 @@ input[type="submit"]:hover {
         </form>
         <br><br>
     </div>
-    <br>
+
     <h2>Metodo di Pagamento</h2>
      <table>
     <tr>
@@ -249,6 +284,7 @@ input[type="submit"]:hover {
               <input type="submit" value="Conferma">
             </form>
   </div>
+  
 <div class="right-column">
 	<% double prezzotot=0;
 	if(cart != null) { %>
@@ -271,10 +307,10 @@ input[type="submit"]:hover {
       <select class="quantity custom-select" onchange="updateTotal(this, <%=p.getPrezzo()%>)">
         <% for(int i=1; i<=p.getQuantita(); i++) { %>
         <option value="<%= i %>"><%= i %></option>
-        <% } %>
+        <%} %>
       </select>
     </td>
-    <td><span id="totalPrice_<%=p.getID()%>"><%=p.getPrezzo()%></span></td>
+<td><span id="totalPrice_<%=p.getID()%>"><%=p.getPrezzo()%></span></td>
   </tr>
   <%} %>
 </table>
