@@ -188,6 +188,27 @@ table.cart-table {
         display: inline-block;
         width: 120px;
     }
+    
+#table1 {
+    border-collapse: unset;
+    border: unset;
+    background-color: unset;
+    color: unset;
+    border-radius: unset;
+    box-shadow: unset;
+  }
+
+  #table1 th, #table1 td {
+    padding: unset;
+    text-align: unset;
+    border: unset;
+    width: unset;
+  }
+
+  #table1 th {
+    background-color: unset;
+    color: unset;
+  }
 	</style>
 </head>
 
