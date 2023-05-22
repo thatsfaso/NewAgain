@@ -1,4 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.util.Base64" %>
 <%
 	Cart cart = (Cart) request.getAttribute("cart");
@@ -79,12 +78,14 @@ table {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-top: none;
   border: none;
+  table-layout: fixed;
 }
 
 th, td {
   padding: 10px;
   text-align: left;
   border: 1px solid #ccc;
+  width: 25%;
 }
 
 th {
@@ -127,11 +128,6 @@ form {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   margin-top: 2px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
 }
 
 input[type="text"] {
@@ -178,6 +174,20 @@ table.cart-table {
   border: none !important;
   width: 100%;
 }
+
+.delivery-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+.radio-label {
+        display: inline-block;
+    }
+    .option-label {
+        display: inline-block;
+        width: 120px;
+    }
 	</style>
 </head>
 
@@ -190,36 +200,38 @@ table.cart-table {
     <h2>Tipo di Consegna</h2>
 
     <table>
-        <% if((session.getAttribute("indirizzo") != null) &&
-            (session.getAttribute("citta") != null) &&
-            (session.getAttribute("provincia") != null) &&
-            (session.getAttribute("cap") != null)) { %>
-            <tr id="address-form-row">
-                <td>
-                    <input type="radio" name="delivery-option" id="existing-address-option" value="existing-address" onclick="hideAddressForm()">  
-                    <label for="existing-address-option">Consegna a Casa</label>
-                </td>
-                <td>
-                    <%= session.getAttribute("indirizzo") %>
-                    <%= session.getAttribute("citta") %>
-                    <%= session.getAttribute("provincia") %>
-                    <%= session.getAttribute("cap") %>
-                </td>
-            </tr>
-        <% } %>
-        <tr>
-            <td>
-                <input type="radio" name="delivery-option" id="delivery-option" value="home" onclick="showAddressForm()"><br>
-                <label for="delivery-option">Altro indirizzo</label>
-            </td>
-            <td>
-                Seleziona questa opzione se desideri ricevere la consegna ad un altro indirizzo
-            </td>
-        </tr>
+                <% if((session.getAttribute("indirizzo") != null) &&
+                    (session.getAttribute("citta") != null) &&
+                    (session.getAttribute("provincia") != null) &&
+                    (session.getAttribute("cap") != null)) { %>
+                <tr id="address-form-row">
+                    <td>
+                        <input type="radio" name="delivery-option" id="existing-address-option"
+                            value="existing-address" onclick="hideAddressForm()">
+                        <label for="existing-address-option">Consegna a Casa</label>
+                    </td>
+                    <td>
+                        <%= session.getAttribute("indirizzo") %>
+                        <%= session.getAttribute("citta") %>
+                        <%= session.getAttribute("provincia") %>
+                        <%= session.getAttribute("cap") %>
+                    </td>
+                </tr>
+                <% } %>
+                <tr>
+                    <td>
+                        <input type="radio" name="delivery-option" id="delivery-option" value="home"
+                            onclick="showAddressForm()">
+                        <label for="delivery-option" class="radio-label option-label">Altro indirizzo</label>
+                    </td>
+                    <td>
+                        Seleziona questa opzione se desideri ricevere la consegna ad un altro indirizzo
+                    </td>
+                </tr>
         <tr>
             <td>
                 <input type="radio" name="delivery-option" id="pickup-option" value="pickup" onclick="hideAddressForm()">
-                <label for="pickup-option">Punto di Ritiro</label>
+                <label for="pickup-option" class="radio-label option-label">Punto di Ritiro</label>
             </td>
             <td>
                 Seleziona questa opzione se desideri ritirare il prodotto presso un punto di ritiro.
