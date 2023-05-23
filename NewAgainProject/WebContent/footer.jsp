@@ -214,7 +214,7 @@
 			<h3>Servizi</h3>
 	                        <ul>
 	                            <li><a href="./faq.jsp">FAQ</a></li>
-								<li><a href="./Errore404.jsp">Privacy Policy</a></li>
+				    <li><a href="./Errore404.jsp">Privacy Policy</a></li>
 	                            <li><a href="./Errore404.jsp">Termini e Condizioni</a></li>
 	                        </ul>
 		</div>
