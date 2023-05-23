@@ -67,12 +67,12 @@ CREATE TABLE pagamento(
 );
 
 
-INSERT INTO product (descrizione,prezzo,quantita,sesso,nome) VALUES ("Cargo Nike nero",12,2,'F', "Cargo Nike Donna");
-INSERT INTO product (descrizione,prezzo,quantita,sesso) VALUES ('Maglietta Nike grigia', 29.99, 10, 'M');
-INSERT INTO product (descrizione,prezzo,quantita,sesso) VALUES ('Polo Ralph Lauren nera ', 59.99, 5, 'M');
-INSERT INTO product (descrizione,prezzo,quantita,sesso) VALUES ('Felpa Nike nera', 49.99, 8, 'U');
-INSERT INTO product (descrizione,prezzo,quantita,sesso) VALUES ('Jeans Levi\'s color jeans ', 89.99, 3, 'M');
-INSERT INTO product (descrizione,prezzo,quantita,sesso,nome) VALUES ('Maglione Lacoste beige', 79.99, 6,'F', "Maglione Lacoste Donna");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ("Cargo Nike nero",12,2,'F', "Cargo Nike Donna");
+INSERT INTO product (nome,prezzo,quantita,sesso) VALUES ('Maglietta Nike grigia', 29.99, 10, 'M');
+INSERT INTO product (nome,prezzo,quantita,sesso) VALUES ('Polo Ralph Lauren nera ', 59.99, 5, 'M');
+INSERT INTO product (nome,prezzo,quantita,sesso) VALUES ('Felpa Nike nera', 49.99, 8, 'U');
+INSERT INTO product (nome,prezzo,quantita,sesso) VALUES ('Jeans Levi\'s color jeans ', 89.99, 3, 'M');
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ('Maglione Lacoste beige', 79.99, 6,'F', "Maglione Lacoste Donna");
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
@@ -83,7 +83,8 @@ INSERT INTO utente (email, nome, cognome, indirizzo, citta, provincia, cap, pass
 INSERT INTO utente (email, nome, cognome, indirizzo, citta, provincia, cap, pass) VALUES ('palmadaniela218@gmail.com', 'Daniela', 'Palma', 'Contrada Carrara 13', 'Castelpoto', 'BN', '82030', 'dani123');
 INSERT INTO utente (email, nome, cognome, indirizzo, citta, provincia, cap, pass) VALUES ('angelo.genito.000@gmail.com', 'Angelo', 'Genito', 'Contrada Olmeri 1', 'Benevento', 'BN', '82100', 'angelo123');
 Insert into ordine (dataOrdine, totale, stato, email) VALUES ("2022-11-10",22,"ordine consegnato", "palmadaniela218@gmail.com");
-insert into composizione (quantita, totale, email, numeroO) values (1, 22.6, "palmadaniela218@gmail.com", 1);
+insert into composizione (quantita, totale, codP, numeroO) values (1, 22.6, 1, 1);
+insert into composizione (quantita, totale, codP, numeroO) values (1, 22.6, 2, 1);
 
 INSERT INTO pagamento (id_pagamento, tipo, titolare, numero_carta, meseScadenza, annoScadenza, CVV, n_Ordine) VALUES (1, 'Carta di Credito', 'Iliano Fasolino', '5354566943441223', 12, 24, 666, 1);
 
