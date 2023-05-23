@@ -341,9 +341,10 @@ table.cart-table {
         <% for(int i=1; i<=p.getQuantita(); i++) { %>
         <option value="<%= i %>"><%= i %></option>
         <%} %>
-      </select>
-    </td>
-<td><span id="totalPrice_<%=p.getID()%>"><%=p.getPrezzo()%></span></td>
+      </select>   
+	  <td><span id="totalPrice_<%=p.getID()%>"><%=p.getPrezzo()%></span></td>
+	  <td><a href="product?action=DeleteC&id=<%=p.getID()%>">Rimuovi</a></td>
+
   </tr>
   <%} %>
 </table>
@@ -354,6 +355,8 @@ table.cart-table {
 <div class="total-price">
   <h3>Total: <span id="cartTotal"></span></h3>
 </div>
+
+<a href="product?action=svuotaC">Svuota carello</a>
 
 <%}} %>	
 	</div></div>	

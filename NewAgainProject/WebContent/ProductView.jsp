@@ -182,9 +182,8 @@
         byte[] imageB = bean.getImg();
         String base64img = Base64.getEncoder().encodeToString(imageB); %>
         <div class="product">
-        <img src="data:image/jpg;base64, <%=base64img%>" width="300" height="300">
+        <a href="product?action=read&id=<%=bean.getID()%>"><img src="data:image/jpg;base64, <%=base64img%>" width="300" height="300"></a>
         <p><%=bean.getNome()%></p>
-        <a href="product?action=read&id=<%=bean.getID()%>">Dettagli</a>
         <a href="product?action=addC&id=<%=bean.getID()%>">Aggiungi al carrello</a>
       	</div>
       <% count++;

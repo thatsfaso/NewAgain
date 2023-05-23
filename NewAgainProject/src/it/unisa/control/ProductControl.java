@@ -47,6 +47,12 @@ public class ProductControl extends HttpServlet {
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/carrello.jsp");
 					dispatcher.forward(request, response);
 				} 
+				else if(action.equalsIgnoreCase("svuotaC")) {
+					Cart nuovo = new Cart();
+					request.setAttribute("cart",nuovo);
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/carrello.jsp");
+					dispatcher.forward(request, response);
+				}
 				
 				else if (action.equalsIgnoreCase("deleteC")) {
 					int id =Integer.parseInt(request.getParameter("id"));
