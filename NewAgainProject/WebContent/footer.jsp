@@ -214,7 +214,7 @@
 			<h3>Servizi</h3>
 	                        <ul>
 	                            <li><a href="./faq.jsp">FAQ</a></li>
-								<li><a href="./Errore404.jsp">Privacy Policy</a></li>
+				    <li><a href="./Errore404.jsp">Privacy Policy</a></li>
 	                            <li><a href="./Errore404.jsp">Termini e Condizioni</a></li>
 	                        </ul>
 		</div>
@@ -223,8 +223,8 @@
 	                        <ul>
 	                            <li><a href="https://github.com/thatsfaso">Fasolino Iliano</a></li>
 	                            <li><a href="https://github.com/GiuSeppE898">Giuseppe Pio Sorrentino</a></li>
-								<li><a href="https://github.com/daniipa02">Daniela Palma</a></li>
-								<li><a href="https://github.com/emaanuueele11">Emanuele Vitale</a></li>
+				    <li><a href="https://github.com/daniipa02">Daniela Palma</a></li>
+				    <li><a href="https://github.com/emaanuueele11">Emanuele Vitale</a></li>
 	                        </ul>
 		</div>
 		<div class="box box3">
