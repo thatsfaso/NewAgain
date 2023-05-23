@@ -46,10 +46,10 @@ CREATE TABLE composizione(
 	IVA double not null default 22,
     quantita int,
     totale double,
-    email varchar(50),
+    codP int,
     numeroO int,
-    primary key(email, numeroO),
-    foreign key (email) REFERENCES utente(email),
+    primary key(codP, numeroO),
+    foreign key (codP) REFERENCES product(id),
     foreign key (numeroO) REFERENCES Ordine(numeroOrdine)
 );
 

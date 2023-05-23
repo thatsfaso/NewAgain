@@ -96,6 +96,7 @@ public class OrdineDAO {
 	    return ordini;
 
     }
+    
 
     
     public Ordine getOrdineByNumero(int numeroOrdine) {
@@ -113,5 +114,56 @@ public class OrdineDAO {
             ordine.setStato(nuovoStato);
         }
     }
+
+	public List<Prodotto> getProdotti(int idO) {
+		Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+    	List<Prodotto> prodotti = new ArrayList<Prodotto>();
+    	String selectSQL = "SELECT product.id, product.nome, product.foto FROM product, composizione" 
+    		    + " WHERE composizione.codP = product.id"
+    		    + " AND composizione.numeroO = ?";
+
+    	
+    	try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setInt(1, idO);
+
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        while (rs.next()) {
+	        	int id = rs.getInt("product.id");
+	        	String nome = rs.getString("product.nome");
+	        	byte[] foto = rs.getBytes("product.foto");
+	        	Prodotto bean = new Prodotto();
+	        	bean.setID(id);
+	        	bean.setNome(nome);
+	        	bean.setImg(foto);
+                prodotti.add(bean);
+	        }
+
+	    } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+	            if (connection != null)
+					try {
+						connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	        }
+	    }
+
+	    return prodotti;
+	}
     
 }

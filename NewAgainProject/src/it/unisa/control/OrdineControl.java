@@ -1,7 +1,7 @@
 package it.unisa.control;
 
 import java.io.IOException;
-
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.unisa.model.Ordine;
 import it.unisa.model.OrdineDAO;
+import it.unisa.model.Prodotto;
 
 /**
  * Servlet implementation class OrdineControl
@@ -41,7 +43,19 @@ public class OrdineControl extends HttpServlet {
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Profilo.jsp");
 				dispatcher.forward(request, response);
 			} 
-		}}
+			else if(action.equalsIgnoreCase("Dettagli")) {
+				String email = request.getParameter("email");
+		        List<Ordine> ordini = ordine.getOrdini(email); // Recupera gli ordini dal database
+		        int numeroOrdine = Integer.parseInt(request.getParameter("NumeroOrdine"));
+		        List<Prodotto> prodotti = ordine.getProdotti(numeroOrdine); // Recupera i prodotti associati a un ordine dal database
+
+		        request.setAttribute("ordini", ordini); // Imposta l'attributo "ordini" sulla richiesta
+		        request.setAttribute("prodotti", prodotti); // Imposta l'attributo "prodotti" sulla richiesta
+
+		        request.getRequestDispatcher("Profilo.jsp").forward(request, response);
+		    }
+			}
+		}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

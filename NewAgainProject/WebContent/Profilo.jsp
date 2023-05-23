@@ -2,13 +2,24 @@
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.control.*,it.unisa.model.*"%>
 <%
 	List<Ordine> ordini = (List <Ordine>) request.getAttribute("ordini");
+	List<Prodotto> prodotti =(List <Prodotto>) request.getAttribute("prodotti");
 	
 	/*Cart cart = (Cart) request.getAttribute("cart");*/
 %>
 <html>
 <head>
 <style>
-.order-form {
+.order-table th,
+.order-table td {
+  padding: 8px; /* Aggiungi uno spazio di 8px all'interno delle celle */
+}
+
+.order-table th:not(:last-child),
+.order-table td:not(:last-child) {
+  margin-right: 10px; /* Aggiungi uno spazio di 10px tra le colonne, eccetto l'ultima colonna */
+}
+
+.profile-form {
   display: none;
 }
 
@@ -130,6 +141,7 @@
       <th>Data</th>
       <th>Totale</th>
       <th>Stato</th>
+      <th>Dettagli</th>
     </tr>
     
     <% 
@@ -140,12 +152,34 @@
           <td><%= ordine.getData() %></td>
           <td><%= ordine.getTotale() %></td>
           <td><%= ordine.getStato() %></td>
+          <td><a href="ordine?action=Dettagli&NumeroOrdine=<%=ordine.getNumeroOrdine()%>&email=<%=session.getAttribute("email")%>">Dettagli</a></td>
+          
         </tr>
       <% }
     }
     %>
   </table>
+ <table>
+ 
+    <%
+    if (prodotti != null && !prodotti.isEmpty()) {
+    for(Prodotto bean: prodotti) {
+      byte[] imageB = bean.getImg();
+      String base64img = Base64.getEncoder().encodeToString(imageB); %>
+      <tr>
+        <td><a href="product?action=read&id=<%=bean.getID()%>"><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100"></a></td>
+        <td><%= bean.getNome() %></td>
+      </tr>
+    <% }}
+    %>
+  </table>
+ 
+
+
+  
+        
 </div>
+
 </main>
 </div>
 <jsp:include page="footer.jsp"/>
