@@ -140,6 +140,7 @@ input[type="submit"] {
   background-color: #333;
   color: #fff;
   border: none;
+  margin: 27px;
   padding: 10px 20px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
