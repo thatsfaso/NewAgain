@@ -1,0 +1,446 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.control.*,it.unisa.model.*"%>
+
+<%
+  
+    ProductDao productDao = new ProductDao();
+    Collection<Prodotto> products = productDao.doRetrieveAll();
+    request.setAttribute("products", products);
+    
+    OrdineDAO ordineDao = new OrdineDAO();
+    List<Ordine> ordini = ordineDao.getAllOrdini();
+    request.setAttribute("ordini", ordini);
+    
+    UtenteDao utenteDao = new UtenteDao();
+    List<Utente> utenti = utenteDao.doRetrieveAll();
+    request.setAttribute("utenti", utenti);
+
+    String searchEmail = request.getParameter("email");
+    if (searchEmail != null && !searchEmail.isEmpty()) {
+        List<Ordine> filteredOrdini = new ArrayList<>();
+        for (Ordine ordine : ordini) {
+            if (ordine.getEmail().equalsIgnoreCase(searchEmail)) {
+                filteredOrdini.add(ordine);
+            }
+        }
+        ordini = filteredOrdini;
+    }
+
+%>
+
+<html>
+<head>
+<title>Pagina Amministratore</title>
+<style>
+    /* Stili CSS */
+
+    /* Banner */
+    .banner {
+        background-color: rgba(235, 235, 240, 0.66);
+        position: relative;
+        height: 90px;
+        width: 100%;
+    }
+
+    #image {
+        position: absolute;
+        top: -18px;
+        left: 10px;
+        z-index: 1;
+        width: 125px;
+        height: auto;
+    }
+
+    .dx {
+        position: absolute;
+        top: 20px;
+        right: 5px;
+        z-index: 1;
+    }
+
+    .dx img {
+        width: 40px;
+        height: 40px;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+	/* Product table */
+	
+	.product-table tr {
+	    display: flex;
+	    flex-wrap: wrap;
+	}
+	
+	.product-table td {
+	    width: 25%; 
+	}
+		
+	.product-table {
+	    width: 100%;
+	    border-collapse: collapse;
+	}
+	
+	.product-table th,
+	.product-table td {
+	    padding: 8px;
+	    text-align: left;
+	}
+	
+	.product-table th {
+	    background-color: #f2f2f2;
+	    font-weight: bold;
+	}
+	
+	.product-table tr:nth-child(even) {
+	    background-color: #f9f9f9;
+	}
+	
+	.product-table tr:hover {
+	    background-color: #e9e9e9;
+	}
+	
+	.product-table td a {
+	    color: #0066cc;
+	    text-decoration: none;
+	    margin-right: 10px;
+	}
+	
+	.product-table td a:hover {
+	    text-decoration: underline;
+	}
+
+	
+    /* Sidebar */
+    .s-layout__sidebar {
+        /* Aggiungi qui gli stili per la sidebar */
+    }
+
+    .s-sidebar__trigger {
+        /* Aggiungi qui gli stili per il trigger della sidebar */
+    }
+
+    .s-sidebar__nav {
+        /* Aggiungi qui gli stili per la nav della sidebar */
+    }
+
+    .s-sidebar__nav-link {
+        /* Aggiungi qui gli stili per i link della nav della sidebar */
+    }
+
+    /* Content */
+    .s-layout__content {
+        /* Aggiungi qui gli stili per il content principale */
+    }
+
+    /* Profile Form */
+    .profile-form {
+        /* Aggiungi qui gli stili per il form del profilo utente */
+    }
+
+    /* Order Form */
+    .order-form {
+         display: none;
+    }
+
+    .order-table th,
+    .order-table td {
+        padding: 8px;
+    }
+
+    .order-table th:not(:last-child),
+    .order-table td:not(:last-child) {
+        margin-right: 10px;
+    }
+</style>
+<link href="styleAreautente.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div class="banner">
+    <a href="Home.jsp"><img src="./nuovologo.png" id="image"></a>
+    <div class="dx">
+        <% if (session.getAttribute("email") == null) { %>
+            <a href="http://www.google.com"><img src="cerca.png"></a>
+            <a href="Accedi.jsp"><img src="utente.png"></a>
+            <a href="product?action=viewC"><img src="cart.png"></a>
+        <% } else { %>
+            <a href="http://www.google.com"><img src="cerca.png"></a>
+            <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png"></a>
+            <a href="registration?action=logout"><img src="logout.png"></a>
+            <a href="product?action=viewC"><img src="cart.png"></a>
+        <% } %>
+    </div>
+</div>
+
+<div class="s-layout">
+    <div class="s-layout__sidebar">
+        <a class="s-sidebar__trigger" href="#0">
+            <i class="fa fa-bars"></i>
+        </a>
+
+        <nav class="s-sidebar__nav">
+            <ul>
+                <li>
+                    <a class="s-sidebar__nav-link" href="#0" id="catalogoLink">
+                        <i class="fa fa-home"></i><em>Catalogo Prodotti</em>
+                    </a>
+                </li>
+                <li>
+                    <a class="s-sidebar__nav-link" href="#0" id="utentiLink">
+                        <i class="fa fa-user"></i><em>Lista Utenti</em>
+                    </a>
+                </li>
+                <li>
+                    <a class="s-sidebar__nav-link" href="#0" id="ordiniLink">
+                        <i class="fa fa-camera"></i><em>Lista Ordini</em>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="s-layout__content">
+        <div class="profile-form">
+          <h2>Catalogo Prodotti</h2>
+			<table class="product-table">
+			  <tr>
+			    <th>ID</th>
+			    <th>Nome Prodotto</th>
+			    <th>Descrizione</th>
+			    <th>Prezzo</th>
+			    <th>Quantità</th>
+			    <th>Foto</th>
+			    <th>Sesso</th>
+			    <th>Azioni</th>
+			  </tr>
+			  <% 
+			  if (products != null && !products.isEmpty()) {
+			    Iterator<?> it = products.iterator();
+			    int count = 0;
+			    while (it.hasNext()) {
+			      if (count % 4 == 0) { %>
+			      <tr>
+			      <% }
+			      Prodotto bean = (Prodotto) it.next();
+			      byte[] imageB = bean.getImg();
+			      String base64img = Base64.getEncoder().encodeToString(imageB);
+			      %>
+					<td><%= bean.getNome() %></td>
+					<td><%= bean.getDescrizione() %></td>
+					<td><%= bean.getPrezzo() %></td>
+					<td><%= bean.getQuantita() %></td>
+			      <td><%= bean.getQuantita() %></td>
+			      <td><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100"></td>
+			      <td><%= bean.getSesso() %></td>
+			      <td>
+			        <a href="modifica-prodotto?id=<%= bean.getID() %>">Modifica</a>
+			        <a href="doDelete?id=<%= bean.getID() %>">Cancella</a>
+			      </td>
+<% 
+	count++;
+	}
+	if (count % 4 != 0) { %>
+	 <% for (int i = 0; i < 8 - (count % 8); i++) { %>
+	<td></td>
+<% } %>
+			      </tr>
+			    <% }
+			  } else { %>
+			    <tr>
+			      <td colspan="8">Nessun prodotto disponibile</td>
+			    </tr>
+			  <% } %>
+			</table>
+
+		<h2>Inserimento</h2>
+		 <form action="admin" method="post" enctype="multipart/form-data">
+		  <input type="hidden" name="action" value="insert"> 
+		  
+		  <label for="nome">Nome:</label><br> 
+		  <input name="nome" type="text"><br>
+		  
+		  <label for="quantita">Quantità:</label><br> 
+		  <input name="quantita" type="number" min="1" value="1" required><br>
+		  
+		  <label for="descrizione">Descrizione:</label><br>
+		  <textarea name="descrizione" maxlength="100" rows="3" required placeholder="inserisci descrizione"></textarea><br>
+		  
+		  <label for="prezzo">Prezzo:</label><br> 
+		  <input name="prezzo" type="number" min="0" value="0" step="0.01" required><br>
+		
+		  <label for="sesso">Sesso:</label><br> 
+		  <input name="sesso" type="text"><br>
+		  
+		  <label for="foto">foto:</label><br> 
+		  <input type="file" name="foto" accept="image/*" ><br>
+		
+		  <a href="admin?action=insert">Aggiungi</a><input type="reset" value="Reset">
+		 </form>
+
+        </div>
+        <br>
+
+        <div class="order-form">
+            <!-- Seconda sottopagina: Lista Utenti -->
+            <h2>Lista Utenti</h2>
+            <div>
+                <h3>Ricerca Utente</h3>
+				<div class="search-bar">
+			    <form action="profilo" method="GET">
+			        <input type="text" name="email" placeholder="Inserisci l'email del cliente">
+			        <button type="submit">Cerca</button>
+			    </form>
+			</div>
+           	</div>
+            <table class="user-table">
+                <tr>
+                  <th>Email</th>
+                  <th>Nome</th>
+                  <th>Cognome</th>
+                  <th>Indirizzo</th>
+                  <th>Città</th>
+                  <th>Provincia</th>
+                  <th>CAP</th>
+                </tr>
+                <% 
+                if (utenti != null && !utenti.isEmpty()) {
+                  for (Utente utente : utenti) { %>
+                    <tr>
+                      <td><%= utente.getEmail() %></td>
+                      <td><%= utente.getNome() %></td>
+                      <td><%= utente.getCognome() %></td>
+                      <td><%= utente.getIndirizzo() %></td>
+                      <td><%= utente.getCitta() %></td>
+                      <td><%= utente.getProvincia() %></td>
+                      <td><%= utente.getCap() %></td>
+                    </tr>
+                  <% }
+                }
+                %>
+              </table>
+        </div>
+        <br>
+        <div class="order-form">
+            <!-- Terza sottopagina: Lista Ordini -->
+            <h2>Lista Ordini</h2>
+            <div>
+                <h3>Ordini per Data</h3>
+                <button onclick="sortOrdiniPerData()">Ordina per Data</button>
+            </div>
+			<div>
+			    <h3>Ricerca Cliente</h3>
+			    <div class="search-bar">
+			        <form action="ordine" method="GET">
+			            <input type="text" name="email" placeholder="Inserisci l'email del cliente">
+			            <button type="submit">Cerca</button>
+			        </form>
+			    </div>
+			</div>
+			<table class="order-table">
+			    <tr>
+			        <th>Numero Ordine</th>
+			        <th id="dataOrdineHeader" data-ordine="asc" onclick="sortOrdiniPerData()">Data Ordine</th>
+			        <th>Totale</th>
+			        <th>Stato</th>
+			        <th>Email</th>
+			        <th>Indirizzo</th>
+			        <th>Città</th>
+			        <th>Provincia</th>
+			        <th>CAP</th>
+			    </tr>
+			    <% 
+			    if (ordini != null && !ordini.isEmpty()) {
+			        for (Ordine ordine : ordini) { %>
+			            <tr>
+			                <td><%= ordine.getNumeroOrdine() %></td>
+			                <td><%= ordine.getData() %></td>
+			                <td><%= ordine.getTotale() %></td>
+			                <td><%= ordine.getStato() %></td>
+			                <td><%= ordine.getEmail() %></td>
+			                <td><%= ordine.getIndirizzo() %></td>
+			                <td><%= ordine.getCitta() %></td>
+			                <td><%= ordine.getProvincia() %></td>
+			                <td><%= ordine.getCap() %></td>
+			            </tr>
+			        <% }
+			    }
+			    %>
+			</table>
+        </div>
+    </main>
+</div>
+
+<jsp:include page="footer.jsp"/>
+
+<script>
+    // Gestione degli eventi per le sottopagine
+
+    // Prima sottopagina: Catalogo Prodotti
+    var catalogoLink = document.getElementById("catalogoLink");
+    var catalogoSection = document.querySelector(".profile-form");
+
+    catalogoLink.addEventListener("click", function(event) {
+        event.preventDefault();
+        catalogoSection.style.display = "block";
+        utentiSection.style.display = "none";
+        ordiniSection.style.display = "none";
+    });
+
+    // Seconda sottopagina: Lista Utenti
+    var utentiLink = document.getElementById("utentiLink");
+    var utentiSection = document.querySelector(".order-form:nth-of-type(2)");
+
+    utentiLink.addEventListener("click", function(event) {
+        event.preventDefault();
+        catalogoSection.style.display = "none";
+        utentiSection.style.display = "block";
+        ordiniSection.style.display = "none";
+    });
+
+	 // Terza sottopagina: Lista Ordini
+	    var ordiniLink = document.getElementById("ordiniLink");
+	    var ordiniSection = document.querySelector(".order-form:nth-of-type(3)");
+	
+	    ordiniLink.addEventListener("click", function(event) {
+	        event.preventDefault();
+	        catalogoSection.style.display = "none";
+	        utentiSection.style.display = "none";
+	        ordiniSection.style.display = "block";
+	    });
+	
+	    // Ordina gli ordini per data
+	    function sortOrdiniPerData() {
+	        var ordiniTable = document.querySelector(".order-table");
+	        var dataOrdineHeader = document.getElementById("dataOrdineHeader");
+	        var rows = Array.from(ordiniTable.getElementsByTagName("tr")).slice(1);
+
+	        var ordine = dataOrdineHeader.getAttribute("data-ordine");
+	        rows.sort(function(a, b) {
+	            var dataA = new Date(a.cells[1].textContent);
+	            var dataB = new Date(b.cells[1].textContent);
+
+	            if (ordine === "asc") {
+	                return dataA - dataB;
+	            } else {
+	                return dataB - dataA;
+	            }
+	        });
+
+	        // Rimuovi le righe esistenti
+	        while (ordiniTable.rows.length > 1) {
+	            ordiniTable.deleteRow(1);
+	        }
+
+	        // Aggiungi le righe ordinate
+	        rows.forEach(function(row) {
+	            ordiniTable.appendChild(row);
+	        });
+
+	        // Aggiorna l'attributo data-ordine
+	        dataOrdineHeader.setAttribute("data-ordine", ordine === "asc" ? "desc" : "asc");
+	    }
+
+</script>
+</body>
+</html>

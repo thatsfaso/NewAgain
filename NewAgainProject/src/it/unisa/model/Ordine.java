@@ -11,9 +11,16 @@ public class Ordine {
     private Date dataOrdine;
     private double totale;
     private String stato;
+    private String email;
     
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     
-    // Metodi getter e setter
     public int getNumeroOrdine() {
         return numeroOrdine;
     }

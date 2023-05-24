@@ -81,29 +81,6 @@ public class ProductControl extends HttpServlet {
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductDetails.jsp");
 					dispatcher.forward(request, response);				
 				}
-				
-				else if (action.equalsIgnoreCase("insert")) {
-					String descrizione = request.getParameter("descrizione");
-					double prezzo = Double.parseDouble(request.getParameter("prezzo"));
-					int quantita = Integer.parseInt(request.getParameter("quantita"));
-					InputStream inputStream = request.getPart("foto").getInputStream();
-					// Convertire l'InputStream in un array di byte utilizzando Apache Commons IO
-					byte[] bytes = null;
-					try {
-					    bytes = IOUtils.toByteArray(inputStream);
-					} catch (IOException e) {
-					    e.printStackTrace();
-					}
-					// Chiudere l'InputStream
-					inputStream.close();
-
-					Prodotto bean = new Prodotto();
-					bean.setDescrizione(descrizione);
-					bean.setPrezzo(prezzo);
-					bean.setQuantita(quantita);
-					bean.setImg(bytes);
-					model.doSave(bean);
-				}
 				else if (action.equalsIgnoreCase("dettaglio")) {
 					String sesso = request.getParameter("sesso");
 					try {
@@ -121,6 +98,36 @@ public class ProductControl extends HttpServlet {
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/carrello.jsp");
 					dispatcher.forward(request, response);					
 				}
+				else if (action.equalsIgnoreCase("insert")) {
+		            String descrizione = request.getParameter("descrizione");
+		            double prezzo = Double.parseDouble(request.getParameter("prezzo"));
+		            int quantita = Integer.parseInt(request.getParameter("quantita"));
+		            InputStream inputStream = request.getPart("foto").getInputStream();
+		            byte[] bytes = null;
+		            try {
+		                bytes = IOUtils.toByteArray(inputStream);
+		            } catch (IOException e) {
+		                e.printStackTrace();
+		            }
+		            inputStream.close();
+
+		            Prodotto prodotto = new Prodotto();
+		            prodotto.setDescrizione(descrizione);
+		            prodotto.setPrezzo(prezzo);
+		            prodotto.setQuantita(quantita);
+		            prodotto.setImg(bytes);
+
+		            try {
+		                model.doSave(prodotto);
+		                response.sendRedirect(request.getContextPath() + "/Amministratore.jsp");
+		            } catch (SQLException e) {
+		                // Errore del database, gestisci l'errore
+		                e.printStackTrace();
+		                request.setAttribute("errore", "Errore del database: " + e.getMessage());
+		                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Errore.jsp");
+		                dispatcher.forward(request, response);
+		            }
+		        }
 				else if (action.equalsIgnoreCase("all")) {
 					try {
 						request.removeAttribute("products");

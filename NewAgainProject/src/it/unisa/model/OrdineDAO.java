@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 public class OrdineDAO {
 	private static DataSource ds;
     private List<Ordine> ordini;
-    
+    private static final String TABLE_NAME = "ordine";
     static {
 		try {
 			Context initCtx = new InitialContext();
@@ -166,4 +166,60 @@ public class OrdineDAO {
 	    return prodotti;
 	}
     
+	public List<Ordine> getAllOrdini() throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        List<Ordine> ordini = new ArrayList<>();
+        String selectSQL = "SELECT * FROM " + TABLE_NAME;
+
+        try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        while (rs.next()) {
+	            int numeroOrdine = rs.getInt("numeroOrdine");
+	            Date data = rs.getDate("dataOrdine");
+	            double totale = rs.getDouble("totale");
+	            String stato = rs.getString("stato");
+	            String indirizzo = rs.getString("indirizzo");
+	            String cap = rs.getString("cap");
+	            String provincia = rs.getString("provincia");
+	            String citta = rs.getString("citta");
+
+	            Ordine ordine = new Ordine();
+	            ordine.setCap(cap);
+	            ordine.setCitta(citta);
+	            ordine.setData(data);
+	            ordine.setIndirizzo(indirizzo);
+	            ordine.setProvincia(provincia);
+	            ordine.setTotale(totale);
+	            ordine.setNumeroOrdine(numeroOrdine);
+	            ordine.setStato(stato);
+	            ordini.add(ordine);
+	        }
+
+
+	    } catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+	            if (connection != null)
+					try {
+						connection.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+	        }
+	    }
+
+	    return ordini;
+	}
 }
