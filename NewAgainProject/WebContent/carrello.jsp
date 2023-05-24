@@ -268,7 +268,6 @@ table.cart-table {
             <input type="text" id="cap" name="cap" placeholder="CAP" maxlength="5"><br>
             <input type="text" id="provincia" name="provincia" placeholder="Provincia" maxlength="2"><br>
 
-            <input type="submit" value="Conferma">
         </form>
         <br><br>
     </div>
@@ -313,9 +312,11 @@ table.cart-table {
               <input type="text" id="expiration-date" name="expiration-date" placeholder="MM/AA" maxlength="5" required>
   			  <br>
               <input type="text" id="cvv" name="cvv" placeholder="CVV" maxlength="3" required>
-              <br><br>
-              <input type="submit" value="Conferma">
+              <br>
             </form>
+            
+      <br><br><br>
+     <a href="https://google.com"> <input type="submit" value="Conferma"> </a>
   </div>
   
 <div class="right-column">
