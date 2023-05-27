@@ -102,6 +102,8 @@ public class ProductControl extends HttpServlet {
 		            String descrizione = request.getParameter("descrizione");
 		            double prezzo = Double.parseDouble(request.getParameter("prezzo"));
 		            int quantita = Integer.parseInt(request.getParameter("quantita"));
+		            String sesso = request.getParameter("sesso");
+		            String nome = request.getParameter("nome");
 		            InputStream inputStream = request.getPart("foto").getInputStream();
 		            byte[] bytes = null;
 		            try {
@@ -110,12 +112,14 @@ public class ProductControl extends HttpServlet {
 		                e.printStackTrace();
 		            }
 		            inputStream.close();
-
+		            
 		            Prodotto prodotto = new Prodotto();
 		            prodotto.setDescrizione(descrizione);
 		            prodotto.setPrezzo(prezzo);
 		            prodotto.setQuantita(quantita);
 		            prodotto.setImg(bytes);
+		            prodotto.setSesso(sesso);
+		            prodotto.setNome(nome);
 
 		            try {
 		                model.doSave(prodotto);

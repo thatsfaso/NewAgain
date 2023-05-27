@@ -46,6 +46,8 @@ public class ProductDao {
 	        preparedStatement.setInt(3, product.getQuantita());
 	        InputStream inputStream = new ByteArrayInputStream(product.getImg());
 	        preparedStatement.setBinaryStream(4, inputStream, product.getImg().length);
+	        preparedStatement.setString(5, product.getSesso());
+	        preparedStatement.setString(6, product.getNome());
 	        preparedStatement.executeUpdate();
 	    } finally {
 	        try {

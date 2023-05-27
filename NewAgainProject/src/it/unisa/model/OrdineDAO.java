@@ -167,13 +167,12 @@ public class OrdineDAO {
 	}
     
 	public List<Ordine> getAllOrdini() throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    List<Ordine> ordini = new ArrayList<>();
+	    String selectSQL = "SELECT * FROM " + TABLE_NAME;
 
-        List<Ordine> ordini = new ArrayList<>();
-        String selectSQL = "SELECT * FROM " + TABLE_NAME;
-
-        try {
+	    try {
 	        connection = ds.getConnection();
 	        preparedStatement = connection.prepareStatement(selectSQL);
 
@@ -188,6 +187,7 @@ public class OrdineDAO {
 	            String cap = rs.getString("cap");
 	            String provincia = rs.getString("provincia");
 	            String citta = rs.getString("citta");
+	            String email = rs.getString("email");
 
 	            Ordine ordine = new Ordine();
 	            ordine.setCap(cap);
@@ -198,28 +198,21 @@ public class OrdineDAO {
 	            ordine.setTotale(totale);
 	            ordine.setNumeroOrdine(numeroOrdine);
 	            ordine.setStato(stato);
+	            ordine.setEmail(email); 
 	            ordini.add(ordine);
 	        }
 
-
 	    } catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-	        try {
-	            if (preparedStatement != null)
-	                preparedStatement.close();
-	        } catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-	            if (connection != null)
-					try {
-						connection.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-	        }
-	    }
-
+	        e.printStackTrace();
+	    } finally {
+            if (connection != null)
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+        }
 	    return ordini;
 	}
+
 }

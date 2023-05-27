@@ -15,16 +15,6 @@
     List<Utente> utenti = utenteDao.doRetrieveAll();
     request.setAttribute("utenti", utenti);
 
-    String searchEmail = request.getParameter("email");
-    if (searchEmail != null && !searchEmail.isEmpty()) {
-        List<Ordine> filteredOrdini = new ArrayList<>();
-        for (Ordine ordine : ordini) {
-            if (ordine.getEmail().equalsIgnoreCase(searchEmail)) {
-                filteredOrdini.add(ordine);
-            }
-        }
-        ordini = filteredOrdini;
-    }
 
 %>
 
@@ -254,7 +244,7 @@
 			</table>
 
 		<h2>Inserimento</h2>
-		 <form action="admin" method="post" enctype="multipart/form-data">
+		 <form action="product" method="post" enctype="multipart/form-data">
 		  <input type="hidden" name="action" value="insert"> 
 		  
 		  <label for="nome">Nome:</label><br> 
@@ -275,7 +265,7 @@
 		  <label for="foto">foto:</label><br> 
 		  <input type="file" name="foto" accept="image/*" ><br>
 		
-		  <a href="admin?action=insert">Aggiungi</a><input type="reset" value="Reset">
+		  <a href="product?action=insert">Aggiungi</a><input type="reset" value="Reset">
 		 </form>
 
         </div>
@@ -283,90 +273,90 @@
 
         <div class="order-form">
             <!-- Seconda sottopagina: Lista Utenti -->
-            <h2>Lista Utenti</h2>
-            <div>
-                <h3>Ricerca Utente</h3>
-				<div class="search-bar">
-			    <form action="profilo" method="GET">
-			        <input type="text" name="email" placeholder="Inserisci l'email del cliente">
-			        <button type="submit">Cerca</button>
-			    </form>
-			</div>
-           	</div>
-            <table class="user-table">
-                <tr>
-                  <th>Email</th>
-                  <th>Nome</th>
-                  <th>Cognome</th>
-                  <th>Indirizzo</th>
-                  <th>Città</th>
-                  <th>Provincia</th>
-                  <th>CAP</th>
-                </tr>
-                <% 
-                if (utenti != null && !utenti.isEmpty()) {
-                  for (Utente utente : utenti) { %>
-                    <tr>
-                      <td><%= utente.getEmail() %></td>
-                      <td><%= utente.getNome() %></td>
-                      <td><%= utente.getCognome() %></td>
-                      <td><%= utente.getIndirizzo() %></td>
-                      <td><%= utente.getCitta() %></td>
-                      <td><%= utente.getProvincia() %></td>
-                      <td><%= utente.getCap() %></td>
-                    </tr>
-                  <% }
-                }
-                %>
-              </table>
-        </div>
-        <br>
-        <div class="order-form">
-            <!-- Terza sottopagina: Lista Ordini -->
-            <h2>Lista Ordini</h2>
-            <div>
-                <h3>Ordini per Data</h3>
-                <button onclick="sortOrdiniPerData()">Ordina per Data</button>
-            </div>
+			 <h2>Lista Utenti</h2>
 			<div>
-			    <h3>Ricerca Cliente</h3>
-			    <div class="search-bar">
-			        <form action="ordine" method="GET">
-			            <input type="text" name="email" placeholder="Inserisci l'email del cliente">
-			            <button type="submit">Cerca</button>
-			        </form>
-			    </div>
+			    <h3>Ricerca Utente</h3>
+				<div class="search-form">
+				    <form action="profilo" method="GET">
+				        <input type="text" id="user-email-input" placeholder="Inserisci l'email del cliente">
+				        <button type="button" onclick="searchUser('user-table', 'user-email-input')">Cerca</button>
+				    </form>
+				</div>
 			</div>
-			<table class="order-table">
+			<table class="user-table">
 			    <tr>
-			        <th>Numero Ordine</th>
-			        <th id="dataOrdineHeader" data-ordine="asc" onclick="sortOrdiniPerData()">Data Ordine</th>
-			        <th>Totale</th>
-			        <th>Stato</th>
 			        <th>Email</th>
+			        <th>Nome</th>
+			        <th>Cognome</th>
 			        <th>Indirizzo</th>
 			        <th>Città</th>
 			        <th>Provincia</th>
 			        <th>CAP</th>
 			    </tr>
 			    <% 
-			    if (ordini != null && !ordini.isEmpty()) {
-			        for (Ordine ordine : ordini) { %>
-			            <tr>
-			                <td><%= ordine.getNumeroOrdine() %></td>
-			                <td><%= ordine.getData() %></td>
-			                <td><%= ordine.getTotale() %></td>
-			                <td><%= ordine.getStato() %></td>
-			                <td><%= ordine.getEmail() %></td>
-			                <td><%= ordine.getIndirizzo() %></td>
-			                <td><%= ordine.getCitta() %></td>
-			                <td><%= ordine.getProvincia() %></td>
-			                <td><%= ordine.getCap() %></td>
+			    if (utenti != null && !utenti.isEmpty()) {
+			        for (Utente utente : utenti) { %>
+			            <tr data-email="<%= utente.getEmail() %>">
+			                <td><%= utente.getEmail() %></td>
+			                <td><%= utente.getNome() %></td>
+			                <td><%= utente.getCognome() %></td>
+			                <td><%= utente.getIndirizzo() %></td>
+			                <td><%= utente.getCitta() %></td>
+			                <td><%= utente.getProvincia() %></td>
+			                <td><%= utente.getCap() %></td>
 			            </tr>
 			        <% }
 			    }
 			    %>
 			</table>
+			</div>
+        <br>
+        <div class="order-form">
+		<!-- Terza sottopagina: Lista Ordini -->
+		<h2>Lista Ordini</h2>
+		<div>
+		    <h3>Ordini per Data</h3>
+		    <button onclick="sortOrdiniPerData()">Ordina per Data</button>
+		</div>
+		<div>
+		    <h3>Ricerca Cliente</h3>
+		    <div class="search-bar">
+		        <form action="ordine" method="GET">
+		            <input type="text" id="order-email-input" name="email" placeholder="Inserisci l'email del cliente">
+		            <button type="button" onclick="searchUser('order-table', 'order-email-input')">Cerca</button>
+		        </form>
+		    </div>
+		</div>
+		<table class="order-table">
+		    <tr>
+		        <th>Email</th>
+		        <th>Numero Ordine</th>
+		        <th>Data Ordine</th>
+		        <th>Totale</th>
+		        <th>Stato</th>
+		        <th>Indirizzo</th>
+		        <th>Città</th>
+		        <th>Provincia</th>
+		        <th>CAP</th>
+		    </tr>
+		    <% 
+		    if (ordini != null && !ordini.isEmpty()) {
+		        for (Ordine ordine : ordini) { %>
+		            <tr data-email="<%= ordine.getEmail() %>">
+		                <td><%= ordine.getEmail() %></td>
+		                <td><%= ordine.getNumeroOrdine() %></td>
+		                <td><%= ordine.getData() %></td>
+		                <td><%= ordine.getTotale() %></td>
+		                <td><%= ordine.getStato() %></td>
+		                <td><%= ordine.getIndirizzo() %></td>
+		                <td><%= ordine.getCitta() %></td>
+		                <td><%= ordine.getProvincia() %></td>
+		                <td><%= ordine.getCap() %></td>
+		            </tr>
+		        <% }
+		    }
+		    %>
+		</table>
         </div>
     </main>
 </div>
@@ -414,33 +404,49 @@
 	        var ordiniTable = document.querySelector(".order-table");
 	        var dataOrdineHeader = document.getElementById("dataOrdineHeader");
 	        var rows = Array.from(ordiniTable.getElementsByTagName("tr")).slice(1);
-
+	
 	        var ordine = dataOrdineHeader.getAttribute("data-ordine");
 	        rows.sort(function(a, b) {
-	            var dataA = new Date(a.cells[1].textContent);
-	            var dataB = new Date(b.cells[1].textContent);
-
+	            var dataA = new Date(a.cells[2].innerText);
+	            var dataB = new Date(b.cells[2].innerText);
+	
 	            if (ordine === "asc") {
 	                return dataA - dataB;
 	            } else {
 	                return dataB - dataA;
 	            }
 	        });
-
-	        // Rimuovi le righe esistenti
+	
 	        while (ordiniTable.rows.length > 1) {
 	            ordiniTable.deleteRow(1);
 	        }
-
-	        // Aggiungi le righe ordinate
+	
 	        rows.forEach(function(row) {
 	            ordiniTable.appendChild(row);
 	        });
-
-	        // Aggiorna l'attributo data-ordine
+	
 	        dataOrdineHeader.setAttribute("data-ordine", ordine === "asc" ? "desc" : "asc");
 	    }
-
+	    //ricerca email
+		function searchUser(tableId, inputId) {
+		    var searchValue = document.getElementById(inputId).value.toLowerCase();
+		    var rows = document.querySelectorAll("." + tableId + " tr");
+		
+		    for (var i = 0; i < rows.length; i++) {
+		        var row = rows[i];
+		        var rowData = row.textContent.toLowerCase();
+		
+		        if (searchValue === "" || rowData.includes(searchValue)) {
+		            row.style.display = "table-row";
+		        } else {
+		            row.style.display = "none";
+		        }
+		    }
+		}
+	    
+		function searchOrder(tableId) {
+		    searchUser(tableId, "order-email-input");
+		}
 </script>
 </body>
 </html>
