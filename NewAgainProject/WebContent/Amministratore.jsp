@@ -23,7 +23,9 @@
 <title>Pagina Amministratore</title>
 <style>
     /* Stili CSS */
-
+	body{
+		text-align:center;
+	}
     /* Banner */
     .banner {
         background-color: rgba(235, 235, 240, 0.66);
@@ -56,76 +58,42 @@
     }
 
 	/* Product table */
-	
-	.product-table tr {
-	    display: flex;
-	    flex-wrap: wrap;
-	}
-	
-	.product-table td {
-	    width: 25%; 
-	}
-		
-	.product-table {
-	    width: 100%;
-	    border-collapse: collapse;
-	}
-	
-	.product-table th,
-	.product-table td {
-	    padding: 8px;
-	    text-align: left;
-	}
-	
-	.product-table th {
-	    background-color: #f2f2f2;
-	    font-weight: bold;
-	}
-	
-	.product-table tr:nth-child(even) {
-	    background-color: #f9f9f9;
-	}
-	
-	.product-table tr:hover {
-	    background-color: #e9e9e9;
-	}
-	
-	.product-table td a {
-	    color: #0066cc;
-	    text-decoration: none;
-	    margin-right: 10px;
-	}
-	
-	.product-table td a:hover {
-	    text-decoration: underline;
-	}
-
-	
-    /* Sidebar */
-    .s-layout__sidebar {
-        /* Aggiungi qui gli stili per la sidebar */
+	td {
+        width: auto;
     }
-
-    .s-sidebar__trigger {
-        /* Aggiungi qui gli stili per il trigger della sidebar */
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
     }
-
-    .s-sidebar__nav {
-        /* Aggiungi qui gli stili per la nav della sidebar */
+    
+    th,td {
+        padding: 8px;
+        text-align: center;
     }
-
-    .s-sidebar__nav-link {
-        /* Aggiungi qui gli stili per i link della nav della sidebar */
+    
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        
     }
-
-    /* Content */
-    .s-layout__content {
-        /* Aggiungi qui gli stili per il content principale */
+    
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
     }
-
-    /* Profile Form */
-    .profile-form {
-        /* Aggiungi qui gli stili per il form del profilo utente */
+    
+    tr:hover {
+        background-color: #e9e9e9;
+    }
+    
+    td a {
+        color: #0066cc;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+    
+    td a:hover {
+        text-decoration: underline;
     }
 
     /* Order Form */
@@ -142,6 +110,36 @@
     .order-table td:not(:last-child) {
         margin-right: 10px;
     }
+    
+    input[type="submit"] {
+	  background-color: #333;
+	  color: #fff;
+	  border: none;
+	  margin: 27px;
+	  padding: 10px 20px;
+	  cursor: pointer;
+	  transition: all 0.3s ease-in-out;
+	}
+	
+	input[type="submit"]:hover {
+	  background-color: #FF6848;
+	  border-radius: 14px;
+	}
+	
+	    input[type="reset"] {
+	  background-color: #333;
+	  color: #fff;
+	  border: none;
+	  margin: 27px;
+	  padding: 10px 20px;
+	  cursor: pointer;
+	  transition: all 0.3s ease-in-out;
+	}
+	
+	input[type="reset"]:hover {
+	  background-color: #FF6848;
+	  border-radius: 14px;
+	}
 </style>
 <link href="styleAreautente.css" rel="stylesheet" type="text/css">
 </head>
@@ -194,45 +192,45 @@
         <div class="profile-form">
           <h2>Catalogo Prodotti</h2>
 			<table class="product-table">
-			  <tr>
-			    <th>ID</th>
-			    <th>Nome Prodotto</th>
-			    <th>Descrizione</th>
-			    <th>Prezzo</th>
-			    <th>Quantità</th>
-			    <th>Foto</th>
-			    <th>Sesso</th>
-			    <th>Azioni</th>
-			  </tr>
-			  <% 
+        <tr>
+            <th>ID</th>
+            <th>Nome Prodotto</th>
+            <th>Descrizione</th>
+            <th>Prezzo</th>
+            <th>Quantità</th>
+            <th>Foto</th>
+            <th>Sesso</th>
+            <th>Azioni</th>
+        </tr>
+			<% 
 			  if (products != null && !products.isEmpty()) {
 			    Iterator<?> it = products.iterator();
 			    int count = 0;
 			    while (it.hasNext()) {
 			      if (count % 4 == 0) { %>
-			      <tr>
+				  <tr>
 			      <% }
 			      Prodotto bean = (Prodotto) it.next();
 			      byte[] imageB = bean.getImg();
 			      String base64img = Base64.getEncoder().encodeToString(imageB);
 			      %>
-					<td><%= bean.getNome() %></td>
-					<td><%= bean.getDescrizione() %></td>
-					<td><%= bean.getPrezzo() %></td>
-					<td><%= bean.getQuantita() %></td>
-			      <td><%= bean.getQuantita() %></td>
-			      <td><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100"></td>
-			      <td><%= bean.getSesso() %></td>
-			      <td>
-			        <a href="modifica-prodotto?id=<%= bean.getID() %>">Modifica</a>
-			        <a href="doDelete?id=<%= bean.getID() %>">Cancella</a>
-			      </td>
-<% 
+			<td><%= bean.getID() %></td>
+            <td><%= bean.getNome() %></td>
+            <td><%= bean.getDescrizione() %></td>
+            <td><%= bean.getPrezzo() %></td>
+            <td><%= bean.getQuantita() %></td>
+            <td><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100"></td>
+            <td><%= bean.getSesso() %></td>
+            <td>
+                <input type="submit" value="Modifica" onclick="scrollToForm();">
+                <br>
+			     <a href="doDelete?id=<%= bean.getID() %>"> <input type="submit" value="Cancella"></a></td>
+        </tr>
+		<% 
 	count++;
 	}
 	if (count % 4 != 0) { %>
 	 <% for (int i = 0; i < 8 - (count % 8); i++) { %>
-	<td></td>
 <% } %>
 			      </tr>
 			    <% }
@@ -241,10 +239,10 @@
 			      <td colspan="8">Nessun prodotto disponibile</td>
 			    </tr>
 			  <% } %>
-			</table>
+    </table>
 
 		<h2>Inserimento</h2>
-		 <form action="product" method="post" enctype="multipart/form-data">
+		 <form action="" method="post" enctype="multipart/form-data">
 		  <input type="hidden" name="action" value="insert"> 
 		  
 		  <label for="nome">Nome:</label><br> 
@@ -265,11 +263,37 @@
 		  <label for="foto">foto:</label><br> 
 		  <input type="file" name="foto" accept="image/*" ><br>
 		
-		  <a href="product?action=insert">Aggiungi</a><input type="reset" value="Reset">
+		  <a href="product?action=insert"><input type="submit" value="Aggiungi"></a><input type="reset" value="Reset">
 		 </form>
+		 <br>
+		 
+		 <h2 id="modifica">Modifica</h2>
+		<form id="modifica-form" action="" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="action" value="modifica">
+		  
+		  <label for="nome">Nome:</label><br> 
+		  <input name="nome" type="text"><br>
+		  
+		  <label for="quantita">Quantità:</label><br> 
+		  <input name="quantita" type="number" min="1" value="1"><br>
+		  
+		  <label for="descrizione">Descrizione:</label><br>
+		  <textarea name="descrizione" maxlength="100" rows="3" placeholder="inserisci descrizione"></textarea><br>
+		  
+		  <label for="prezzo">Prezzo:</label><br> 
+		  <input name="prezzo" type="number" min="0" value="0" step="0.01"><br>
+		
+		  <label for="sesso">Sesso:</label><br> 
+		  <input name="sesso" type="text"><br>
+		  
+		  <label for="foto">foto:</label><br> 
+		  <input type="file" name="foto" accept="image/*" ><br>
+		
+		  <a href="product?action=modifica"><input type="submit" value="Modifica" form="modifica-form"></a>
+		 </form>
+		 <br>
 
         </div>
-        <br>
 
         <div class="order-form">
             <!-- Seconda sottopagina: Lista Utenti -->
@@ -310,7 +334,7 @@
 			    %>
 			</table>
 			</div>
-        <br>
+ 
         <div class="order-form">
 		<!-- Terza sottopagina: Lista Ordini -->
 		<h2>Lista Ordini</h2>
@@ -331,7 +355,7 @@
 		    <tr>
 		        <th>Email</th>
 		        <th>Numero Ordine</th>
-		        <th>Data Ordine</th>
+		        <th id="dataOrdineHeader" data-ordine="asc" onclick="sortOrdiniPerData()">Data Ordine</th>
 		        <th>Totale</th>
 		        <th>Stato</th>
 		        <th>Indirizzo</th>
@@ -427,6 +451,12 @@
 	
 	        dataOrdineHeader.setAttribute("data-ordine", ordine === "asc" ? "desc" : "asc");
 	    }
+	    
+	    function scrollToForm() {
+	      var formSection = document.getElementById("modifica");
+	      formSection.scrollIntoView({ behavior: 'smooth' });
+	    }
+	    
 	    //ricerca email
 		function searchUser(tableId, inputId) {
 		    var searchValue = document.getElementById(inputId).value.toLowerCase();

@@ -136,6 +136,21 @@
 		nav{
 		background-color: #ff6848;
 		}
+		
+		input[type="submit"] {
+		  background-color: #333;
+		  color: #fff;
+		  border: none;
+		  margin: 27px;
+		  padding: 10px 20px;
+		  cursor: pointer;
+		  transition: all 0.3s ease-in-out;
+		}
+		
+		input[type="submit"]:hover {
+		  background-color: #FF6848;
+		  border-radius: 14px;
+		}
 	</style>
 </head>
 
@@ -185,7 +200,7 @@
         <a href="product?action=read&id=<%=bean.getID()%>">
         <img src="data:image/jpg;base64, <%=base64img%>" width="300" height="300">
         <p><%=bean.getNome()%></p>
-        <a href="product?action=addC&id=<%=bean.getID()%>">Aggiungi al carrello</a>
+        <a href="product?action=addC&id=<%=bean.getID()%> id="carrello"><input type="submit" value="Conferma"></a>
       	</a>
       	</div>
       <% count++;

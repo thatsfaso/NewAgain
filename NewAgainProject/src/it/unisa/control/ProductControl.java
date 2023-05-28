@@ -98,6 +98,42 @@ public class ProductControl extends HttpServlet {
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/carrello.jsp");
 					dispatcher.forward(request, response);					
 				}
+				else if (action.equalsIgnoreCase("modifica")) {
+				    int id = Integer.parseInt(request.getParameter("id"));
+				    String descrizione = request.getParameter("descrizione");
+				    double prezzo = Double.parseDouble(request.getParameter("prezzo"));
+				    int quantita = Integer.parseInt(request.getParameter("quantita"));
+				    String sesso = request.getParameter("sesso");
+				    String nome = request.getParameter("nome");
+				    InputStream inputStream = request.getPart("foto").getInputStream();
+				    byte[] bytes = null;
+				    try {
+				        bytes = IOUtils.toByteArray(inputStream);
+				    } catch (IOException e) {
+				        e.printStackTrace();
+				    }
+				    inputStream.close();
+				    
+				    Prodotto prodotto = new Prodotto();
+				    prodotto.setID(id);
+				    prodotto.setDescrizione(descrizione);
+				    prodotto.setPrezzo(prezzo);
+				    prodotto.setQuantita(quantita);
+				    prodotto.setImg(bytes);
+				    prodotto.setSesso(sesso);
+				    prodotto.setNome(nome);
+
+				    try {
+				        model.doUpdate(prodotto);
+				        response.sendRedirect(request.getContextPath() + "/Amministratore.jsp?id=" + id);
+				    } catch (SQLException e) {
+				        // Errore del database, gestisci l'errore
+				        e.printStackTrace();
+				        request.setAttribute("errore", "Errore del database: " + e.getMessage());
+				        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Errore.jsp");
+				        dispatcher.forward(request, response);
+				    }
+				}
 				else if (action.equalsIgnoreCase("insert")) {
 		            String descrizione = request.getParameter("descrizione");
 		            double prezzo = Double.parseDouble(request.getParameter("prezzo"));

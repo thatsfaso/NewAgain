@@ -36,7 +36,7 @@ public class ProductDao {
 	public synchronized void doSave(Prodotto product) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
-	    String insertSQL = "INSERT INTO " + ProductDao.TABLE_NAME + " (descrizione, prezzo, quantita,foto) VALUES (?, ?, ?,?)";
+	    String insertSQL = "INSERT INTO " + ProductDao.TABLE_NAME + " (descrizione, prezzo, quantita,foto, sesso, nome) VALUES (?, ?, ?,?, ?, ?)";
 
 	    try {
 	        connection = ds.getConnection();
@@ -309,5 +309,36 @@ public class ProductDao {
 		}
 		return products;
 	}
+	
+	public synchronized void doUpdate(Prodotto product) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    String updateSQL = "UPDATE " + ProductDao.TABLE_NAME + " SET descrizione = ?, prezzo = ?, quantita = ?, foto = ?, sesso = ?, nome = ? WHERE id = ?";
+
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(updateSQL);
+	        preparedStatement.setString(1, product.getDescrizione());
+	        preparedStatement.setDouble(2, product.getPrezzo());
+	        preparedStatement.setInt(3, product.getQuantita());
+	        InputStream inputStream = new ByteArrayInputStream(product.getImg());
+	        preparedStatement.setBinaryStream(4, inputStream, product.getImg().length);
+	        preparedStatement.setString(5, product.getSesso());
+	        preparedStatement.setString(6, product.getNome());
+	        preparedStatement.setInt(7, product.getID());
+	        preparedStatement.executeUpdate();
+	    } finally {
+	        try {
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	        } finally {
+	            if (connection != null) {
+	                connection.close();
+	            }
+	        }
+	    }
+	}
+
 
 }
