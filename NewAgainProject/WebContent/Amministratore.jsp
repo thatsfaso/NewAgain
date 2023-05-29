@@ -171,17 +171,17 @@
             <ul>
                 <li>
                     <a class="s-sidebar__nav-link" href="#0" id="catalogoLink">
-                        <i class="fa fa-home"></i><em>Catalogo Prodotti</em>
+                        <i class="fa fa-home"></i><em>Prodotti</em>
                     </a>
                 </li>
                 <li>
                     <a class="s-sidebar__nav-link" href="#0" id="utentiLink">
-                        <i class="fa fa-user"></i><em>Lista Utenti</em>
+                        <i class="fa fa-user"></i><em>Utenti</em>
                     </a>
                 </li>
                 <li>
                     <a class="s-sidebar__nav-link" href="#0" id="ordiniLink">
-                        <i class="fa fa-camera"></i><em>Lista Ordini</em>
+                        <i class="fa fa-camera"></i><em>Ordini</em>
                     </a>
                 </li>
             </ul>
@@ -217,7 +217,7 @@
 			<td><%= bean.getID() %></td>
             <td><%= bean.getNome() %></td>
             <td><%= bean.getDescrizione() %></td>
-            <td><%= bean.getPrezzo() %></td>
+            <td><%= bean.getPrezzo() %>€</td>
             <td><%= bean.getQuantita() %></td>
             <td><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100"></td>
             <td><%= bean.getSesso() %></td>
@@ -260,7 +260,7 @@
 		  <label for="sesso">Sesso:</label><br> 
 		  <input name="sesso" type="text"><br>
 		  
-		  <label for="foto">foto:</label><br> 
+		  <label for="foto">Foto:</label><br> 
 		  <input type="file" name="foto" accept="image/*" ><br>
 		
 		  <a href="product?action=insert"><input type="submit" value="Aggiungi"></a><input type="reset" value="Reset">
@@ -286,7 +286,7 @@
 		  <label for="sesso">Sesso:</label><br> 
 		  <input name="sesso" type="text"><br>
 		  
-		  <label for="foto">foto:</label><br> 
+		  <label for="foto">Foto:</label><br> 
 		  <input type="file" name="foto" accept="image/*" ><br>
 		
 		  <a href="product?action=modifica"><input type="submit" value="Modifica" form="modifica-form"></a>
@@ -299,7 +299,7 @@
             <!-- Seconda sottopagina: Lista Utenti -->
 			 <h2>Lista Utenti</h2>
 			<div>
-			    <h3>Ricerca Utente</h3>
+			    <h3>Ricerca Cliente</h3>
 				<div class="search-form">
 				    <form action="profilo" method="GET">
 				        <input type="text" id="user-email-input" placeholder="Inserisci l'email del cliente">
@@ -339,7 +339,6 @@
 		<!-- Terza sottopagina: Lista Ordini -->
 		<h2>Lista Ordini</h2>
 		<div>
-		    <h3>Ordini per Data</h3>
 		    <button onclick="sortOrdiniPerData()">Ordina per Data</button>
 		</div>
 		<div>
@@ -355,9 +354,9 @@
 		    <tr>
 		        <th>Email</th>
 		        <th>Numero Ordine</th>
-		        <th id="dataOrdineHeader" data-ordine="asc" onclick="sortOrdiniPerData()">Data Ordine</th>
+		        <th id="dataOrdineHeader" data-ordine="asc" onclick="sortOrdiniPerData()">Data</th>
 		        <th>Totale</th>
-		        <th>Stato</th>
+		        <th>Stato Ordine</th>
 		        <th>Indirizzo</th>
 		        <th>Città</th>
 		        <th>Provincia</th>
@@ -370,7 +369,7 @@
 		                <td><%= ordine.getEmail() %></td>
 		                <td><%= ordine.getNumeroOrdine() %></td>
 		                <td><%= ordine.getData() %></td>
-		                <td><%= ordine.getTotale() %></td>
+		                <td><%= ordine.getTotale() %>€</td>
 		                <td><%= ordine.getStato() %></td>
 		                <td><%= ordine.getIndirizzo() %></td>
 		                <td><%= ordine.getCitta() %></td>
