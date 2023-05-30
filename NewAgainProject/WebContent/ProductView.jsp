@@ -200,7 +200,7 @@
         <a href="product?action=read&id=<%=bean.getID()%>">
         <img src="data:image/jpg;base64, <%=base64img%>" width="300" height="300">
         <p><%=bean.getNome()%></p>
-        <a href="product?action=addC&id=<%=bean.getID()%> id="carrello"><input type="submit" value="Conferma"></a>
+        <a href="product?action=addC&id=<%=bean.getID()%> id="carrello"><input type="submit" value="Aggiungi al carrello"></a>
       	</a>
       	</div>
       <% count++;

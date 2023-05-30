@@ -23,9 +23,15 @@
 <title>Pagina Amministratore</title>
 <style>
     /* Stili CSS */
-	body{
-		text-align:center;
-	}
+   .s-layout__content {
+   justify-content: center;
+   text-align: center;
+   margin-top: 90px;
+   height: auto;
+  
+   left: -10vw;
+   
+}
     /* Banner */
     .banner {
         background-color: rgba(235, 235, 240, 0.66);
@@ -63,13 +69,15 @@
     }
     
     table {
-        width: 100%;
+        width: 105%;
         border-collapse: collapse;
     }
     
     th,td {
         padding: 8px;
         text-align: center;
+        width: auto;
+       
     }
     
     th {
@@ -140,6 +148,25 @@
 	  background-color: #FF6848;
 	  border-radius: 14px;
 	}
+	.s-sidebar__nav {
+   position: relative;
+   top: 0px; /* Aggiungi una margine superiore per allineare la sidebar sotto la navbar */
+   left: 0;
+   overflow: hidden;
+   transition: all .3s ease-in;
+   width: 15em;
+   height: calc(100% - 245px); /* Calcola l'altezza della sidebar in base alla navbar */
+   background: #400040;
+   color: rgba(255, 255, 255, 0.7);
+   z-index: 0;
+}
+
+#modifica-form{
+
+display: none;
+}
+
+	
 </style>
 <link href="styleAreautente.css" rel="stylesheet" type="text/css">
 </head>
@@ -222,9 +249,9 @@
             <td><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100"></td>
             <td><%= bean.getSesso() %></td>
             <td>
-                <input type="submit" value="Modifica" onclick="scrollToForm();">
-                <br>
-			     <a href="doDelete?id=<%= bean.getID() %>"> <input type="submit" value="Cancella"></a></td>
+                <input type="submit" value="Modifica" onclick="showModificaForm()">
+                <br><input type="hidden" id="deleteId" value="<%= bean.getID() %>">
+		<input type="submit" value="Cancella" onclick="deleteItem()"></td>
         </tr>
 		<% 
 	count++;
@@ -267,10 +294,10 @@
 		 </form>
 		 <br>
 		 
-		 <h2 id="modifica">Modifica</h2>
+		
 		<form id="modifica-form" action="" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="action" value="modifica">
-		  
+		   <h2 id="modifica">Modifica</h2>
 		  <label for="nome">Nome:</label><br> 
 		  <input name="nome" type="text"><br>
 		  
@@ -289,7 +316,7 @@
 		  <label for="foto">Foto:</label><br> 
 		  <input type="file" name="foto" accept="image/*" ><br>
 		
-		  <a href="product?action=modifica"><input type="submit" value="Modifica" form="modifica-form"></a>
+		  <a href="product?action=modifica"><input type="submit" value="Modifica" form="modifica-form"  onclick="noneForm"></a>
 		 </form>
 		 <br>
 
@@ -350,7 +377,7 @@
 		        </form>
 		    </div>
 		</div>
-		<table class="order-table">
+		<table class="order-table" id="ordini">
 		    <tr>
 		        <th>Email</th>
 		        <th>Numero Ordine</th>
@@ -451,10 +478,20 @@
 	        dataOrdineHeader.setAttribute("data-ordine", ordine === "asc" ? "desc" : "asc");
 	    }
 	    
-	    function scrollToForm() {
-	      var formSection = document.getElementById("modifica");
-	      formSection.scrollIntoView({ behavior: 'smooth' });
-	    }
+	    function showModificaForm() {
+	    	  var formSection = document.getElementById("modifica-form");
+	    	  formSection.style.display = "block";
+	    	  
+	    	  formSection.scrollIntoView({ behavior: 'smooth' });
+	    	}
+	    function noneForm() {
+	    	  var formSection = document.getElementById("modifica-form");
+	    	  formSection.style.display = "none";
+
+	    	}
+
+
+
 	    
 	    //ricerca email
 		function searchUser(tableId, inputId) {
@@ -476,6 +513,19 @@
 		function searchOrder(tableId) {
 		    searchUser(tableId, "order-email-input");
 		}
+		
+
+		  function deleteItem() {
+		    var id = document.getElementById('deleteId').value;
+		    
+		    // Effettua la richiesta di cancellazione tramite AJAX o reindirizza direttamente
+		    // a seconda delle tue esigenze
+		    
+		    // Esempio di reindirizzamento
+		    window.location.href = 'doDelete?id=' + encodeURIComponent(id);
+		  }
+		
+
 </script>
 </body>
 </html>
