@@ -156,7 +156,7 @@
    transition: all .3s ease-in;
    width: 15em;
    height: calc(100% - 245px); /* Calcola l'altezza della sidebar in base alla navbar */
-   background: #400040;
+   background: #ff6848;
    color: rgba(255, 255, 255, 0.7);
    z-index: 0;
 }
@@ -249,9 +249,10 @@ display: none;
             <td><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100"></td>
             <td><%= bean.getSesso() %></td>
             <td>
-                <input type="submit" value="Modifica" onclick="showModificaForm()">
+            <input type="hidden" id="modificaId" value="<%= bean.getID() %>">
+                <a><input type="submit" value="Modifica" onclick="showModificaForm()" ></a>
                 <br><input type="hidden" id="deleteId" value="<%= bean.getID() %>">
-		<input type="submit" value="Cancella" onclick="deleteItem()"></td>
+		<a href="product?action=delete&id=<%=bean.getID()%>"><input type="submit" value="Cancella" id="deleteButton" onclick="deleteItem(event)"></a></td>
         </tr>
 		<% 
 	count++;
@@ -269,20 +270,20 @@ display: none;
     </table>
 
 		<h2>Inserimento</h2>
-		 <form action="" method="post" enctype="multipart/form-data">
+		 <form action="product?action=insert" method="post" enctype="multipart/form-data">
 		  <input type="hidden" name="action" value="insert"> 
 		  
 		  <label for="nome">Nome:</label><br> 
 		  <input name="nome" type="text"><br>
 		  
 		  <label for="quantita">Quantità:</label><br> 
-		  <input name="quantita" type="number" min="1" value="1" required><br>
+		  <input name="quantita" type="number" min="1" value="1"><br>
 		  
 		  <label for="descrizione">Descrizione:</label><br>
-		  <textarea name="descrizione" maxlength="100" rows="3" required placeholder="inserisci descrizione"></textarea><br>
+		  <textarea name="descrizione" maxlength="100" rows="3" placeholder="inserisci descrizione"></textarea><br>
 		  
 		  <label for="prezzo">Prezzo:</label><br> 
-		  <input name="prezzo" type="number" min="0" value="0" step="0.01" required><br>
+		  <input name="prezzo" type="number" min="0" value="0" step="0.01"><br>
 		
 		  <label for="sesso">Sesso:</label><br> 
 		  <input name="sesso" type="text"><br>
@@ -290,7 +291,7 @@ display: none;
 		  <label for="foto">Foto:</label><br> 
 		  <input type="file" name="foto" accept="image/*" ><br>
 		
-		  <a href="product?action=insert"><input type="submit" value="Aggiungi"></a><input type="reset" value="Reset">
+		 <input type="submit" value="Aggiungi"><input type="reset" value="Reset">
 		 </form>
 		 <br>
 		 
@@ -316,7 +317,7 @@ display: none;
 		  <label for="foto">Foto:</label><br> 
 		  <input type="file" name="foto" accept="image/*" ><br>
 		
-		  <a href="product?action=modifica"><input type="submit" value="Modifica" form="modifica-form"  onclick="noneForm"></a>
+		 <a href="product?action=modifica"><input type="submit" value="Modifica" form="modifica-form"  id="modificaButton" onclick="noneForm"></a>
 		 </form>
 		 <br>
 
@@ -331,10 +332,11 @@ display: none;
 				    <form action="profilo" method="GET">
 				        <input type="text" id="user-email-input" placeholder="Inserisci l'email del cliente">
 				        <button type="button" onclick="searchUser('user-table', 'user-email-input')">Cerca</button>
+				        <button type="button" id="user-reset-button">Reset</button>
 				    </form>
 				</div>
 			</div>
-			<table class="user-table">
+			<table class="user-table" id="myTable">
 			    <tr>
 			        <th>Email</th>
 			        <th>Nome</th>
@@ -374,10 +376,11 @@ display: none;
 		        <form action="ordine" method="GET">
 		            <input type="text" id="order-email-input" name="email" placeholder="Inserisci l'email del cliente">
 		            <button type="button" onclick="searchUser('order-table', 'order-email-input')">Cerca</button>
+		            <button type="button" id="order-reset-button">Reset</button>
 		        </form>
 		    </div>
 		</div>
-		<table class="order-table" id="ordini">
+		<table class="order-table" id="orderTable">
 		    <tr>
 		        <th>Email</th>
 		        <th>Numero Ordine</th>
@@ -514,17 +517,37 @@ display: none;
 		    searchUser(tableId, "order-email-input");
 		}
 		
+		function resetTable(tableId) {
+			  var table = document.getElementById(tableId);
+			  var rows = table.getElementsByTagName("tr");
 
-		  function deleteItem() {
-		    var id = document.getElementById('deleteId').value;
-		    
-		    // Effettua la richiesta di cancellazione tramite AJAX o reindirizza direttamente
-		    // a seconda delle tue esigenze
-		    
-		    // Esempio di reindirizzamento
-		    window.location.href = 'doDelete?id=' + encodeURIComponent(id);
-		  }
+			  // Itera su tutte le righe, inclusa l'intestazione
+			  for (var i = 0; i < rows.length; i++) {
+			    rows[i].style.display = ""; // Ripristina il valore predefinito di visualizzazione
+			  }
+			}
+
+			// Ascolta l'evento di clic sul pulsante di reset per la tabella degli utenti
+			document.getElementById("user-reset-button").addEventListener("click", function() {
+			    resetTable("myTable"); // Passa l'ID corretto della tabella degli utenti
+			});
+
+			// Ascolta l'evento di clic sul pulsante di reset per la tabella degli ordini
+			document.getElementById("order-reset-button").addEventListener("click", function() {
+			    resetTable("orderTable"); // Passa l'ID corretto della tabella degli ordini
+			});
+
 		
+			function deleteItem() {
+			    var id = document.getElementById('deleteId').value;
+			    
+			    // Effettua la richiesta di cancellazione tramite AJAX o reindirizza direttamente
+			    // a seconda delle tue esigenze
+			    
+			    // Esempio di reindirizzamento
+			    window.location.href = 'doDelete?id=' + encodeURIComponent(id);
+			  }
+			
 
 </script>
 </body>

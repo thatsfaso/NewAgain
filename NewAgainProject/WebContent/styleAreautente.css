@@ -63,7 +63,7 @@ a {
    transition: all .3s ease-in;
    width: 15em;
    height: calc(100% - 245px); /* Calcola l'altezza della sidebar in base alla navbar */
-   background: #400040;
+   background: #ff6848;
    color: rgba(255, 255, 255, 0.7);
    z-index: 0;
 }

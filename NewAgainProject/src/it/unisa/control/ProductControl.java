@@ -73,6 +73,8 @@ public class ProductControl extends HttpServlet {
 				else if (action.equalsIgnoreCase("delete")) {
 					int id = Integer.valueOf(request.getParameter("id"));
 					model.doDelete(id);
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Amministratore.jsp");
+					dispatcher.forward(request, response); 
 				}
 				else if (action.equalsIgnoreCase("change")) {
 					int idfoto = Integer.parseInt(request.getParameter("id"));
