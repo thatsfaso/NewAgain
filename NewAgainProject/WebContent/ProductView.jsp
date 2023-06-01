@@ -205,30 +205,33 @@
                     String base64img = Base64.getEncoder().encodeToString(imageB);
                     %>
                     <div class="product">
-                        <a href="product?action=read&id=<%=bean.getID()%>">
-                            <img src="data:image/jpg;base64, <%=base64img%>" width="300" height="300">
-                            <p><%=bean.getNome()%></p>
-                            <% if (cart != null && !cart.presente(bean.getID())) { %>
-                                <a href="product?action=addC&id=<%=bean.getID()%>" id="carrello">
-                                    <input type="submit" value="Aggiungi al carrello">
-                                </a>
-                            <% } else { %>
-                                <p>Prodotto già nel carrello</p>
-                            <% } %>
-                        </a>
-                    </div>
-                    <% count++;
-                    if (count % 4 == 0) { %>
-                        </div>
-                    <% }
-                }
-                if (count % 4 != 0) { %>
-                    </div>
-                <% }
-            } else { %>
-                <p>Non ci sono prodotti disponibili</p>
-            <% } %>
-        </div>
+    <a href="product?action=read&id=<%=bean.getID()%>">
+        <img src="data:image/jpg;base64, <%=base64img%>" width="300" height="300">
+        <p align="center"><%=bean.getNome()%></p>
+        <p align="center"><%=bean.getPrezzo()%></p>
+        <% if (bean.getQuantita() == 1) { %>
+            <p>Prodotto Non disponibile</p>
+        <% } else if (cart != null && !cart.presente(bean.getID())) { %>
+            <a href="product?action=addC&id=<%=bean.getID()%>" id="carrello">
+                <input type="submit" value="Aggiungi al carrello">
+            </a>
+        <% } else { %>
+            <p>Prodotto già nel carrello</p>
+        <% } %>
+    </a>
+</div>
+<% count++;
+if (count % 4 == 0) { %>
     </div>
+<% }
+}
+if (count % 4 != 0) { %>
+    </div>
+<% }
+} else { %>
+    <p>Non ci sono prodotti disponibili</p>
+<% } %>
+    </div>
+  </div>
 </body>
 </html>

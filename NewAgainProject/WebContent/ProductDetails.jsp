@@ -343,11 +343,14 @@
             <div class="buttons">
                 <div class="row">
                     <div class="col-md-6">
-                        <% if (cart != null && !cart.presente(product.getID())) { %>
-                        <a href="product?action=addC&id=<%=product.getID()%>" class="custom-btn">Aggiungi al carrello<i class="fas fa-angle-right"></i></a>
-                        <% } else { %>
-                        <p>Prodotto già nel carrello</p>
-                        <% } %>
+                    <% if (product.getQuantita() == 1) { %>
+            		<p>Prodotto Non disponibile</p>
+       		 		<% } else if (cart != null && !cart.presente(product.getID())) { %>
+            		<a href="product?action=addC&id=<%=product.getID()%>" class="custom-btn">Aggiungi al carrello<i class="fas fa-angle-right"></i></a>
+       			 	<% } else { %>
+            		<p>Prodotto già nel carrello</p>
+        			<% } %>
+                     
                     </div>
                 </div>
             </div>
