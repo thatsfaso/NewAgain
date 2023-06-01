@@ -254,9 +254,12 @@ if (products != null && !products.isEmpty()) {
         <td><%= bean.getSesso() %></td>
         <td>
             <input type="hidden" id="modificaId" value="<%= bean.getID() %>">
-            <a><input type="submit" value="Modifica" onclick="showModificaForm()"></a>
+            <a><input type="submit" value="Modifica" ></a>
             <br><input type="hidden" id="deleteId" value="<%= bean.getID() %>">
-            <a href="product?action=delete&id=<%=bean.getID()%>"><input type="submit" value="Cancella" id="deleteButton" onclick="deleteItem(event)"></a>
+            <a href="product?action=delete&id=<%=bean.getID()%>"><input type="submit" value="Cancella" id="deleteButton" ></a>
+        	<br><input type="hidden" id="updateId" value="<%= bean.getID() %>">
+            <a href="product?action=updateq&id=<%=bean.getID()%>"><input type="submit" value="Aggiungi" id="updateq"></a>
+        	
         </td>
         </tr>
         <% 

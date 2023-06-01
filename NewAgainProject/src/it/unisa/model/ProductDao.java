@@ -236,6 +236,33 @@ public class ProductDao {
 		}
 		return (result != 0);
 	}
+	public synchronized boolean doupdateq(int code) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		int result = 0;
+
+		String deleteSQL = "UPDATE " + ProductDao.TABLE_NAME + " SET quantita = 0 WHERE id = ?";
+
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, code);
+
+			result = preparedStatement.executeUpdate();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return (result != 0);
+	}
 
 	public synchronized Collection<Prodotto> doRetrieveAll() throws SQLException {
 		Connection connection = null;
