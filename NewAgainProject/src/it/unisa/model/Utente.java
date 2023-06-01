@@ -9,7 +9,17 @@ public class Utente {
 	String provincia;
 	String cap;
 	String pass;
+	int tipo_account;
 	
+	
+    public int getTipo_account() {
+        return tipo_account;
+    }
+    
+    public void setTipo_account(int tipo_account) {
+        this.tipo_account = tipo_account;
+    }
+    
 	public String getEmail() {
 		return email;
 	}

@@ -215,4 +215,47 @@ public class OrdineDAO {
 	    return ordini;
 	}
 
+	public List<Ordine> searchByEmail(String email) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    List<Ordine> ordini = new ArrayList<>();
+	    String selectSQL = "SELECT * FROM ordine WHERE email LIKE ?";
+
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        
+	        preparedStatement.setString(1, "%" + email + "%");
+
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        while (rs.next()) {
+	            Ordine ordine = new Ordine();
+	            ordine.setNumeroOrdine(rs.getInt("numeroOrdine"));
+	            ordine.setData(rs.getDate("dataOrdine"));
+	            ordine.setTotale(rs.getDouble("totale"));
+	            ordine.setStato(rs.getString("stato"));
+	            ordine.setEmail(rs.getString("email"));
+	            ordine.setIndirizzo(rs.getString("indirizzo"));
+	            ordine.setCitta(rs.getString("citta"));
+	            ordine.setProvincia(rs.getString("provincia"));
+	            ordine.setCap(rs.getString("cap"));
+
+	            ordini.add(ordine);
+	        }
+
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
+
+	    return ordini;
+	}
+
 }

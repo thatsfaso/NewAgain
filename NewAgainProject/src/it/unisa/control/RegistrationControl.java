@@ -2,6 +2,8 @@ package it.unisa.control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
+import it.unisa.model.Ordine;
 import it.unisa.model.Utente;
 import it.unisa.model.UtenteDao;
 
@@ -117,7 +122,26 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
                 request.getRequestDispatcher("/Accedi.jsp").forward(request, response);
             }
         }
-		
+		if (action.equalsIgnoreCase("searchByEmail")) {
+
+		    try {
+		    	String email = request.getParameter("email");
+	            // Esegui la logica per ottenere gli utenti corrispondenti all'email dal tuo database
+		        UtenteDao dao = new UtenteDao();
+		        List<Utente> utenti = dao.searchByEmail(email);
+
+	            // Converte gli utenti in formato JSON e invia la risposta
+	            Gson gson = new Gson();
+	            String json = gson.toJson(utenti);
+	            response.setContentType("application/json");
+	            response.setCharacterEncoding("UTF-8");
+	            response.getWriter().write(json);
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        request.setAttribute("errore", "Errore del database: " + e.getMessage());
+		    }
+		}
 	}}
 	catch (SQLException e) {
 	System.out.println("Error:" + e.getMessage());

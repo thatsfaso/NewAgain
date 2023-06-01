@@ -89,3 +89,5 @@ INSERT INTO composizione (quantita, totale, codP, numeroO) values (1, 22.6, 2, 1
 
 INSERT INTO pagamento (id_pagamento, tipo, titolare, numero_carta, meseScadenza, annoScadenza, CVV, n_Ordine) VALUES (1, 'Carta di Credito', 'Iliano Fasolino', '5354566943441223', 12, 24, 666, 1);
 
+INSERT INTO ordine (dataOrdine, totale, stato, email, indirizzo, citta, provincia, cap) VALUES ("2023-11-10",22,'In Preparazione', "giulia.verdi@gmail.com", 'Via Garibaldi 2', 'Firenze', 'FI', '50122');
+INSERT INTO ordine (dataOrdine, totale, stato, email, indirizzo, citta, provincia, cap) VALUES ("2021-11-10",22,'In Preparazione', "giulia.verdi@gmail.com", 'Contrada Carrara 13', 'Castelpoto', 'BN', '82030');

@@ -38,7 +38,7 @@ public class UtenteDao {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + UtenteDao.TABLE_NAME
-				+ " (email,pass,nome,cognome,indirizzo,citta,provincia,cap) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+				+ " (email,pass,nome,cognome,indirizzo,citta,provincia,cap, tipo_account) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -51,7 +51,7 @@ public class UtenteDao {
 			preparedStatement.setString(6, u.getCitta());
 			preparedStatement.setString(7, u.getProvincia());
 			preparedStatement.setString(8, u.getCap());
-			
+			preparedStatement.setInt(9, u.getTipo_account());
 
 			preparedStatement.executeUpdate();
 
@@ -205,5 +205,48 @@ public class UtenteDao {
 
         return utenti;
     }
+	
+	public List<Utente> searchByEmail(String email) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    List<Utente> utenti = new ArrayList<>();
+	    String selectSQL = "SELECT * FROM utente WHERE email LIKE ?";
+
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        
+	        preparedStatement.setString(1, "%" + email + "%");
+
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        while (rs.next()) {
+	            Utente utente = new Utente();
+	            utente.setEmail(rs.getString("email"));
+	            utente.setNome(rs.getString("nome"));
+	            utente.setCognome(rs.getString("cognome"));
+	            utente.setIndirizzo(rs.getString("indirizzo"));
+	            utente.setCitta(rs.getString("citta"));
+	            utente.setProvincia(rs.getString("provincia"));
+	            utente.setCap(rs.getString("cap"));
+	            utente.setPass(rs.getString("pass"));
+
+	            utenti.add(utente);
+	        }
+
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
+
+	    return utenti;
+	}
+
 
 }

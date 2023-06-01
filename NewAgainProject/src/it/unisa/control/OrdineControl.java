@@ -1,6 +1,7 @@
 package it.unisa.control;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,9 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import it.unisa.model.Ordine;
 import it.unisa.model.OrdineDAO;
 import it.unisa.model.Prodotto;
+import it.unisa.model.Utente;
+import it.unisa.model.UtenteDao;
 
 /**
  * Servlet implementation class OrdineControl
@@ -54,7 +59,27 @@ public class OrdineControl extends HttpServlet {
 
 		        request.getRequestDispatcher("Profilo.jsp").forward(request, response);
 		    }
+			else if (action.equalsIgnoreCase("searchByEmail")) {
+
+			    try {
+			    	String email = request.getParameter("email");
+		            // Esegui la logica per ottenere gli utenti corrispondenti all'email dal tuo database
+			        OrdineDAO dao = new OrdineDAO();
+			        List<Ordine> ordini = dao.searchByEmail(email);
+
+		            // Converte gli utenti in formato JSON e invia la risposta
+		            Gson gson = new Gson();
+		            String json = gson.toJson(ordini);
+		            response.setContentType("application/json");
+		            response.setCharacterEncoding("UTF-8");
+		            response.getWriter().write(json);
+
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			        request.setAttribute("errore", "Errore del database: " + e.getMessage());
+			    }
 			}
+		}
 		}
 
 	/**

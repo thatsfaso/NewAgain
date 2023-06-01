@@ -15,7 +15,6 @@
     List<Utente> utenti = utenteDao.doRetrieveAll();
     request.setAttribute("utenti", utenti);
 
-
 %>
 
 <html>
@@ -328,15 +327,15 @@ display: none;
 			 <h2>Lista Utenti</h2>
 			<div>
 			    <h3>Ricerca Cliente</h3>
-				<div class="search-form">
-				    <form action="profilo" method="GET">
-				        <input type="text" id="user-email-input" placeholder="Inserisci l'email del cliente">
-				        <button type="button" onclick="searchUser('user-table', 'user-email-input')">Cerca</button>
-				        <button type="button" id="user-reset-button">Reset</button>
-				    </form>
-				</div>
+			<div class="search-form">
+			    <form id="search-form" action="registration" method="GET">
+			        <input type="text" id="user-email-input" name="email" placeholder="Inserisci l'email del cliente">
+			        <button type="submit" id="search-button">Cerca</button>
+			        <button type="button" id="reset-button">Reset</button>
+			    </form>
 			</div>
-			<table class="user-table" id="myTable">
+			</div>
+			<table class="user-table" id="user-table">
 			    <tr>
 			        <th>Email</th>
 			        <th>Nome</th>
@@ -372,14 +371,15 @@ display: none;
 		</div>
 		<div>
 		    <h3>Ricerca Cliente</h3>
-		    <div class="search-bar">
-		        <form action="ordine" method="GET">
-		            <input type="text" id="order-email-input" name="email" placeholder="Inserisci l'email del cliente">
-		            <button type="button" onclick="searchUser('order-table', 'order-email-input')">Cerca</button>
-		            <button type="button" id="order-reset-button">Reset</button>
-		        </form>
-		    </div>
+			<div class="search">
+			    <form id="search" action="ordine" method="GET">
+			        <input type="text" id="user-email-input" name="email" placeholder="Inserisci l'email del cliente">
+			        <button type="submit" id="search-button">Cerca</button>
+			        <button type="button" id="reset-button">Reset</button>
+			    </form>
+			</div>
 		</div>
+		<div id="ordiniSection">
 		<table class="order-table" id="orderTable">
 		    <tr>
 		        <th>Email</th>
@@ -410,11 +410,86 @@ display: none;
 		    }
 		    %>
 		</table>
+		</div>
         </div>
     </main>
 </div>
 
 <jsp:include page="footer.jsp"/>
+
+<script>
+  var searchForm = document.getElementById("search-form");
+  if (searchForm) {
+    searchForm.addEventListener("submit", function(e) {
+      e.preventDefault(); // Evita l'invio del modulo normale
+
+      var email = document.getElementById("user-email-input").value;
+      var table = document.getElementById("user-table");
+
+      // Trova le righe corrispondenti all'email nella tabella
+      var rows = table.getElementsByTagName("tr");
+      for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        if (i === 0 || row.getAttribute("data-email") === email) {
+          row.style.display = "table-row"; // Mostra le righe corrispondenti e l'intestazione
+        } else {
+          row.style.display = "none"; // Nascondi le altre righe
+        }
+      }
+      
+      // Resetta il valore dell'input dopo la ricerca
+      document.getElementById("user-email-input").value = "";
+    });
+  }
+  
+  var resetButton = document.getElementById("reset-button");
+  if (resetButton) {
+    resetButton.addEventListener("click", function() {
+      var table = document.getElementById("user-table");
+      var rows = table.getElementsByTagName("tr");
+      for (var i = 0; i < rows.length; i++) {
+        rows[i].style.display = "table-row"; // Mostra tutte le righe
+      }
+    });
+  }
+</script>
+
+<script>
+  var searchForm = document.getElementById("search");
+  if (searchForm) {
+    searchForm.addEventListener("submit", function(e) {
+      e.preventDefault(); // Evita l'invio del modulo normale
+
+      var email = document.getElementById("user-email-input").value;
+      var table = document.getElementById("orderTable");
+
+      // Trova le righe corrispondenti all'email nella tabella
+      var rows = table.getElementsByTagName("tr");
+      for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        if (i === 0 || row.getAttribute("data-email") === email) {
+          row.style.display = "table-row"; // Mostra le righe corrispondenti e l'intestazione
+        } else {
+          row.style.display = ""; // Ripristina lo stile predefinito della riga
+        }
+      }
+      
+      // Resetta il valore dell'input dopo la ricerca
+      document.getElementById("user-email-input").value = "";
+    });
+  }
+  
+  var resetButton = document.getElementById("reset-button");
+  if (resetButton) {
+    resetButton.addEventListener("click", function() {
+      var table = document.getElementById("orderTable");
+      var rows = table.getElementsByTagName("tr");
+      for (var i = 0; i < rows.length; i++) {
+        rows[i].style.display = "table-row"; // Mostra tutte le righe
+      }
+    });
+  }
+</script>
 
 <script>
     // Gestione degli eventi per le sottopagine
@@ -493,62 +568,11 @@ display: none;
 
 	    	}
 
-
-
-	    
-	    //ricerca email
-		function searchUser(tableId, inputId) {
-		    var searchValue = document.getElementById(inputId).value.toLowerCase();
-		    var rows = document.querySelectorAll("." + tableId + " tr");
-		
-		    for (var i = 0; i < rows.length; i++) {
-		        var row = rows[i];
-		        var rowData = row.textContent.toLowerCase();
-		
-		        if (searchValue === "" || rowData.includes(searchValue)) {
-		            row.style.display = "table-row";
-		        } else {
-		            row.style.display = "none";
-		        }
-		    }
-		}
-	    
-		function searchOrder(tableId) {
-		    searchUser(tableId, "order-email-input");
-		}
-		
-		function resetTable(tableId) {
-			  var table = document.getElementById(tableId);
-			  var rows = table.getElementsByTagName("tr");
-
-			  // Itera su tutte le righe, inclusa l'intestazione
-			  for (var i = 0; i < rows.length; i++) {
-			    rows[i].style.display = ""; // Ripristina il valore predefinito di visualizzazione
-			  }
-			}
-
-			// Ascolta l'evento di clic sul pulsante di reset per la tabella degli utenti
-			document.getElementById("user-reset-button").addEventListener("click", function() {
-			    resetTable("myTable"); // Passa l'ID corretto della tabella degli utenti
-			});
-
-			// Ascolta l'evento di clic sul pulsante di reset per la tabella degli ordini
-			document.getElementById("order-reset-button").addEventListener("click", function() {
-			    resetTable("orderTable"); // Passa l'ID corretto della tabella degli ordini
-			});
-
-		
 			function deleteItem() {
 			    var id = document.getElementById('deleteId').value;
-			    
-			    // Effettua la richiesta di cancellazione tramite AJAX o reindirizza direttamente
-			    // a seconda delle tue esigenze
-			    
-			    // Esempio di reindirizzamento
 			    window.location.href = 'doDelete?id=' + encodeURIComponent(id);
 			  }
-			
-
+		
 </script>
 </body>
 </html>
