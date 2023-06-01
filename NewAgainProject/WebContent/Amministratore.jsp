@@ -2,7 +2,7 @@
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.control.*,it.unisa.model.*"%>
 
 <%
-  
+	
     ProductDao productDao = new ProductDao();
     Collection<Prodotto> products = productDao.doRetrieveAll();
     request.setAttribute("products", products);
@@ -14,7 +14,7 @@
     UtenteDao utenteDao = new UtenteDao();
     List<Utente> utenti = utenteDao.doRetrieveAll();
     request.setAttribute("utenti", utenti);
-
+    if((int) session.getAttribute("tipo_account")== 1){
 %>
 
 <html>
@@ -237,7 +237,7 @@ display: none;
 				  <tr>
 			      <% }
 			      Prodotto bean = (Prodotto) it.next();
-			      byte[] imageB = bean.getImg();
+			  	  byte[] imageB = bean.getImg();
 			      String base64img = Base64.getEncoder().encodeToString(imageB);
 			      %>
 			<td><%= bean.getID() %></td>
@@ -576,3 +576,9 @@ display: none;
 </script>
 </body>
 </html>
+<%} 
+    else {
+    	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Erorre500.jsp");
+		dispatcher.forward(request, response);
+    }
+%>
