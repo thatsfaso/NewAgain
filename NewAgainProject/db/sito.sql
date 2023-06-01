@@ -6,7 +6,7 @@ CREATE TABLE product (
   id int primary key auto_increment,
   descrizione varchar(100),
   prezzo double,
-  quantita int ,
+  disponibile tinyint DEFAULT '0' ,
   foto mediumblob,
   sesso varchar(255),
   nome varchar(50)
@@ -68,12 +68,12 @@ CREATE TABLE pagamento(
 );
 
 
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ("Cargo Nike nero",12,2,'F', "Cargo Nike Donna");
-INSERT INTO product (nome,prezzo,quantita,sesso) VALUES ('Maglietta Nike grigia', 29.99, 10, 'M');
-INSERT INTO product (nome,prezzo,quantita,sesso) VALUES ('Polo Ralph Lauren nera ', 59.99, 5, 'M');
-INSERT INTO product (nome,prezzo,quantita,sesso) VALUES ('Felpa Nike nera', 49.99, 8, 'U');
-INSERT INTO product (nome,prezzo,quantita,sesso) VALUES ('Jeans Levi\'s color jeans ', 89.99, 3, 'M');
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ('Maglione Lacoste beige', 79.99, 6,'F', "Maglione Lacoste Donna");
+INSERT INTO product (nome,prezzo,disponibile,sesso,descrizione) VALUES ("Cargo Nike nero",12, 0, 'F', "Cargo Nike Donna");
+INSERT INTO product (nome,prezzo,disponibile,sesso,descrizione) VALUES ('Maglietta Nike grigia', 29.99, 0, 'M', "Maglietta Nike Uomo");
+INSERT INTO product (nome,prezzo,disponibile,sesso,descrizione) VALUES ('Polo Ralph Lauren nera ', 59.99, 0, 'M', "Polo Ralph Lauren Uomo");
+INSERT INTO product (nome,prezzo,disponibile,sesso,descrizione) VALUES ('Felpa Nike nera', 49.99, 0, 'U', "Felpa Nike Uomo");
+INSERT INTO product (nome,prezzo,disponibile,sesso,descrizione) VALUES ('Jeans Levi\'s color jeans ', 89.99, 0, 'M', "Jeans Levi\'s Uomo");
+INSERT INTO product (nome,prezzo,disponibile,sesso,descrizione) VALUES ('Maglione Lacoste beige', 79.99, 1,'F', "Maglione Lacoste Donna");      -- PRODOTTO SETTATO A 1 AS NON DISPONIBILE 
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
@@ -83,7 +83,7 @@ INSERT INTO utente (email, nome, cognome,tipo_account, indirizzo, citta, provinc
 INSERT INTO utente (email, nome, cognome,tipo_account, indirizzo, citta, provincia, cap, pass) VALUES ('giulia.verdi@gmail.com', 'Giulia', 'Verdi',0, 'Via Garibaldi 2', 'Firenze', 'FI', '50122', 'giulia123');
 INSERT INTO utente (email, nome, cognome,tipo_account, indirizzo, citta, provincia, cap, pass) VALUES ('palmadaniela218@gmail.com', 'Daniela', 'Palma', 1, 'Contrada Carrara 13', 'Castelpoto', 'BN', '82030', 'dani123');
 INSERT INTO utente (email, nome, cognome,tipo_account, indirizzo, citta, provincia, cap, pass) VALUES ('angelo.genito.000@gmail.com', 'Angelo', 'Genito', 0, 'Contrada Olmeri 1', 'Benevento', 'BN', '82100', 'angelo123');
-Insert into ordine (dataOrdine, totale, stato, email) VALUES ("2022-11-10",22,'Consegnato', "palmadaniela218@gmail.com");
+INSERT INTO ordine (dataOrdine, totale, stato, email, indirizzo, citta, provincia, cap) VALUES ("2022-11-10",22,'Consegnato', "palmadaniela218@gmail.com", 'Contrada Carrara 13', 'Castelpoto', 'BN', '82030');
 insert into composizione (quantita, totale, codP, numeroO) values (1, 22.6, 1, 1);
 insert into composizione (quantita, totale, codP, numeroO) values (1, 22.6, 2, 1);
 
