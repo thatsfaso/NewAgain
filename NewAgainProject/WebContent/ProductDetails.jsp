@@ -3,6 +3,7 @@
 
 <%
     Prodotto product = (Prodotto) request.getAttribute("product");
+    Cart cart = (Cart) session.getAttribute("cart");
 %>
 
 <!DOCTYPE html>
@@ -23,22 +24,21 @@
 
         body {
             background: #f5f5f7;
-			
         }
 
-			#footer {
-			  bottom: 0;
-			  left: 0;
-			  top: 0;
-			  width: 100%;
-			  height: auto;
-			}
+        #footer {
+            bottom: 0;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: auto;
+        }
 
-			#footer iframe {
-			  width: 100%;
-			  height: 100%;
-			  border: none;
-			}
+        #footer iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
         a:hover {
             color: #000;
@@ -61,8 +61,8 @@
         }
 
         #ProductImg {
-			min-height: 200px !important;
-			min-width: 200px !important;
+            min-height: 200px !important;
+            min-width: 200px !important;
             transition: 0.4s;
             height: 22vw;
             width: 20vw;
@@ -111,7 +111,6 @@
         .product-inf {
             width: 100%;
             margin-top: 20px;
-           
         }
 
         .product-inf ul {
@@ -147,11 +146,11 @@
 
         .product-inf ul li.active {
             border-bottom: 3px solid #000 !important;
-			border: 1px solid black;
+            border: 1px solid black;
             background: #eee;
             transition: 0.3s;
-			width: 100%;
-			text-align: center;
+            width: 100%;
+            text-align: center;
         }
 
         .custom-btn {
@@ -175,30 +174,26 @@
             color: #f5f5f7;
             opacity: 0.88;
         }
-        
-        .col-md-6{
-        	width: 100%;
+
+        .col-md-6 {
+            width: 100%;
         }
-        
 
         .buttons .row .col-md-6 {
             display: flex;
             align-items: center;
             justify-content: center;
-         
         }
 
         .small-imgs {
             display: flex;
-          
         }
 
         .small-imgs img {
-			min-height: 80px;
-			min-width: 80px;
+            min-height: 80px;
+            min-width: 80px;
             width: 7vw;
             height: 7vw;
-          
         }
 
         .small-img {
@@ -262,16 +257,20 @@
                 padding: 15px;
             }
         }
-		.img1{
-			display: flex;
-			justify-content: center;
-		}
-		#col6{
-			
-			margin-left: 20px;
-		}
+
+        .img1 {
+            display: flex;
+            justify-content: center;
+        }
+
+        #col6 {
+            margin-left: 20px;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/zooming/build/zooming.min.js"></script>
+    
+    
 </head>
 <body>
 <%
@@ -286,28 +285,29 @@
 <div class="cart">
     <div class="row row1">
         <div class="col-md-4">
-		<div class="img1">
-            <img src="data:image/jpg;base64, <%=base64img%>" width="400px" id="ProductImg">
-		</div>
+            <div class="img1" id="zoomableImageContainer">
+                <!-- Aggiungi l'attributo data-zoomable all'immagine per abilitare lo zoom -->
+                <img src="data:image/jpg;base64, <%=base64img%>" width="400px" id="ProductImg" data-zoomable>
+            </div>
             <div class="small-imgs">
                 <% if (product.getAllimg() != null) {
-	                ArrayList<immagine> a = product.getAllimg();
-	                for (int i = 0; i < a.size(); i++) {
-	                    immagine im = a.get(i);
-	                    byte[] foto = im.getImg();
-	                    String base64foto = "";
-	                    if (foto != null) {
-	                        base64foto = Base64.getEncoder().encodeToString(foto);
-	                    }
-	            %>
-	            <a href="product?action=change&id=<%=im.getId()%>&productid=<%=product.getID()%>">
-	                <img src="data:image/jpg;base64, <%=base64foto%>" class="small-img" width="80px">
-	            </a>
-	            <%          
-	                    }
-	                }
-	            %> 
-				</div>
+                    ArrayList<immagine> a = product.getAllimg();
+                    for (int i = 0; i < a.size(); i++) {
+                        immagine im = a.get(i);
+                        byte[] foto = im.getImg();
+                        String base64foto = "";
+                        if (foto != null) {
+                            base64foto = Base64.getEncoder().encodeToString(foto);
+                        }
+                %>
+                <a href="product?action=change&id=<%=im.getId()%>&productid=<%=product.getID()%>">
+                    <img src="data:image/jpg;base64, <%=base64foto%>" class="small-img" width="80px">
+                </a>
+                <%
+                        }
+                    }
+                %>
+            </div>
         </div>
         <div class="col-md-6" id="col6">
             <h1 class="product-title"><%= product.getNome() %></h1>
@@ -322,15 +322,10 @@
             <div class="price">
                 € <%=product.getPrezzo()%>
             </div>
-			<%int q = product.getQuantita();%>
+            <% int q = product.getQuantita(); %>
             <div class="row">
                 <div class="col-md-4 qty">
-                    <h5>Quantità</h5>
-                    <select class="quantity custom-select">
-                        <% for(int i=1; i<=q; i++) { %>
-							<option><%= i %></option>
-						  <% } %>
-                    </select>
+
                 </div>
             </div>
             <br>
@@ -341,24 +336,40 @@
                 <br>
                 <div class="tabs-content">
                     <div id="Description">
-                        <p><%= product.getDescrizione() %></div>
-
+                        <p><%= product.getDescrizione() %></p>
+                    </div>
                 </div>
             </div>
             <div class="buttons">
                 <div class="row">
                     <div class="col-md-6">
+                        <% if (cart != null && !cart.presente(product.getID())) { %>
                         <a href="product?action=addC&id=<%=product.getID()%>" class="custom-btn">Aggiungi al carrello<i class="fas fa-angle-right"></i></a>
+                        <% } else { %>
+                        <p>Prodotto già nel carrello</p>
+                        <% } %>
                     </div>
                 </div>
             </div>
         </div>
-        <%} %>
+        <%
+        }
+        %>
     </div>
 </div>
 
-
 <br><br><br>
+<script>
+    // Inizializza il plugin di zoom sull'immagine
+    new Zooming({
+        onOpen: function() {
+            document.body.style.overflow = 'hidden'; // Impedisce lo scrolling della pagina quando è attivo il zoom
+        },
+        onClose: function() {
+            document.body.style.overflow = ''; // Ripristina lo scrolling della pagina quando il zoom viene chiuso
+        }
+    }).listen('#zoomableImageContainer img[data-zoomable]');
+</script>
 
 </body>
 </html>

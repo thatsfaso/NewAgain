@@ -338,13 +338,7 @@ table.cart-table {
   <tr data-product-id="<%=p.getID()%>">
     <td><img src="data:image/jpg;base64, <%=base64img%>"  width="100" height="100"></td>
     <td><%= p.getNome() %></td>
-    <td>
-      <select class="quantity custom-select" onchange="updateTotal(this, <%=p.getPrezzo()%>)">
-        <% for(int i=1; i<=p.getQuantita(); i++) { %>
-        <option value="<%= i %>"><%= i %></option>
-        <%} %>
-      </select>   
-	  <td><span id="totalPrice_<%=p.getID()%>"><%=p.getPrezzo()%></span></td>
+	<td><span id="totalPrice_<%=p.getID()%>"><%=p.getPrezzo()%></span></td>
 	  <td><a href="product?action=DeleteC&id=<%=p.getID()%>">Rimuovi</a></td>
 
   </tr>

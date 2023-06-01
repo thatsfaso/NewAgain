@@ -27,4 +27,14 @@ public class Cart {
 	public List<Prodotto> getProducts() {
 		return  products;
 	}
+	
+	public boolean presente(int productId) {
+	    for (Prodotto p : products) {
+	        if (p.getID()==(productId)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+
 }

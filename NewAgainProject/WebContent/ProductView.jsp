@@ -1,18 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import = "java.util.Base64" %>
+<%@ page import="java.util.Base64" %>
+<%@ page import="it.unisa.model.Prodotto" %>
+<%@ page import="it.unisa.model.Cart" %>
+<%@ page import="java.util.Collection" %>
+<%@ page import="java.util.Iterator" %>
+
 <%
-	Collection<?> products = (Collection<?>) request.getAttribute("products");
-	if(products == null) {
-		response.sendRedirect("./product");	
-		return;
-	}
-	
-	Prodotto product = (Prodotto) request.getAttribute("product");
+    Collection<?> products = (Collection<?>) request.getAttribute("products");
+    if (products == null) {
+        response.sendRedirect("./product");
+        return;
+    }
+
+    Cart cart = (Cart) session.getAttribute("cart");
 %>
 
 <!DOCTYPE html>
 <html lang="it">
-<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.model.*, it.unisa.control.*"%>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="ProductStyle.css" rel="stylesheet" type="text/css">
+    <title>New Again</title>
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -182,40 +190,45 @@
 
   <br><br>
   <h2>Prodotti</h2>
-
-  <div>
-  <div class="product-container">
-    <div class="product-list">
-      <% if (products != null && products.size() != 0) {
-      Iterator<?> it = products.iterator();
-      int count = 0;
-      while (it.hasNext()) {
-        if (count % 4 == 0) { %>
-          <div class="product-row">
-        <% }
-        Prodotto bean = (Prodotto) it.next();
-        byte[] imageB = bean.getImg();
-        String base64img = Base64.getEncoder().encodeToString(imageB); %>
-        <div class="product">
-        <a href="product?action=read&id=<%=bean.getID()%>">
-        <img src="data:image/jpg;base64, <%=base64img%>" width="300" height="300">
-        <p><%=bean.getNome()%></p>
-        <a href="product?action=addC&id=<%=bean.getID()%>" id="carrello"><input type="submit" value="Aggiungi al carrello"></a>
-      	</a>
-      	</div>
-      <% count++;
-        if (count % 4 == 0) { %>
-          </div>
-      <% }
-      }
-      if (count % 4 != 0) { %>
+<div>
+    <div class="product-container">
+        <div class="product-list">
+            <% if (products != null && products.size() != 0) {
+                Iterator<?> it = products.iterator();
+                int count = 0;
+                while (it.hasNext()) {
+                    if (count % 4 == 0) { %>
+                        <div class="product-row">
+                    <% }
+                    Prodotto bean = (Prodotto) it.next();
+                    byte[] imageB = bean.getImg();
+                    String base64img = Base64.getEncoder().encodeToString(imageB);
+                    %>
+                    <div class="product">
+                        <a href="product?action=read&id=<%=bean.getID()%>">
+                            <img src="data:image/jpg;base64, <%=base64img%>" width="300" height="300">
+                            <p><%=bean.getNome()%></p>
+                            <% if (cart != null && !cart.presente(bean.getID())) { %>
+                                <a href="product?action=addC&id=<%=bean.getID()%>" id="carrello">
+                                    <input type="submit" value="Aggiungi al carrello">
+                                </a>
+                            <% } else { %>
+                                <p>Prodotto già nel carrello</p>
+                            <% } %>
+                        </a>
+                    </div>
+                    <% count++;
+                    if (count % 4 == 0) { %>
+                        </div>
+                    <% }
+                }
+                if (count % 4 != 0) { %>
+                    </div>
+                <% }
+            } else { %>
+                <p>Non ci sono prodotti disponibili</p>
+            <% } %>
         </div>
-      <% }
-    } else { %>
-      <p>Non ci sono prodotti disponibili</p>
-    <% } %>
     </div>
-  </div> 
-
 </body>
 </html>
