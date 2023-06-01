@@ -176,6 +176,13 @@ public class ProductDao {
 					connection.close();
 			}
 		}
+		
+	    // Check se l'immagine è nulla e assegna un'immagine vuota
+	    if (bean.getImg() == null) {
+	        byte[] emptyImage = new byte[0];
+	        bean.setImg(emptyImage);
+	    }
+		
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectsql2);
@@ -208,7 +215,8 @@ public class ProductDao {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + ProductDao.TABLE_NAME + " WHERE id = ?";
+		String deleteSQL = "UPDATE " + ProductDao.TABLE_NAME + " SET quantita = 1 WHERE id = ?";
+
 
 		try {
 			connection = ds.getConnection();
@@ -255,6 +263,13 @@ public class ProductDao {
 				bean.setNome(rs.getString("nome"));
 				byte[] imageByte = blob.getBytes(1,(int) blob.length());
 				bean.setImg(imageByte);
+				
+				 // Check se l'immagine è nulla e assegna un'immagine vuota
+	            if (bean.getImg() == null) {
+	                byte[] emptyImage = new byte[0];
+	                bean.setImg(emptyImage);
+	            }
+				
 				products.add(bean);
 			}
 

@@ -229,43 +229,50 @@ display: none;
             <th>Azioni</th>
         </tr>
 			<% 
-			  if (products != null && !products.isEmpty()) {
-			    Iterator<?> it = products.iterator();
-			    int count = 0;
-			    while (it.hasNext()) {
-			      if (count % 4 == 0) { %>
-				  <tr>
-			      <% }
-			      Prodotto bean = (Prodotto) it.next();
-			  	  byte[] imageB = bean.getImg();
-			      String base64img = Base64.getEncoder().encodeToString(imageB);
-			      %>
-			<td><%= bean.getID() %></td>
-            <td><%= bean.getNome() %></td>
-            <td><%= bean.getDescrizione() %></td>
-            <td><%= bean.getPrezzo() %>€</td>
-            <td><%= bean.getQuantita() %></td>
+if (products != null && !products.isEmpty()) {
+    Iterator<?> it = products.iterator();
+    int count = 0;
+    while (it.hasNext()) {
+        if (count % 4 == 0) { %>
+            <tr>
+        <% }
+        Prodotto bean = (Prodotto) it.next();
+        String base64img = null;
+        if (bean.getImg() != null) {
+            byte[] imageB = bean.getImg();
+            base64img = Base64.getEncoder().encodeToString(imageB);
+        }
+        %>
+        <td><%= bean.getID() %></td>
+        <td><%= bean.getNome() %></td>
+        <td><%= bean.getDescrizione() %></td>
+        <td><%= bean.getPrezzo() %>€</td>
+        <td><%= bean.getQuantita() %></td>
+        <% if (base64img != null) { %>
             <td><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100"></td>
-            <td><%= bean.getSesso() %></td>
-            <td>
+        <% } %>
+        <td><%= bean.getSesso() %></td>
+        <td>
             <input type="hidden" id="modificaId" value="<%= bean.getID() %>">
-                <a><input type="submit" value="Modifica" onclick="showModificaForm()" ></a>
-                <br><input type="hidden" id="deleteId" value="<%= bean.getID() %>">
-		<a href="product?action=delete&id=<%=bean.getID()%>"><input type="submit" value="Cancella" id="deleteButton" onclick="deleteItem(event)"></a></td>
+            <a><input type="submit" value="Modifica" onclick="showModificaForm()"></a>
+            <br><input type="hidden" id="deleteId" value="<%= bean.getID() %>">
+            <a href="product?action=delete&id=<%=bean.getID()%>"><input type="submit" value="Cancella" id="deleteButton" onclick="deleteItem(event)"></a>
+        </td>
         </tr>
-		<% 
-	count++;
-	}
-	if (count % 4 != 0) { %>
-	 <% for (int i = 0; i < 8 - (count % 8); i++) { %>
+        <% 
+        count++;
+    }
+    if (count % 4 != 0) { %>
+        <% for (int i = 0; i < 8 - (count % 8); i++) { %>
+        <% } %>
+    </tr>
+    <% }
+} else { %>
+    <tr>
+        <td colspan="8">Nessun prodotto disponibile</td>
+    </tr>
 <% } %>
-			      </tr>
-			    <% }
-			  } else { %>
-			    <tr>
-			      <td colspan="8">Nessun prodotto disponibile</td>
-			    </tr>
-			  <% } %>
+
     </table>
 
 		<h2>Inserimento</h2>
