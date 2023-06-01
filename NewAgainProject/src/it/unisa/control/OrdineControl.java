@@ -16,8 +16,7 @@ import com.google.gson.Gson;
 import it.unisa.model.Ordine;
 import it.unisa.model.OrdineDAO;
 import it.unisa.model.Prodotto;
-import it.unisa.model.Utente;
-import it.unisa.model.UtenteDao;
+
 
 /**
  * Servlet implementation class OrdineControl

@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
-import it.unisa.model.Ordine;
 import it.unisa.model.Utente;
 import it.unisa.model.UtenteDao;
 
@@ -111,12 +110,18 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
                     session.setAttribute("cap", utente.getCap());
                     session.setAttribute("provincia", utente.getProvincia());
                     session.setAttribute("nome", utente.getNome()); 
+                    session.setAttribute("tipo_account", utente.getTipo_account());
+                    if(utente.getTipo_account()==0) {
                     response.sendRedirect(request.getContextPath() + "/Home.jsp");
-                } else {
+                    } 
+                    else if (utente.getTipo_account() == 1) {
+                        response.sendRedirect(request.getContextPath() + "/Amministratore.jsp");
+                    }
+                    else {
                 	request.setAttribute("errore", "Email o password non validi");
                     request.getRequestDispatcher("/Accedi.jsp").forward(request, response);
                 }
-            } catch (SQLException e) {
+            } }catch (SQLException e) {
                 e.printStackTrace();
                 request.setAttribute("errore", "Errore del database: " + e.getMessage());
                 request.getRequestDispatcher("/Accedi.jsp").forward(request, response);

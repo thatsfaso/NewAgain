@@ -120,6 +120,7 @@ public class UtenteDao {
 	            utente.setProvincia(rs.getString("provincia"));
 	            utente.setCap(rs.getString("cap"));
 	            utente.setPass(rs.getString("pass"));
+	            utente.setTipo_account(rs.getInt("tipo_account"));
 	        }
 
 	    } finally {
