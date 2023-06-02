@@ -21,7 +21,14 @@
   <location>/Erorre500.jsp</location>
 </error-page>
   
-  
+  <servlet>
+    <servlet-name>AcquistoControl</servlet-name>
+    <servlet-class>it.unisa.control.AcquistoControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AcquistoControl</servlet-name>
+    <url-pattern>/acquista</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>ProductControl</servlet-name>
     <servlet-class>it.unisa.control.ProductControl</servlet-class>

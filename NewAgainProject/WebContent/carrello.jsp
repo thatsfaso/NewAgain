@@ -219,37 +219,39 @@ table.cart-table {
     <div class="logo-container">
         <a href="Home.jsp"><img src="nuovologo.png" width="130px"></a>
     </div>
+<form action="acquista" method="post">
+    <input type="hidden" name="action" value="visualizza">	
     <h2>Tipo di Consegna</h2>
 
     <table>
-                <% if((session.getAttribute("indirizzo") != null) &&
-                    (session.getAttribute("citta") != null) &&
-                    (session.getAttribute("provincia") != null) &&
-                    (session.getAttribute("cap") != null)) { %>
-                <tr id="address-form-row">
-                    <td>
-                        <input type="radio" name="delivery-option" id="existing-address-option"
-                            value="existing-address" onclick="hideAddressForm()">
-                        <label for="existing-address-option">Consegna a Casa</label>
-                    </td>
-                    <td>
-                        <%= session.getAttribute("indirizzo") %>
-                        <%= session.getAttribute("citta") %>
-                        <%= session.getAttribute("provincia") %>
-                        <%= session.getAttribute("cap") %>
-                    </td>
-                </tr>
-                <% } %>
-                <tr>
-                    <td>
-                        <input type="radio" name="delivery-option" id="delivery-option" value="home"
-                            onclick="showAddressForm()">
-                        <label for="delivery-option" class="radio-label option-label">Altro indirizzo</label>
-                    </td>
-                    <td>
-                        Seleziona questa opzione se desideri ricevere la consegna ad un altro indirizzo
-                    </td>
-                </tr>
+        <% if((session.getAttribute("indirizzo") != null) &&
+            (session.getAttribute("citta") != null) &&
+            (session.getAttribute("provincia") != null) &&
+            (session.getAttribute("cap") != null)) { %>
+            <tr>
+                <td>
+                    <input type="radio" name="delivery-option" id="existing-address-option"
+                        value="existing-address" onclick="hideAddressForm()">
+                    <label for="existing-address-option">Consegna a Casa</label>
+                </td>
+                <td>
+                    <%= session.getAttribute("indirizzo") %>
+                    <%= session.getAttribute("citta") %>
+                    <%= session.getAttribute("provincia") %>
+                    <%= session.getAttribute("cap") %>
+                </td>
+            </tr>
+        <% } %>
+        <tr>
+            <td>
+                <input type="radio" name="delivery-option" id="delivery-option" value="home"
+                    onclick="showAddressForm()">
+                <label for="delivery-option" class="radio-label option-label">Altro indirizzo</label>
+            </td>
+            <td>
+                Seleziona questa opzione se desideri ricevere la consegna ad un altro indirizzo
+            </td>
+        </tr>
         <tr>
             <td>
                 <input type="radio" name="delivery-option" id="pickup-option" value="pickup" onclick="hideAddressForm()">
@@ -261,64 +263,61 @@ table.cart-table {
         </tr>
     </table>
 
-   <div id="address-form" style="display: none; margin: 0 auto; width: 80%;">
-
-        <form>
-            <input type="text" id="address" name="address" placeholder="Indirizzo"><br>
-            <input type="text" id="citta" name="citta" placeholder="Città"><br>
-            <input type="text" id="cap" name="cap" placeholder="CAP" maxlength="5"><br>
-            <input type="text" id="provincia" name="provincia" placeholder="Provincia" maxlength="2"><br>
-
-        </form>
+    <div id="address-form" style="display: none;">
+        <input type="text" id="address" name="address" placeholder="Indirizzo"><br>
+        <input type="text" id="citta" name="citta" placeholder="Città"><br>
+        <input type="text" id="cap" name="cap" placeholder="CAP" maxlength="5"><br>
+        <input type="text" id="provincia" name="provincia" placeholder="Provincia" maxlength="2"><br>
         <br><br>
     </div>
 
     <h2>Metodo di Pagamento</h2>
-     <table>
-    <tr>
-        <td>
-            <input type="radio" name="Pagamento" id="CartaDiCredito" value="Carta di credito" onclick="mostraFormCarta()">
-            <label for="CartaDiCredito">Carta di Credito</label>
-        </td>
-        <td style="text-align: right;">
-          <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/0169695890db3db16bfe.svg" role="img" width="48" height="34">
-            <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/ae9ceec48b1dc489596c.svg" role="img" width="48" height="34">
-            <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/37fc65d0d7ac30da3b0c.svg" role="img" width="48" height="34">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <input type="radio" name="Pagamento" id="Paypal" value="Paypal" onclick="nascondiFormCarta()">
-            <label for="Paypal">Paypal</label>
-        </td>
-        <td style="text-align: right;">
-            <img alt="" src="https://cdn.pixabay.com/photo/2015/05/26/09/37/paypal-784404_1280.png" role="img" width="90" height="50">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <input type="radio" name="Pagamento" id="ApplePay" value="ApplePay" onclick="nascondiFormCarta()">
-            <label for="ApplePay">Apple Pay</label>
-        </td>
-        <td style="text-align: right;">
-            <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1024px-Apple_Pay_logo.svg.png?20170518220303" role="img" width="75" height="30">
-        </td>
-    </tr>
-</table>
-<form id="formCarta" style="display: none;">
-              <input type="text" id="card-number" name="card-number" placeholder="Numero carta" maxlength="16" required>
-              <br>
-              <input type="text" id="card-holder" name="card-holder" placeholder="Nome titolare" maxlength="255" required>
-              <br>
-              <input type="text" id="expiration-date" name="expiration-date" placeholder="MM/AA" maxlength="5" required>
-  			  <br>
-              <input type="text" id="cvv" name="cvv" placeholder="CVV" maxlength="3" required>
-              <br>
-            </form>
-            
-      <br><br><br>
-     <a href="https://google.com"> <input type="submit" value="Conferma"> </a>
-  </div>
+    <table>
+        <tr>
+            <td>
+                <input type="radio" name="Pagamento" id="Pagamento" value="Carta di credito" onclick="showCartaForm()">
+                <label for="CartaDiCredito">Carta di Credito</label>
+            </td>
+            <td style="text-align: right;">
+                <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/0169695890db3db16bfe.svg" role="img" width="48" height="34">
+                <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/ae9ceec48b1dc489596c.svg" role="img" width="48" height="34">
+                <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/37fc65d0d7ac30da3b0c.svg" role="img" width="48" height="34">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" name="Pagamento" id="Pagamento" value="Paypal" onclick="hideCartaForm()">
+                <label for="Paypal">Paypal</label>
+            </td>
+            <td style="text-align: right;">
+                <img alt="" src="https://cdn.pixabay.com/photo/2015/05/26/09/37/paypal-784404_1280.png" role="img" width="90" height="50">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" name="Pagamento" id="Pagamento" value="ApplePay" onclick="hideCartaForm()">
+                <label for="ApplePay">Apple Pay</label>
+            </td>
+            <td style="text-align: right;">
+                <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1024px-Apple_Pay_logo.svg.png?20170518220303" role="img" width="75" height="30">
+            </td>
+        </tr>
+    </table>
+    <div id="carta-form" style="display: none;">
+        <input type="text" id="card-number" name="card-number" placeholder="Numero carta" maxlength="16">
+        <br>
+        <input type="text" id="card-holder" name="card-holder" placeholder="Nome titolare" maxlength="255">
+        <br>
+        <input type="text" id="expiration-date" name="expiration-date" placeholder="MM/AA" maxlength="5">
+        <br>
+        <input type="text" id="cvv" name="cvv" placeholder="CVV" maxlength="3" >
+        <br>
+    </div>
+
+    <br><br><br>
+    <input type="submit" value="Conferma">
+</form>
+</div>
   
 <div class="right-column">
 	<% double prezzotot=0;
@@ -393,15 +392,15 @@ table.cart-table {
       }
     });
 
-    function mostraFormCarta() {
-      var formCarta = document.getElementById("formCarta");
-      formCarta.style.display = "block";
-    }
+    function showCartaForm() {
+    	  var addressForm = document.getElementById("carta-form");
+    	  addressForm.style.display = "block";
+    	}
 
-    function nascondiFormCarta() {
-      var formCarta = document.getElementById("formCarta");
-      formCarta.style.display = "none";
-    }
+    	function hideCartaForm() {
+    	  var addressForm = document.getElementById("carta-form");
+    	  addressForm.style.display = "none";
+    	}
     function showAddressForm() {
     	  var addressForm = document.getElementById("address-form");
     	  addressForm.style.display = "block";
