@@ -144,6 +144,8 @@
 		nav {
 		  text-align: center;
 		  background-color: #ff6848;
+		  display: flex;
+  		justify-content: center;
 		}
 		
 		nav a {
@@ -153,6 +155,11 @@
 		  padding: 14px 16px;
 		  font-size: 17px;
 		  text-decoration: none;
+		  margin: 0 10px;
+		}
+		
+		nav a:last-child {
+		  margin-right: 0;
 		}
 		
 		nav a:hover {
@@ -173,6 +180,53 @@
 		input[type="submit"]:hover {
 		  background-color: #FF6848;
 		  border-radius: 14px;
+		}
+		
+		.dropdown {
+		  float: left;
+		  overflow: hidden;
+		}
+		
+		.dropdown .dropbtn {
+		  font-size: 16px;
+		  border: none;
+		  outline: none;
+		  color: black;
+		  padding: 14px 16px;
+		  background-color: inherit;
+		  font-family: inherit;
+		  margin: 0;
+		}
+		
+		nav a:hover,
+		.dropdown:hover .dropbtn {
+		  background-color: #ddd;
+		}
+		
+		.dropdown-content {
+		  display: none;
+		  position: absolute;
+		  background-color: #f9f9f9;
+		  min-width: 160px;
+		  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		  z-index: 1;
+		}
+		
+		.dropdown-content a {
+		  float: none;
+		  color: black;
+		  padding: 12px 16px;
+		  text-decoration: none;
+		  display: block;
+		  text-align: left;
+		}
+		
+		.dropdown-content a:hover {
+		  background-color: #ddd;
+		}
+		
+		.dropdown:hover .dropdown-content {
+		  display: block;
 		}
 </style>
 </head>
@@ -197,12 +251,33 @@
 </header>
 	  <br>
 	  <br>
-  <nav>
-    <a href="product?action=dettaglio&sesso=M">Uomo</a>
-    <a href="product?action=dettaglio&sesso=F">Donna</a>
-    <a href="/product">Accessori</a>
-    <a href="product?action=all">All</a>
-  </nav>
+<nav>
+  <div class="dropdown">
+    <a href="product?action=dettaglio&sesso=M" class="dropbtn">Uomo</a>
+    <div class="dropdown-content">
+      <a href="#">Pantaloni</a>
+      <a href="#">Maglie</a>
+      <a href="#">Accessori</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <a href="product?action=dettaglio&sesso=F" class="dropbtn">Donna</a>
+    <div class="dropdown-content">
+      <a href="#">Pantaloni</a>
+      <a href="#">Maglie</a>
+      <a href="#">Accessori</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <a href="./product" class="dropbtn">Accessori</a>
+    <div class="dropdown-content">
+      <a href="#">Collane</a>
+      <a href="#">Bracciali</a>
+      <a href="#">Altro</a>
+    </div>
+  </div>
+  <a href="product?action=all">All</a>
+</nav>
 
   <br><br>
   <h2>Prodotti</h2>

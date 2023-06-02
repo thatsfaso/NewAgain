@@ -300,9 +300,9 @@
                             base64foto = Base64.getEncoder().encodeToString(foto);
                         }
                 %>
-                <a href="product?action=change&id=<%=im.getId()%>&productid=<%=product.getID()%>">
-                    <img src="data:image/jpg;base64, <%=base64foto%>" class="small-img" width="80px">
-                </a>
+			    <a href="#" onclick="changeProduct('<%=im.getId()%>', '<%=product.getID()%>', '<%=product.getNome()%>', '<%=base64foto%>')">
+			        <img src="data:image/jpg;base64, <%=base64foto%>" class="small-img" width="80px">
+			    </a>
                 <%
                         }
                     }
@@ -374,5 +374,18 @@
     }).listen('#zoomableImageContainer img[data-zoomable]');
 </script>
 
+<script>
+        function changeProduct(imageId, productId, productName, base64Image) {
+            // Puoi utilizzare i parametri passati per fare ciò che desideri, ad esempio:
+            console.log("Image ID:", imageId);
+            console.log("Product ID:", productId);
+            console.log("Product Name:", productName);
+
+            // Puoi anche aggiornare l'immagine principale o fare altre operazioni, ad esempio:
+            var productImg = document.getElementById("ProductImg");
+            productImg.src = "data:image/jpg;base64," + base64Image;
+        }
+</script>
+    
 </body>
 </html>
