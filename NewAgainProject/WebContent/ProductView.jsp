@@ -17,52 +17,48 @@
 
 <!DOCTYPE html>
 <html lang="it">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="ProductStyle.css" rel="stylesheet" type="text/css">
-    <title>New Again</title>
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link href="ProductStyle.css" rel="stylesheet" type="text/css">
   <title>New Again</title>
 <style>
-
-			body {
-			  max-width:100vw;
-			  margin-left: 0;
+			body{
+			margin:0;
 			}
-
+			
+			header {
+			  width: 100%;
+			}
+			
 			.banner {
-				background-color: rgba(235, 235, 240, 0.6); 
-				position: relative; 
-				height: 90px;
-				width: 100vw;
-				margin: -20px;
+				background-color: rgba(235, 235, 240, 0.66);
+				position: relative;
+				display: flex;
+				height: 115px;
 			}
-		
-		#image {
-			position: absolute; 
-			top: 10px; 
-			left: 10px;
-			z-index: 1; 
-			width: 80px;
-			height: 80px;
-		}
-		
-		.dx{
-			position: absolute; 
-			top: 30px; 
-			right: 5px; 
-			z-index: 1;
-		}
-		
-		.dx img{
-			width: 40px;
-			height: 40px;
-			margin-left: 15px;
-			margin-right: 15px;
-		}
+			
+			#image {
+				position: absolute;
+				left: 10px;
+				z-index: 1;
+				width: 125px;
+				height: 125px;
+			}
+			
+			.dx {
+				position: absolute;
+				top: 50px;
+				right: 5px;
+				z-index: 1;
+			}
+			
+			.dx img {
+				width: 40px;
+				height: 40px;
+				margin-left: 15px;
+				margin-right: 15px;
+			}
 		
 		/* Stile per la visualizzazione dei prodotti */
 
@@ -77,6 +73,7 @@
 		  font-size: 24px;
 		  font-weight: bold;
 		  color: #000;
+		  text-decoration: none;
 		}
 		
 		.product button {
@@ -98,10 +95,12 @@
 			margin-bottom: 10px;
 			font-size: 18px;
 		  	color: #666;
+		  	text-decoration: none;
 		}
 		
 		.product a {
 			margin-right: 10px;
+			text-decoration: none;
 		}
 		
 		.product-container {
@@ -141,8 +140,24 @@
 		  border-radius: 5px;
 		}
 		
-		nav{
-		background-color: #ff6848;
+			
+		nav {
+		  text-align: center;
+		  background-color: #ff6848;
+		}
+		
+		nav a {
+		  display: inline-block;
+		  color: #f2f2f2;
+		  text-align: center;
+		  padding: 14px 16px;
+		  font-size: 17px;
+		  text-decoration: none;
+		}
+		
+		nav a:hover {
+		  background-color: rgba(235, 235, 240, 0.66);
+		  color: #1d1d1f;
 		}
 		
 		input[type="submit"] {
@@ -159,28 +174,29 @@
 		  background-color: #FF6848;
 		  border-radius: 14px;
 		}
-	</style>
+</style>
 </head>
-
 <body>
-  <header>
-    <div class="banner">
-      <a href="Home.jsp"><img src="./nuovologo.png" id="image"></a>
-      <div class="dx">
-        <% if (session.getAttribute("email") == null) { %>
+<header>
+	<div class="banner"> 
+	<a href="Home.jsp"><img src="./nuovologo.png" id="image"></a>
+	<div class="dx">
+    <% if (session.getAttribute("email") == null) { %>
         <a href="http://www.google.com"><img src="cerca.png"></a>
         <a href="Accedi.jsp"><img src="utente.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
-        <% } else { %>
+    <% } else { %>
         <a href="http://www.google.com"><img src="cerca.png"></a>
         <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png"></a>
         <a href="registration?action=logout"><img src="logout.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
-        <% } %>
-      </div>
-    </div>
-  </header>
-  <br>
+    <% } %>
+	</div>
+	 
+	</div>
+</header>
+	  <br>
+	  <br>
   <nav>
     <a href="product?action=dettaglio&sesso=M">Uomo</a>
     <a href="product?action=dettaglio&sesso=F">Donna</a>
@@ -210,7 +226,8 @@
         <p align="center"><%=bean.getNome()%></p>
         <p align="center"><%=bean.getPrezzo()%>€</p>
         <% if (bean.getQuantita() == 1) { %>
-            <p>Prodotto Non disponibile</p>
+        	<br>
+            <p style="text-align: center;">Non disponibile</p>
         <% } else if (cart != null && !cart.presente(bean.getID())) { %>
             <a href="product?action=addC&id=<%=bean.getID()%>" id="carrello">
                 <input type="submit" value="Aggiungi al carrello">
