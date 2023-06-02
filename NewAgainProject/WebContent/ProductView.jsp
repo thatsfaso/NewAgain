@@ -185,7 +185,7 @@
     <a href="product?action=dettaglio&sesso=M">Uomo</a>
     <a href="product?action=dettaglio&sesso=F">Donna</a>
     <a href="/product">Accessori</a>
-    <a href="/product">All</a>
+    <a href="product?action=all">All</a>
   </nav>
 
   <br><br>
@@ -208,7 +208,7 @@
     <a href="product?action=read&id=<%=bean.getID()%>">
         <img src="data:image/jpg;base64, <%=base64img%>" width="300" height="300">
         <p align="center"><%=bean.getNome()%></p>
-        <p align="center"><%=bean.getPrezzo()%></p>
+        <p align="center"><%=bean.getPrezzo()%>€</p>
         <% if (bean.getQuantita() == 1) { %>
             <p>Prodotto Non disponibile</p>
         <% } else if (cart != null && !cart.presente(bean.getID())) { %>

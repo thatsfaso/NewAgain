@@ -114,9 +114,6 @@
     <label>Indirizzo:</label>
     <input type="text" name="indirizzo" value="<%=session.getAttribute("indirizzo") %>"><br>
     
-    <label>Email:</label>
-    <input type="text" name="email" value="<%=session.getAttribute("email") %>"><br>
-    
     <label>Città:</label>
     <input type="text" name="citta" value="<%=session.getAttribute("citta") %>"><br>
     
@@ -125,6 +122,9 @@
     
     <label>CAP:</label>
     <input type="text" name="cap" value="<%=session.getAttribute("cap") %>"><br>
+    
+    <label>Email:</label>
+    <input type="text" name="email" value="<%=session.getAttribute("email") %>"><br>
     
     <label>Password:</label>
     <input type="password" name="pass"><br>
@@ -152,7 +152,7 @@
           <td><%= ordine.getData() %></td>
           <td><%= ordine.getTotale() %></td>
           <td><%= ordine.getStato() %></td>
-          <td><a href="ordine?action=Dettagli&NumeroOrdine=<%=ordine.getNumeroOrdine()%>&email=<%=session.getAttribute("email")%>">Dettagli</a></td>
+          <td><a href="ordine?action=Dettagli&NumeroOrdine=<%=ordine.getNumeroOrdine()%>&email=<%=session.getAttribute("email")%>">Mostra</a></td>
           
         </tr>
       <% }
