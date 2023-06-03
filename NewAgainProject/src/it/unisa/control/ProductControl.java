@@ -5,6 +5,11 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -76,6 +81,18 @@ public class ProductControl extends HttpServlet {
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Amministratore.jsp");
 					dispatcher.forward(request, response); 
 				}
+				else if (action.equalsIgnoreCase("search")) {
+					String nome = request.getParameter("nome");
+					try {
+						request.removeAttribute("products");
+						request.setAttribute("products", model.searchProducts(nome));
+					} catch (SQLException e) {
+						System.out.println("Error:" + e.getMessage());
+					}
+
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductView.jsp");
+					dispatcher.forward(request, response);
+				}
 				else if (action.equalsIgnoreCase("updateq")) {
 					int id = Integer.valueOf(request.getParameter("id"));
 					model.doupdateq(id);
@@ -90,16 +107,23 @@ public class ProductControl extends HttpServlet {
 					dispatcher.forward(request, response);				
 				}
 				else if (action.equalsIgnoreCase("dettaglio")) {
-					String sesso = request.getParameter("sesso");
-					try {
-						request.removeAttribute("products");
-						request.setAttribute("products", model.doRetrieveBySesso(sesso));
-					} catch (SQLException e) {
-						System.out.println("Error:" + e.getMessage());
-					}
+				    String sesso = request.getParameter("sesso");
+				    String categoria = request.getParameter("categoria");
+				    try {
+				        request.removeAttribute("products");
+				        if (sesso != null && categoria != null) {
+				            request.setAttribute("products", model.doRetrieveBySessoAndCategoria(sesso, categoria));
+				        } else if (sesso != null) {
+				            request.setAttribute("products", model.doRetrieveBySesso(sesso));
+				        } else if (categoria != null) {
+				            request.setAttribute("products", model.doRetrieveByCategoria(categoria));
+				        }
+				    } catch (SQLException e) {
+				        System.out.println("Error:" + e.getMessage());
+				    }
 
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductView.jsp");
-					dispatcher.forward(request, response);
+				    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductView.jsp");
+				    dispatcher.forward(request, response);
 				}
 				else if(action.equalsIgnoreCase("viewC")) {
 					request.setAttribute("cart",cart);
