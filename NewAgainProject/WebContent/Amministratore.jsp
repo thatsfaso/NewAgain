@@ -265,7 +265,7 @@ overflow-x:hidden;
             <th>Nome Prodotto</th>
             <th>Descrizione</th>
             <th>Prezzo</th>
-            <th>Quantità</th>
+            <th>Disponibilità</th>
             <th>Foto</th>
             <th>Sesso</th>
             <th>Azioni</th>
