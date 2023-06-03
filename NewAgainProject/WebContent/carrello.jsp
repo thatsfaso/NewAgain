@@ -231,7 +231,7 @@ table.cart-table {
             <tr>
                 <td>
                     <input type="radio" name="delivery-option" id="existing-address-option"
-                        value="existing-address" onclick="hideAddressForm()">
+                        value="Consegna a casa" onclick="hideAddressForm()">
                     <label for="existing-address-option">Consegna a Casa</label>
                 </td>
                 <td>
@@ -244,7 +244,7 @@ table.cart-table {
         <% } %>
         <tr>
             <td>
-                <input type="radio" name="delivery-option" id="delivery-option" value="home"
+                <input type="radio" name="delivery-option" id="delivery-option" value="Altro indirizzo"
                     onclick="showAddressForm()">
                 <label for="delivery-option" class="radio-label option-label">Altro indirizzo</label>
             </td>
@@ -254,7 +254,7 @@ table.cart-table {
         </tr>
         <tr>
             <td>
-                <input type="radio" name="delivery-option" id="pickup-option" value="pickup" onclick="hideAddressForm()">
+                <input type="radio" name="delivery-option" id="pickup-option" value="Punto di Ritiro" onclick="hideAddressForm()">
                 <label for="pickup-option" class="radio-label option-label">Punto di Ritiro</label>
             </td>
             <td>
