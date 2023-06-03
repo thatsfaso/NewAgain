@@ -9,6 +9,8 @@ public class Prodotto {
 	String Descrizione;
 	double Prezzo;
 	String Sesso;
+	String categoria;
+	
 	byte [] img;
 	ArrayList<immagine> allimg;
 	
@@ -60,5 +62,11 @@ public class Prodotto {
 	public void setSesso(String sesso) {
 		Sesso = sesso;
 	}
-		
+	public String getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
 }

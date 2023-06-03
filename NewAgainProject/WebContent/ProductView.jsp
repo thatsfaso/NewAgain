@@ -158,10 +158,6 @@
 		  margin: 0 10px;
 		}
 		
-		nav a:last-child {
-		  margin-right: 0;
-		}
-		
 		nav a:hover {
 		  background-color: rgba(235, 235, 240, 0.66);
 		  color: #1d1d1f;
@@ -255,21 +251,29 @@
   <div class="dropdown">
     <a href="product?action=dettaglio&sesso=M" class="dropbtn">Uomo</a>
     <div class="dropdown-content">
-      <a href="#">Pantaloni</a>
-      <a href="#">Maglie</a>
-      <a href="#">Accessori</a>
+      <a href="product?action=dettaglio&categoria=giacche&sesso=M">Giacche</a>
+      <a href="product?action=dettaglio&categoria=felpe&sesso=M">Felpe</a>
+      <a href="product?action=dettaglio&categoria=maglie&sesso=M">Maglie</a>
+      <a href="product?action=dettaglio&categoria=camicie&sesso=M">Camicie</a>
+      <a href="product?action=dettaglio&categoria=pantaloni&sesso=M">Pantaloni</a>
+      <a href="product?action=dettaglio&categoria=scarpe&sesso=M">Scarpe</a>
+      <a href="product?action=dettaglio&categoria=accessori&sesso=M">Accessori</a>
     </div>
   </div>
   <div class="dropdown">
     <a href="product?action=dettaglio&sesso=F" class="dropbtn">Donna</a>
     <div class="dropdown-content">
-      <a href="#">Pantaloni</a>
-      <a href="#">Maglie</a>
-      <a href="#">Accessori</a>
+      <a href="product?action=dettaglio&categoria=giacche&sesso=F">Giacche</a>
+      <a href="product?action=dettaglio&categoria=felpe&sesso=F">Felpe</a>
+      <a href="product?action=dettaglio&categoria=maglie&sesso=F">Maglie</a>
+      <a href="product?action=dettaglio&categoria=camicie&sesso=F">Camicie</a>
+      <a href="product?action=dettaglio&categoria=pantaloni&sesso=F">Pantaloni</a>
+      <a href="product?action=dettaglio&categoria=scarpe&sesso=F">Scarpe</a>
+      <a href="product?action=dettaglio&categoria=accessori&sesso=F">Accessori</a>
     </div>
   </div>
   <div class="dropdown">
-    <a href="./product" class="dropbtn">Accessori</a>
+    <a href="product?action=dettaglio&tipologia=accessori" class="dropbtn">Accessori</a>
     <div class="dropdown-content">
       <a href="#">Collane</a>
       <a href="#">Bracciali</a>

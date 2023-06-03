@@ -36,7 +36,7 @@ public class ProductDao {
 	public synchronized void doSave(Prodotto product) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
-	    String insertSQL = "INSERT INTO " + ProductDao.TABLE_NAME + " (descrizione, prezzo, quantita,foto, sesso, nome) VALUES (?, ?, ?,?, ?, ?)";
+	    String insertSQL = "INSERT INTO " + ProductDao.TABLE_NAME + " (descrizione, prezzo, quantita,foto, sesso, nome, categoria) VALUES (?, ?, ?,?, ?, ?, ?)";
 
 	    try {
 	        connection = ds.getConnection();
@@ -48,6 +48,7 @@ public class ProductDao {
 	        preparedStatement.setBinaryStream(4, inputStream, product.getImg().length);
 	        preparedStatement.setString(5, product.getSesso());
 	        preparedStatement.setString(6, product.getNome());
+	        preparedStatement.setString(7, product.getCategoria());
 	        preparedStatement.executeUpdate();
 	    } finally {
 	        try {
@@ -83,6 +84,7 @@ public class ProductDao {
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setQuantita(rs.getInt("quantita"));
+				bean.setCategoria(rs.getString("categoria"));
 				bean.setImg(rs.getBytes("foto"));
 			}
 
@@ -164,6 +166,7 @@ public class ProductDao {
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setQuantita(rs.getInt("quantita"));
+				bean.setCategoria(rs.getString("categoria"));
 				bean.setImg(rs.getBytes("foto"));
 			}
 
@@ -288,10 +291,10 @@ public class ProductDao {
 				Blob blob = rs.getBlob("foto");
 				bean.setSesso(rs.getString("sesso"));
 				bean.setNome(rs.getString("nome"));
+				bean.setCategoria(rs.getString("categoria"));
 				byte[] imageByte = blob.getBytes(1,(int) blob.length());
 				bean.setImg(imageByte);
 				
-				 // Check se l'immagine è nulla e assegna un'immagine vuota
 	            if (bean.getImg() == null) {
 	                byte[] emptyImage = new byte[0];
 	                bean.setImg(emptyImage);
@@ -334,6 +337,7 @@ public class ProductDao {
 				bean.setQuantita(rs.getInt("quantita"));
 				bean.setSesso(rs.getString("sesso"));
 				bean.setNome(rs.getString("nome"));
+				bean.setCategoria(rs.getString("categoria"));
 				Blob blob = rs.getBlob("foto");
 				byte[] imageByte = blob.getBytes(1,(int) blob.length());
 				bean.setImg(imageByte);
@@ -355,7 +359,7 @@ public class ProductDao {
 	public synchronized void doUpdate(Prodotto product) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
-	    String updateSQL = "UPDATE " + ProductDao.TABLE_NAME + " SET descrizione = ?, prezzo = ?, quantita = ?, foto = ?, sesso = ?, nome = ? WHERE id = ?";
+	    String updateSQL = "UPDATE " + ProductDao.TABLE_NAME + " SET descrizione = ?, prezzo = ?, quantita = ?, foto = ?, sesso = ?, nome = ? categoria = ? WHERE id = ?";
 
 	    try {
 	        connection = ds.getConnection();
@@ -367,7 +371,8 @@ public class ProductDao {
 	        preparedStatement.setBinaryStream(4, inputStream, product.getImg().length);
 	        preparedStatement.setString(5, product.getSesso());
 	        preparedStatement.setString(6, product.getNome());
-	        preparedStatement.setInt(7, product.getID());
+	        preparedStatement.setString(7, product.getCategoria());
+	        preparedStatement.setInt(8, product.getID());
 	        preparedStatement.executeUpdate();
 	    } finally {
 	        try {
@@ -380,6 +385,133 @@ public class ProductDao {
 	            }
 	        }
 	    }
+	}
+	
+	public synchronized Collection<Prodotto> searchProducts(String nome) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    Collection<Prodotto> products = new LinkedList<Prodotto>();
+
+	    String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME + " WHERE nome LIKE ?";
+
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setString(1, nome + "%");
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        while (rs.next()) {
+	            Prodotto bean = new Prodotto();
+
+	            bean.setID(rs.getInt("id"));
+	            bean.setDescrizione(rs.getString("descrizione"));
+	            bean.setPrezzo(rs.getInt("prezzo"));
+	            bean.setQuantita(rs.getInt("quantita"));
+	            bean.setSesso(rs.getString("sesso"));
+	            bean.setNome(rs.getString("nome"));
+	            bean.setCategoria(rs.getString("categoria"));
+	            Blob blob = rs.getBlob("foto");
+	            byte[] imageByte = blob.getBytes(1, (int) blob.length());
+	            bean.setImg(imageByte);
+	            products.add(bean);
+	        }
+
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
+	    return products;
+	}
+	
+	public synchronized Collection<Prodotto> doRetrieveByCategoria(String s1) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<Prodotto> products = new LinkedList<Prodotto>();
+
+		String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME + " WHERE categoria = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1,s1);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				Prodotto bean = new Prodotto();
+
+				bean.setID(rs.getInt("id"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setPrezzo(rs.getInt("prezzo"));
+				bean.setQuantita(rs.getInt("quantita"));
+				bean.setSesso(rs.getString("sesso"));
+				bean.setNome(rs.getString("nome"));
+				bean.setCategoria(rs.getString("categoria"));
+				Blob blob = rs.getBlob("foto");
+				byte[] imageByte = blob.getBytes(1,(int) blob.length());
+				bean.setImg(imageByte);
+				products.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return products;
+	}
+	
+	public synchronized Collection<Prodotto> doRetrieveBySessoAndCategoria(String sesso, String categoria) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    Collection<Prodotto> products = new LinkedList<Prodotto>();
+
+	    String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME + " WHERE sesso = ? AND categoria = ?";
+
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setString(1, sesso);
+	        preparedStatement.setString(2, categoria);
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        while (rs.next()) {
+	            Prodotto bean = new Prodotto();
+
+	            bean.setID(rs.getInt("id"));
+	            bean.setDescrizione(rs.getString("descrizione"));
+	            bean.setPrezzo(rs.getInt("prezzo"));
+	            bean.setQuantita(rs.getInt("quantita"));
+	            bean.setSesso(rs.getString("sesso"));
+	            bean.setNome(rs.getString("nome"));
+	            bean.setCategoria(rs.getString("categoria"));
+	            Blob blob = rs.getBlob("foto");
+	            byte[] imageByte = blob.getBytes(1, (int) blob.length());
+	            bean.setImg(imageByte);
+	            products.add(bean);
+	        }
+
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
+	    return products;
 	}
 
 

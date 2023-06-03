@@ -358,25 +358,43 @@ table.cart-table {
 	<br><br><br>
 	<jsp:include page="footer.jsp"/>
     <script>
- // Aggiungi automaticamente il carattere "/" nel campo "Data scadenza" dopo i due cifre del mese (MM)
-    document.getElementById('expiration-date').addEventListener('input', function () {
-      const input = this.value.replace(/\D/g, ''); // Rimuovi tutti i caratteri non numerici
-      const month = input.slice(0, 2);
-      const year = input.slice(2, 4);
-      this.value = `${month}/${year}`;
 
-      // Controllo se il mese è valido (inferiore a 12)
-      if (parseInt(month) > 12) {
-        this.setCustomValidity('Il mese inserito non è valido');
-      } else {
-        this.setCustomValidity('');
-      }
-      // Controllo se l'anno è valido (>23 & <30)
-      if (parseInt(year) < 23 || parseInt(year) > 30) {
-        this.setCustomValidity('L\'anno inserito non è valido');
-    this.setCustomValidity('');
-  }
-    });
+    document.addEventListener('DOMContentLoaded', function() {
+    	  const inputField = document.getElementById('expiration-date');
+
+    	  inputField.addEventListener('input', function() {
+    	    const input = this.value.replace(/\D/g, '');
+    	    const month = input.slice(0, 2);
+    	    const year = input.slice(2, 4);
+
+    	    // Controllo se il mese è valido (inferiore a 12)
+  		   if (parseInt(month) < 1 || parseInt(month) > 12) {
+		      this.setCustomValidity('Il mese inserito non è valido');
+		    } else {
+		      this.setCustomValidity('');
+		    }
+    	    // Controllo se l'anno è valido (>23 & <30)
+    	    if (parseInt(year) < 23 || parseInt(year) > 30) {
+    	      this.setCustomValidity('L\'anno inserito non è valido');
+    	    } else {
+    	      this.setCustomValidity('');
+    	    }
+
+    	    this.reportValidity();
+    	  });
+
+    	  inputField.addEventListener('keydown', function(event) {
+    	    if (event.key === '/' || event.key === 'Backspace' || event.key === 'Delete') {
+    	      return;
+    	    }
+
+    	    if (this.value.length === 2) {
+    	      this.value += '/';
+    	    }
+    	  });
+    	});
+
+
 
     // Limita il numero di cifre nel campo "Numero carta" a 16
     document.getElementById('card-number').addEventListener('input', function () {
