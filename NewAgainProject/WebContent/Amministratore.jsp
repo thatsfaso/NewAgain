@@ -21,13 +21,15 @@
 <head>
 <title>Pagina Amministratore</title>
 <style>
+body{
+overflow-x:hidden;
+}
     /* Stili CSS */
    .s-layout__content {
    justify-content: center;
    text-align: center;
    margin-top: 90px;
    height: auto;
-  
    left: -10vw;
    
 }
@@ -36,7 +38,7 @@
         background-color: rgba(235, 235, 240, 0.66);
         position: relative;
         height: 90px;
-        width: 100%;
+        width: auto;
     }
 
     #image {
@@ -68,7 +70,7 @@
     }
     
     table {
-        width: 105%;
+        width:100%;
         border-collapse: collapse;
     }
     
@@ -96,7 +98,7 @@
     td a {
         color: #0066cc;
         text-decoration: none;
-        margin-right: 10px;
+        text-align: center;
     }
     
     td a:hover {
@@ -106,6 +108,9 @@
     /* Order Form */
     .order-form {
          display: none;
+         margin-left:10vw;
+         margin-top: -70px;
+         text-align:center;
     }
 
     .order-table th,
@@ -147,24 +152,61 @@
 	  background-color: #FF6848;
 	  border-radius: 14px;
 	}
+	
 	.s-sidebar__nav {
-   position: relative;
-   top: 0px; /* Aggiungi una margine superiore per allineare la sidebar sotto la navbar */
-   left: 0;
-   overflow: hidden;
-   transition: all .3s ease-in;
-   width: 15em;
-   height: calc(100% - 245px); /* Calcola l'altezza della sidebar in base alla navbar */
-   background: #ff6848;
-   color: rgba(255, 255, 255, 0.7);
-   z-index: 0;
+	   position: relative;
+	   top: 0px; /* Aggiungi una margine superiore per allineare la sidebar sotto la navbar */
+	   left: 0;
+	   overflow: hidden;
+	   transition: all .3s ease-in;
+	   width: 15em;
+	   height: calc(100% - 245px); /* Calcola l'altezza della sidebar in base alla navbar */
+	   background: #ff6848;
+	   color: rgba(255, 255, 255, 0.7);
+	   z-index: 0;
+	}
+	
+	.profile-form{
+			display: block;
+	         margin-left:10vw;
+	         margin-top: -70px;
+	         text-align:center;
+	}
+	
+	#modifica-form{
+	display: none;
+	}
+	
+	@media screen and (max-width: 750px) {
+  table {
+    display: block;
+  }
+  th,
+  td {
+    display: block;
+    width: 100%;
+  }
+  th {
+    text-align: center;
+  }
+  td {
+    text-align: center;
+  }
+  tr:nth-child(even) {
+    background-color: transparent;
+  }
+  tr {
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+  }
+  td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    text-align: center;
+  }
 }
-
-#modifica-form{
-
-display: none;
-}
-
 	
 </style>
 <link href="styleAreautente.css" rel="stylesheet" type="text/css">
@@ -462,15 +504,13 @@ if (products != null && !products.isEmpty()) {
       }
     });
   }
-</script>
-
-<script>
-  var searchForm = document.getElementById("search");
-  if (searchForm) {
-    searchForm.addEventListener("submit", function(e) {
+  
+  var searchFormOrders = document.getElementById("search");
+  if (searchFormOrders) {
+    searchFormOrders.addEventListener("submit", function(e) {
       e.preventDefault(); // Evita l'invio del modulo normale
 
-      var email = document.getElementById("user-email-input").value;
+      var email = document.getElementById("user-email-input-orders").value;
       var table = document.getElementById("orderTable");
 
       // Trova le righe corrispondenti all'email nella tabella
@@ -480,18 +520,18 @@ if (products != null && !products.isEmpty()) {
         if (i === 0 || row.getAttribute("data-email") === email) {
           row.style.display = "table-row"; // Mostra le righe corrispondenti e l'intestazione
         } else {
-          row.style.display = ""; // Ripristina lo stile predefinito della riga
+          row.style.display = "none"; // Nascondi le altre righe
         }
       }
       
       // Resetta il valore dell'input dopo la ricerca
-      document.getElementById("user-email-input").value = "";
+      document.getElementById("user-email-input-orders").value = "";
     });
   }
   
-  var resetButton = document.getElementById("reset-button");
-  if (resetButton) {
-    resetButton.addEventListener("click", function() {
+  var resetButtonOrders = document.getElementById("reset-button-orders");
+  if (resetButtonOrders) {
+    resetButtonOrders.addEventListener("click", function() {
       var table = document.getElementById("orderTable");
       var rows = table.getElementsByTagName("tr");
       for (var i = 0; i < rows.length; i++) {
@@ -500,6 +540,7 @@ if (products != null && !products.isEmpty()) {
     });
   }
 </script>
+
 
 <script>
     // Gestione degli eventi per le sottopagine

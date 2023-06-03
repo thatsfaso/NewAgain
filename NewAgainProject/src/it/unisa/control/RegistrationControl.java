@@ -147,6 +147,40 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		        request.setAttribute("errore", "Errore del database: " + e.getMessage());
 		    }
 		}
+        if (action != null && action.equalsIgnoreCase("modifica")) {
+            String email = request.getParameter("email");
+            String nome = request.getParameter("nome");
+            String cognome = request.getParameter("cognome");
+            String indirizzo = request.getParameter("indirizzo");
+            String citta = request.getParameter("citta");
+            String provincia = request.getParameter("provincia");
+            String cap = request.getParameter("cap");
+            String pass = request.getParameter("pass");
+            
+            Utente utente = new Utente();
+            utente.setEmail(email);
+            utente.setNome(nome);
+            utente.setCognome(cognome);
+            utente.setIndirizzo(indirizzo);
+            utente.setCitta(citta);
+            utente.setProvincia(provincia);
+            utente.setCap(cap);
+            utente.setPass(pass);
+            
+            UtenteDao utenteDao = new UtenteDao();
+            utenteDao.doUpdate(utente);
+            
+            HttpSession session = request.getSession();
+            session.setAttribute("nome", nome);
+            session.setAttribute("cognome", cognome);
+            session.setAttribute("indirizzo", indirizzo);
+            session.setAttribute("citta", citta);
+            session.setAttribute("provincia", provincia);
+            session.setAttribute("cap", cap);
+            
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Profilo.jsp");
+            dispatcher.forward(request, response);
+        }
 	}}
 	catch (SQLException e) {
 	System.out.println("Error:" + e.getMessage());

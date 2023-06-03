@@ -9,7 +9,8 @@ CREATE TABLE product (
   quantita tinyint DEFAULT '0' ,
   foto mediumblob,
   sesso varchar(255),
-  nome varchar(50)
+  nome varchar(50),
+  categoria varchar(50)
 );
 
 CREATE TABLE utente (
@@ -68,12 +69,12 @@ CREATE TABLE pagamento(
 );
 
 
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ("Cargo Nike nero",12, 0, 'F', "Cargo Nike Donna");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ('Maglietta Nike grigia', 29.99, 0, 'M', "Maglietta Nike Uomo");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ('Polo Ralph Lauren nera ', 59.99, 0, 'M', "Polo Ralph Lauren Uomo");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ('Felpa Nike nera', 49.99, 0, 'U', "Felpa Nike Uomo");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ('Jeans Levi\'s color jeans ', 89.99, 0, 'M', "Jeans Levi\'s Uomo");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ('Maglione Lacoste beige', 79.99, 1,'F', "Maglione Lacoste Donna");      -- PRODOTTO SETTATO A 1 AS NON DISPONIBILE 
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("Cargo Nike nero",12, 0, 'F', "Cargo Nike Donna", "pantaloni");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Maglietta Nike grigia', 29.99, 0, 'M', "Maglietta Nike Uomo", "maglie");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Polo Ralph Lauren nera ', 59.99, 0, 'M', "Polo Ralph Lauren Uomo", "maglie");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Felpa Nike nera', 49.99, 0, 'U', "Felpa Nike Uomo", "felpe");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Jeans Levi\'s color jeans ', 89.99, 0, 'M', "Jeans Levi\'s Uomo", "pantaloni");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Maglione Lacoste beige', 79.99, 1,'F', "Maglione Lacoste Donna", "maglie");      -- PRODOTTO SETTATO A 1 AS NON DISPONIBILE 
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);

@@ -3,6 +3,9 @@
 <%@ page import="javax.servlet.http.HttpServletRequest" %>
 <%@ page import="javax.servlet.http.HttpServletResponse" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+Collection<?> products = (Collection<?>) request.getAttribute("products");
+%>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -127,6 +130,21 @@ body {
 	margin-left: 15px;
 	margin-right: 15px;
 }
+
+.cerca {
+    display: none;
+    justify-content: center;
+    position: relative; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+}
+
+#searchInput{
+border: 2px solid black;
+border-radius: 5px;
+}
+
 </style>
 </head>
 <body>
@@ -134,17 +152,23 @@ body {
 	<a href="Home.jsp"><img src="./nuovologo.png" id="image"></a>
 	<div class="dx">
     <% if (session.getAttribute("email") == null) { %>
-        <a href="http://www.google.com"><img src="cerca.png"></a>
+        <a href="#0" id="cercap"><img src="cerca.png"></a>
         <a href="Accedi.jsp"><img src="utente.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
     <% } else { %>
-        <a href="http://www.google.com"><img src="cerca.png"></a>
+        <a href="#0" id="cercap"><img src="cerca.png"></a>
         <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png"></a>
         <a href="registration?action=logout"><img src="logout.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
     <% } %>
 	</div>
-	 
+	</div>
+	<br><br>
+		<div class="cerca">
+	<form action="product" method="GET">
+	    <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
+	    <button type="submit" onclick="submitSearch(event)">Cerca</button>
+	</form>
 	</div>
 	  <br>
 	<!-- Contenitore dello slideshow -->
@@ -220,6 +244,29 @@ body {
 
 	// Avvio del cambio immagine automatico ogni 2 secondi
 	setInterval(autoSlides, 2000);
+</script>
+
+<script>
+    function submitSearch(event) {
+        event.preventDefault(); // Previeni il comportamento predefinito del link
+
+        var searchInput = document.getElementById("searchInput");
+        var nome = searchInput.value.trim();
+
+        if (nome !== "") {
+            var url = "product?action=search&nome=" + encodeURIComponent(nome);
+            window.location.href = url;
+        }
+    }
+    
+    var cercaLink = document.getElementById("cercap");
+    var cercaSection = document.querySelector(".cerca");
+
+    cercaLink.addEventListener("click", function(event) {
+        event.preventDefault();
+        cercaSection.style.display = "flex";
+    });
+
 </script>
 
 	<div class="container1">
