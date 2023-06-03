@@ -8,7 +8,219 @@
 %>
 <html>
 <head>
+<title>Profilo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
+
+Primary Styles */
+*, *::before, *::after {
+   box-sizing: border-box;
+}
+
+body {
+   font-family: sans-serif;
+   font-size: 1em;
+   color: #333;
+}
+
+h1 {
+  font-size: 1.4em;
+}
+
+em {
+   font-style: normal;
+}
+
+a {
+   text-decoration: none;
+   color: inherit;
+} 
+
+/* Layout */
+.s-layout {
+   display: flex;
+   width: 100%;
+   min-height: 100vh;
+}
+
+   .s-layout__content {
+   display: flex;
+   
+   flex: 1;
+   margin-left: 0;
+   margin-top: 30px;
+   position: relative;
+   flex-wrap: wrap; /* Aggiungi questa riga */
+}
+
+/* Sidebar */
+.s-sidebar__trigger {
+   z-index: 2;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 4em;
+   }
+
+.s-sidebar__trigger > i {
+   display: inline-block;
+   margin: 1.5em 0 0 1.5em;
+   color: #f07ab0;
+}
+
+.s-sidebar__nav {
+   position: relative;
+   top: 0px; /* Aggiungi una margine superiore per allineare la sidebar sotto la navbar */
+   left: 0;
+   overflow: hidden;
+   transition: all .3s ease-in;
+   width: 15em;
+   height: calc(100% - 245px); /* Calcola l'altezza della sidebar in base alla navbar */
+   background: #ff6848;
+   color: rgba(255, 255, 255, 0.7);
+   z-index: 0;
+}
+
+.s-sidebar__nav:hover,
+.s-sidebar__nav:focus,
+.s-sidebar__trigger:focus + .s-sidebar__nav,
+.s-sidebar__trigger:hover + .s-sidebar__nav {
+   left: 0;
+}
+
+.s-sidebar__nav ul {
+   position: absolute;
+   top: 4em;
+   left: 0;
+   margin: 0;
+   padding: 0;
+   width: 15em;
+}
+
+.s-sidebar__nav ul li {
+   width: 100%;
+}
+
+.s-sidebar__nav-link {
+   position: relative;
+   display: inline-block;
+   width: 100%;
+   height: 4em;
+}
+
+.s-sidebar__nav-link em {
+   position: absolute;
+   top: 50%;
+   left: 4em;
+   transform: translateY(-50%);
+}
+
+.s-sidebar__nav-link:hover {
+   background: #ff6848;
+}
+
+.s-sidebar__nav-link > i {
+   position: absolute;
+   top: 0;
+   left: 0;
+   display: inline-block;
+   width: 4em;
+   height: 4em;
+}
+
+.s-sidebar__nav-link > i::before {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+
+@media (min-width: 42em) {
+  .s-sidebar__nav {
+    width: 4em;
+  }
+
+  .s-sidebar__nav:hover,
+  .s-sidebar__nav:focus,
+  .s-sidebar__trigger:focus + .s-sidebar__nav,
+  .s-sidebar__trigger:hover + .s-sidebar__nav {
+    width: 15em;
+  }
+}
+
+@media (min-width: 68em) {
+  .s-sidebar__trigger {
+    display: none;
+  }
+
+  .s-sidebar__nav {
+    width: 15em;
+  }
+
+  .s-sidebar__nav ul {
+    top: 1.3em;
+  }
+}
+
+@media (max-width: 42em) {
+  .s-sidebar__nav {
+    width: 0;
+  }
+
+  .s-sidebar__nav:hover,
+  .s-sidebar__nav:focus,
+  .s-sidebar__trigger:focus + .s-sidebar__nav,
+  .s-sidebar__trigger:hover + .s-sidebar__nav {
+    width: 0;
+  }
+}
+
+@media (max-width: 68em) {
+  .s-sidebar__trigger {
+    display: block;
+  }
+
+  .s-sidebar__nav {
+    width: 0;
+  }
+
+  .s-sidebar__nav ul {
+    top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-form {
+    width: 100%;
+    margin: 10px;
+  }
+
+  @media (min-width: 68em) {
+    .s-sidebar__nav {
+      width: 15em;
+    }
+  }
+}
+
+
+  .order-table {
+    font-size: 12px;
+  }
+
+  .order-table th,
+  .order-table td {
+    padding: 5px;
+  }
+
+  .order-table th:not(:last-child),
+  .order-table td:not(:last-child) {
+    margin-right: 5px;
+  }
+}
+
+
 .order-table th,
 .order-table td {
   padding: 8px; /* Aggiungi uno spazio di 8px all'interno delle celle */
@@ -20,7 +232,65 @@
 }
 
 .profile-form {
-  display: none;
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    width: 300px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-form input[type="text"],
+.profile-form input[type="password"] {
+    margin-bottom: 10px;
+}
+
+.profile-form input[type="submit"] {
+    margin-top: 10px;
+}
+
+
+.order-form{
+	display:none;
+	    position: absolute;
+    top: 10px;
+    left: 20px;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-table th,
+.order-table td {
+  padding: 8px;
+}
+
+.order-table th:not(:last-child),
+.order-table td:not(:last-child) {
+  margin-right: 10px;
+}
+
+.order-table th {
+  background-color: #f5f5f5;
+  text-align: left;
+}
+
+.order-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.order-table tr:hover {
+  background-color: #f2f2f2;
+}
+
+.order-table a {
+  text-decoration: none;
+  color: #333;
 }
 
 	.banner {
@@ -52,8 +322,8 @@
 	margin-left: 15px;
 	margin-right: 15px;
 }
+
 </style>
-   <link href="styleAreautente.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -105,7 +375,7 @@
   
   <div class="profile-form">
    <h1>Profilo utente</h1>
-    <form action="modifica" method="post">
+    <form action="registration?action=modifica" method="post">
       <label>Nome:</label>
       <input type="text" name="nome" value="<%=session.getAttribute("nome") %>"><br>
     <label>Cognome:</label>
