@@ -420,7 +420,7 @@ a {
         <tr>
           <td><%= ordine.getNumeroOrdine() %></td>
           <td><%= ordine.getData() %></td>
-          <td><%= ordine.getTotale() %></td>
+          <td><%= ordine.getTotale() %>€</td>
           <td><%= ordine.getStato() %></td>
           <td><a href="ordine?action=Dettagli&NumeroOrdine=<%=ordine.getNumeroOrdine()%>&email=<%=session.getAttribute("email")%>">Mostra</a></td>
           

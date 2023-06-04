@@ -36,7 +36,7 @@ public class ProductDao {
 	public synchronized void doSave(Prodotto product) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
-	    String insertSQL = "INSERT INTO " + ProductDao.TABLE_NAME + " (descrizione, prezzo, quantita,foto, sesso, nome, categoria) VALUES (?, ?, ?,?, ?, ?, ?)";
+	    String insertSQL = "INSERT INTO " + ProductDao.TABLE_NAME + " (descrizione, prezzo, quantita,foto, sesso, nome, categoria, iva) VALUES (?, ?, ?,?, ?, ?, ?,?)";
 
 	    try {
 	        connection = ds.getConnection();
@@ -49,6 +49,7 @@ public class ProductDao {
 	        preparedStatement.setString(5, product.getSesso());
 	        preparedStatement.setString(6, product.getNome());
 	        preparedStatement.setString(7, product.getCategoria());
+	        preparedStatement.setDouble(8, product.getIva());
 	        preparedStatement.executeUpdate();
 	    } finally {
 	        try {
@@ -168,6 +169,8 @@ public class ProductDao {
 				bean.setQuantita(rs.getInt("quantita"));
 				bean.setCategoria(rs.getString("categoria"));
 				bean.setImg(rs.getBytes("foto"));
+				bean.setIva(rs.getDouble("iva"));
+
 			}
 
 		} finally {
@@ -292,6 +295,7 @@ public class ProductDao {
 				bean.setSesso(rs.getString("sesso"));
 				bean.setNome(rs.getString("nome"));
 				bean.setCategoria(rs.getString("categoria"));
+				bean.setIva(rs.getDouble("iva"));				
 				byte[] imageByte = blob.getBytes(1,(int) blob.length());
 				bean.setImg(imageByte);
 				
@@ -359,7 +363,7 @@ public class ProductDao {
 	public synchronized void doUpdate(Prodotto product) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
-	    String updateSQL = "UPDATE " + ProductDao.TABLE_NAME + " SET descrizione = ?, prezzo = ?, quantita = ?, foto = ?, sesso = ?, nome = ? categoria = ? WHERE id = ?";
+	    String updateSQL = "UPDATE " + ProductDao.TABLE_NAME + " SET descrizione = ?, prezzo = ?, quantita = ?, foto = ?, sesso = ?, nome = ? categoria = ?, iva = ? WHERE id = ?";
 
 	    try {
 	        connection = ds.getConnection();
@@ -373,6 +377,7 @@ public class ProductDao {
 	        preparedStatement.setString(6, product.getNome());
 	        preparedStatement.setString(7, product.getCategoria());
 	        preparedStatement.setInt(8, product.getID());
+	        preparedStatement.setDouble(9, product.getIva());
 	        preparedStatement.executeUpdate();
 	    } finally {
 	        try {
