@@ -342,6 +342,7 @@ public class ProductDao {
 				bean.setSesso(rs.getString("sesso"));
 				bean.setNome(rs.getString("nome"));
 				bean.setCategoria(rs.getString("categoria"));
+				bean.setIva(rs.getDouble("iva"));
 				Blob blob = rs.getBlob("foto");
 				byte[] imageByte = blob.getBytes(1,(int) blob.length());
 				bean.setImg(imageByte);
@@ -416,6 +417,7 @@ public class ProductDao {
 	            bean.setSesso(rs.getString("sesso"));
 	            bean.setNome(rs.getString("nome"));
 	            bean.setCategoria(rs.getString("categoria"));
+	            bean.setIva(rs.getDouble("iva"));
 	            Blob blob = rs.getBlob("foto");
 	            byte[] imageByte = blob.getBytes(1, (int) blob.length());
 	            bean.setImg(imageByte);
@@ -458,6 +460,7 @@ public class ProductDao {
 				bean.setSesso(rs.getString("sesso"));
 				bean.setNome(rs.getString("nome"));
 				bean.setCategoria(rs.getString("categoria"));
+				bean.setIva(rs.getDouble("iva"));
 				Blob blob = rs.getBlob("foto");
 				byte[] imageByte = blob.getBytes(1,(int) blob.length());
 				bean.setImg(imageByte);
@@ -501,6 +504,7 @@ public class ProductDao {
 	            bean.setSesso(rs.getString("sesso"));
 	            bean.setNome(rs.getString("nome"));
 	            bean.setCategoria(rs.getString("categoria"));
+	            bean.setIva(rs.getDouble("iva"));
 	            Blob blob = rs.getBlob("foto");
 	            byte[] imageByte = blob.getBytes(1, (int) blob.length());
 	            bean.setImg(imageByte);
