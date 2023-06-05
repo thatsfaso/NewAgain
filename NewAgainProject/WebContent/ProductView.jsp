@@ -20,46 +20,64 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link href="ProductStyle.css" rel="stylesheet" type="text/css">
+  
   <title>New Again</title>
 <style>
-			body{
-			margin:0;
-			}
-			
-			header {
-			  width: 100%;
-			}
-			
-			.banner {
-				background-color: rgba(235, 235, 240, 0.66);
-				position: relative;
-				display: flex;
-				height: 115px;
-			}
-			
-			#image {
-				position: absolute;
-				left: 10px;
-				z-index: 1;
-				width: 125px;
-				height: 125px;
-			}
-			
-			.dx {
-				position: absolute;
-				top: 50px;
-				right: 5px;
-				z-index: 1;
-			}
-			
-			.dx img {
-				width: 40px;
-				height: 40px;
-				margin-left: 15px;
-				margin-right: 15px;
-			}
+			body {
+			  font-family: Arial, sans-serif;
+			  background-color: #F5F5F7;
+			  margin: 0;
+			  }
+			  
+			  h1 {
+				  text-align: center;
+				  font-size: 36px;
+				  color: #1a202c;
+				}
+				
+		.banner {
+			background-color: rgba(235, 235, 240, 0.66);
+			position: relative;
+			height: 90px;
+			width: 100%;
+		}
 		
+		#image {
+			position: absolute;
+			top: -18px;
+			left: 10px;
+			z-index: 1;
+			width: 125px;
+			height: auto;
+		}
+		
+		.dx {
+		    display: flex;
+		    justify-content: center; /* Centra orizzontalmente gli elementi */
+		    align-items: center;
+			position: absolute;
+			width: auto;
+			top: 20px;
+			right: 5px;
+			z-index: 1;
+		 
+		}
+		
+		.dx img {
+			width: 40px;
+			height: 40px;
+			margin-left: 15px;
+			margin-right: 15px;
+		}
+		
+		.cerca {
+		    display: none;
+		}
+		
+		#searchInput{
+		border: 2px solid black;
+		border-radius: 5px;
+		}
 		/* Stile per la visualizzazione dei prodotti */
 
 		.product:hover {
@@ -224,15 +242,66 @@
 		.dropdown:hover .dropdown-content {
 		  display: block;
 		}
+		
+		/* Tabella dei dettagli del prodotto */
+		table {
+		  width: 100%;
+		  margin-top: 20px;
+		  border-collapse: collapse;
+		}
+		
+		table th,
+		table td {
+		  padding: 8px;
+		  border: 1px solid #ccc;
+		}
+		
+		table th {
+		  background-color: #f2f2f2;
+		  text-align: left;
+		}
+		
+		h2 {
+		  text-align: center;
+		  margin:0;
+		  padding:0;
+		}
+		
+		a:link {
+		  color: #1d1d1f;
+		  font-weight: bold;
+		}
+		
+		
+		a:visited {
+		  color: #1d1d1f;
+		  font-weight: bold;
+		}
+		
+		
+		a:hover {
+		  color: #e7e7e7;
+		  font-weight: bold;
+		}
+		
+		a:active {
+		  color: #1d1d1f;
+		  font-weight: bold;
+		}
 </style>
 </head>
 <body>
-<header>
 	<div class="banner"> 
 	<a href="Home.jsp"><img src="./nuovologo.png" id="image"></a>
 	<div class="dx">
     <% if (session.getAttribute("email") == null) { %>
-        <a href="http://www.google.com"><img src="cerca.png"></a>
+        <a href="#0" id="cercap"><img src="cerca.png"></a>
+        		<div class="cerca">
+				<form action="product" method="GET">
+				    <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
+				    <button type="submit" onclick="submitSearch(event)">Cerca</button>
+				</form>
+				</div>
         <a href="Accedi.jsp"><img src="utente.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
     <% } else { %>
@@ -244,9 +313,6 @@
 	</div>
 	 
 	</div>
-</header>
-	  <br>
-	  <br>
 <nav>
   <div class="dropdown">
     <a href="product?action=dettaglio&sesso=M" class="dropbtn">Uomo</a>
@@ -254,9 +320,7 @@
       <a href="product?action=dettaglio&categoria=giacche&sesso=M">Giacche</a>
       <a href="product?action=dettaglio&categoria=felpe&sesso=M">Felpe</a>
       <a href="product?action=dettaglio&categoria=maglie&sesso=M">Maglie</a>
-      <a href="product?action=dettaglio&categoria=camicie&sesso=M">Camicie</a>
       <a href="product?action=dettaglio&categoria=pantaloni&sesso=M">Pantaloni</a>
-      <a href="product?action=dettaglio&categoria=scarpe&sesso=M">Scarpe</a>
       <a href="product?action=dettaglio&categoria=accessori&sesso=M">Accessori</a>
     </div>
   </div>
@@ -266,17 +330,14 @@
       <a href="product?action=dettaglio&categoria=giacche&sesso=F">Giacche</a>
       <a href="product?action=dettaglio&categoria=felpe&sesso=F">Felpe</a>
       <a href="product?action=dettaglio&categoria=maglie&sesso=F">Maglie</a>
-      <a href="product?action=dettaglio&categoria=camicie&sesso=F">Camicie</a>
       <a href="product?action=dettaglio&categoria=pantaloni&sesso=F">Pantaloni</a>
-      <a href="product?action=dettaglio&categoria=scarpe&sesso=F">Scarpe</a>
       <a href="product?action=dettaglio&categoria=accessori&sesso=F">Accessori</a>
     </div>
   </div>
   <div class="dropdown">
     <a href="product?action=dettaglio&tipologia=accessori" class="dropbtn">Accessori</a>
     <div class="dropdown-content">
-      <a href="#">Collane</a>
-      <a href="#">Bracciali</a>
+      <a href="#">Cappelli</a>
       <a href="#">Altro</a>
     </div>
   </div>
@@ -329,5 +390,18 @@ if (count % 4 != 0) { %>
 <% } %>
     </div>
   </div>
+  <script>
+  var cercaLink = document.getElementById("cercap");
+	var cercaSection = document.querySelector(".cerca");
+		 
+			cercaLink.addEventListener("click", function(event) {
+			event.preventDefault();
+		if (cercaSection.style.display === "flex") {
+			cercaSection.style.display = "none"; // Se la barra di ricerca è già visibile, nascondila
+		} else {
+			cercaSection.style.display = "flex"; // Altrimenti, mostra la barra di ricerca
+		}
+		});
+  </script>
 </body>
 </html>
