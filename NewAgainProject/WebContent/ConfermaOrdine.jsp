@@ -12,6 +12,7 @@
 <body>
 	<form action="acquista" method="post">
     <input type="hidden" name="action" value="completa">
+    <input type="hidden" name="email" value="<%= session.getAttribute("email") %>">
     <h2>Conferma ordine</h2>
     <input type="hidden" name="Tipocons" value="<%= request.getAttribute("TipoC") %>">
     <p>Tipo di consegna: <%= request.getAttribute("TipoC") %></p>
@@ -19,19 +20,23 @@
     String tipoc = (String) request.getAttribute("TipoC");
     if(tipoc.equals("Consegna a casa")) {%>
     <label>Indirizzo:</label>
-    				<input type="hidden" name="indirizzo" value="<%= request.getAttribute("indirizzo") %>">
+    				<input type="hidden" name="indirizzo" value="<%= session.getAttribute("indirizzo") %>">
    					<%= session.getAttribute("indirizzo") %>
-   					<input type="hidden" name="citta" value="<%= request.getAttribute("citta") %>">
+   					<input type="hidden" name="citta" value="<%= session.getAttribute("citta") %>">
                     <%= session.getAttribute("citta") %>
-                    <input type="hidden" name="provincia" value="<%= request.getAttribute("provincia") %>">
+                    <input type="hidden" name="provincia" value="<%= session.getAttribute("provincia") %>">
                     <%= session.getAttribute("provincia") %>
-                    <input type="hidden" name="cap" value="<%= request.getAttribute("cap") %>">
+                    <input type="hidden" name="cap" value="<%= session.getAttribute("cap") %>">
                     <%= session.getAttribute("cap") %>
     <%}
     else if(tipoc.equals("Altro indirizzo")){ %>
-    <%= request.getAttribute("indirizzo") %>
+    				<input type="hidden" name="indirizzo" value="<%= request.getAttribute("indirizzo") %>">
+   				    <%= request.getAttribute("indirizzo") %>
+   				    <input type="hidden" name="citta" value="<%= request.getAttribute("citta") %>">
                     <%= request.getAttribute("citta") %>
+                    <input type="hidden" name="provincia" value="<%= request.getAttribute("provincia") %>">
                     <%= request.getAttribute("provincia") %>
+                    <input type="hidden" name="cap" value="<%= request.getAttribute("cap") %>">
                     <%= request.getAttribute("cap") %>    	
     <% }
     %>

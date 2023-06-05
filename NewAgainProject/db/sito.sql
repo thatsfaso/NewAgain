@@ -10,7 +10,6 @@ CREATE TABLE product (
   foto mediumblob,
   sesso varchar(255),
   nome varchar(50),
-  categoria varchar(50),
   iva double NOT NULL DEFAULT '22'
 );
 
@@ -61,8 +60,7 @@ CREATE TABLE pagamento(
     tipo ENUM('Carta di Credito', 'PayPal', 'Apple Pay'),
 	titolare varchar(80),
 	numero_carta varchar(16),
-	meseScadenza int,
-    annoScadenza int,
+	scadenza varchar(5),
 	CVV int,
 	n_Ordine INT,
   PRIMARY KEY (id_pagamento),
@@ -70,12 +68,12 @@ CREATE TABLE pagamento(
 );
 
 
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("Cargo Nike nero",100, 0, 'F', "Cargo Nike Donna", "pantaloni");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Maglietta Nike grigia', 100, 0, 'M', "Maglietta Nike Uomo", "maglie");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Polo Ralph Lauren nera ', 100, 0, 'M', "Polo Ralph Lauren Uomo", "maglie");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Felpa Nike nera', 100, 0, 'U', "Felpa Nike Uomo", "felpe");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Jeans Levi\'s color jeans ', 100, 0, 'M', "Jeans Levi\'s Uomo", "pantaloni");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Maglione Lacoste beige', 100, 1,'F', "Maglione Lacoste Donna", "maglie");      -- PRODOTTO SETTATO A 1 AS NON DISPONIBILE 
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ("Cargo Nike nero",12, 0, 'F', "Cargo Nike Donna");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ('Maglietta Nike grigia', 29.99, 0, 'M', "Maglietta Nike Uomo");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ('Polo Ralph Lauren nera ', 59.99, 0, 'M', "Polo Ralph Lauren Uomo");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ('Felpa Nike nera', 49.99, 0, 'U', "Felpa Nike Uomo");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ('Jeans Levi\'s color jeans ', 89.99, 0, 'M', "Jeans Levi\'s Uomo");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione) VALUES ('Maglione Lacoste beige', 79.99, 1,'F', "Maglione Lacoste Donna");      -- PRODOTTO SETTATO A 1 AS NON DISPONIBILE 
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
@@ -89,7 +87,7 @@ INSERT INTO ordine (dataOrdine, totale, stato, email, indirizzo, citta, provinci
 INSERT INTO composizione (quantita, totale, codP, numeroO) values (1, 22.6, 1, 1);
 INSERT INTO composizione (quantita, totale, codP, numeroO) values (1, 22.6, 2, 1);
 
-INSERT INTO pagamento (id_pagamento, tipo, titolare, numero_carta, meseScadenza, annoScadenza, CVV, n_Ordine) VALUES (1, 'Carta di Credito', 'Iliano Fasolino', '5354566943441223', 12, 24, 666, 1);
-
+INSERT INTO pagamento (id_pagamento, tipo, titolare, numero_carta, scadenza, CVV, n_Ordine) VALUES (1, 'Carta di Credito', 'Iliano Fasolino', '5354566943441223', 12-24, 666, 1);
 INSERT INTO ordine (dataOrdine, totale, stato, email, indirizzo, citta, provincia, cap) VALUES ("2023-11-10",22,'In Preparazione', "giulia.verdi@gmail.com", 'Via Garibaldi 2', 'Firenze', 'FI', '50122');
 INSERT INTO ordine (dataOrdine, totale, stato, email, indirizzo, citta, provincia, cap) VALUES ("2021-11-10",22,'In Preparazione', "giulia.verdi@gmail.com", 'Contrada Carrara 13', 'Castelpoto', 'BN', '82030');
+

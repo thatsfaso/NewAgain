@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.unisa.model.AcquistoDao;
-import it.unisa.model.Cart;
+
+import it.unisa.model.*;
 
 
 /**
@@ -55,7 +55,7 @@ public class AcquistoControl extends HttpServlet {
 				String TipoC = request.getParameter("delivery-option");
 				String indirizzo = request.getParameter("address");
 				String citta = request.getParameter("citta");
-				String cap = request.getParameter("CAP");
+				String cap = request.getParameter("cap");
 				String provincia = request.getParameter("provincia");
 				request.setAttribute("provincia", provincia);
 				request.setAttribute("citta", citta);
@@ -82,8 +82,23 @@ public class AcquistoControl extends HttpServlet {
 				String citta = request.getParameter("citta");
 				String cap = request.getParameter("cap");
 				String provincia = request.getParameter("provincia");
+				String email = request.getParameter("email");
+				request.setAttribute("email", email);
+				request.setAttribute("provincia", provincia);
+				request.setAttribute("citta", citta);
+				request.setAttribute("cap", cap);
+				request.setAttribute("indirizzo", indirizzo);
+				request.setAttribute("TipoC", TipoC);
+				request.setAttribute("cart",cart);
+				request.setAttribute("Pagamento", pagamento);
+				request.setAttribute("numeroCarta", numeroCarta);
+				request.setAttribute("card-holder", titolareCarta);
+				request.setAttribute("scadenzaCarta",scadenzaCarta);
+				request.setAttribute("cvv", cvv);
+				model.inserimentoaq(provincia, indirizzo, cap, citta, cart, email,
+			    		 pagamento, numeroCarta , titolareCarta , scadenzaCarta , cvv);
 				
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/prova.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/Home.jsp");
 				dispatcher.forward(request, response);
 				
 			}
