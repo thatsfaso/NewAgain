@@ -97,7 +97,8 @@ public class AcquistoControl extends HttpServlet {
 				request.setAttribute("cvv", cvv);
 				model.inserimentoaq(provincia, indirizzo, cap, citta, cart, email,
 			    		 pagamento, numeroCarta , titolareCarta , scadenzaCarta , cvv);
-				
+				Cart nuovo = new Cart();
+				request.setAttribute("cart",nuovo);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/Home.jsp");
 				dispatcher.forward(request, response);
 				
