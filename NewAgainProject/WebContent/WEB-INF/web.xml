@@ -54,15 +54,4 @@
     <servlet-name>RegistrationControl</servlet-name>
     <url-pattern>/registration</url-pattern>
   </servlet-mapping>
-  
-	<servlet>
-	  <servlet-name>ModificaControl</servlet-name>
-	  <servlet-class>it.unisa.control.ModificaControl</servlet-class>
-	</servlet>
-	
-	 <servlet-mapping>
-	  <servlet-name>ModificaControl</servlet-name>
-	  <url-pattern>/modifica</url-pattern>
-	</servlet-mapping>
-
 </web-app>
