@@ -74,7 +74,7 @@ INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('
 INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Polo Ralph Lauren nera ', 100, 0, 'M', "Polo Ralph Lauren Uomo", "maglie");
 INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Felpa Nike nera', 100, 0, 'U', "Felpa Nike Uomo", "felpe");
 INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Jeans Levi\'s color jeans ', 100, 0, 'M', "Jeans Levi\'s Uomo", "pantaloni");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Maglione Lacoste beige', 100, 1,'F', "Maglione Lacoste Donna", "maglie");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Maglione Lacoste beige', 100, 1,'F', "Maglione Lacoste Donna", "maglie");   -- PRODOTTO SETTATO A 1 AS NON DISPONIBILE 
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
