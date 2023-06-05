@@ -67,6 +67,14 @@ CREATE TABLE pagamento(
   PRIMARY KEY (id_pagamento),
   FOREIGN KEY (n_Ordine) REFERENCES ordine(numeroOrdine)
 );
+CREATE TABLE recensioni (
+  valutazione INT,
+  email VARCHAR(50),
+  codp INT,
+  PRIMARY KEY (codp,email),
+  FOREIGN KEY (email) REFERENCES utente(email),
+  FOREIGN KEY (codp) REFERENCES product(id)
+);
 
 
 INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("Cargo Nike nero",100, 0, 'F', "Cargo Nike Donna", "pantaloni");

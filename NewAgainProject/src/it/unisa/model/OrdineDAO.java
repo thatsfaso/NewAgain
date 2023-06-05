@@ -258,4 +258,38 @@ public class OrdineDAO {
 	    return ordini;
 	}
 
-}
+	public void ValutaProd(String email, int codP, int val) {
+		Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    String sql1 ="INSERT INTO recensioni (valutazione, email, codp)"+
+		"VALUES (?,?,?)";
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(sql1);
+	        preparedStatement.setInt(1, val);
+	        preparedStatement.setString(2,email);
+	        preparedStatement.setInt(3,codP);
+	        preparedStatement.executeUpdate();
+		
+	}catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+        try {
+            if (preparedStatement != null)
+                preparedStatement.close();
+        } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+            if (connection != null)
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        }
+    }
+
+}}

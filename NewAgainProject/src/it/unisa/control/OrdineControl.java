@@ -47,6 +47,14 @@ public class OrdineControl extends HttpServlet {
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Profilo.jsp");
 				dispatcher.forward(request, response);
 			} 
+			else if(action.equalsIgnoreCase("valuta")) {
+			    String email = (String) request.getSession().getAttribute("email");
+			    int codP = Integer.parseInt(request.getParameter("prodotto"));
+			    int val = Integer.parseInt(request.getParameter("stelle"));
+			    ordine.ValutaProd(email, codP, val);
+			    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ordine?action=ViewOrdini&email=" + email);
+			    dispatcher.forward(request, response);
+			}
 			else if(action.equalsIgnoreCase("Dettagli")) {
 				String email = request.getParameter("email");
 		        List<Ordine> ordini = ordine.getOrdini(email); // Recupera gli ordini dal database

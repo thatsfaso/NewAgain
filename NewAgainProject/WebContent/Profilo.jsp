@@ -488,13 +488,29 @@ a {
 		      <td><% String base64Image = Base64.getEncoder().encodeToString(prodotto.getImg()); %>
 		      <img src="data:image/jpeg;base64, <%= base64Image %>" width="40" height="40"></td>
 		      <td> 
-		      	<div class="stars" id="stars-<%= prodotto.getID() %>">
-     			<span class="star" onclick="rate(1, <%= prodotto.getID() %>)">&#9733;</span>
-      			<span class="star" onclick="rate(2, <%= prodotto.getID() %>)">&#9733;</span>
-      			<span class="star" onclick="rate(3, <%= prodotto.getID() %>)">&#9733;</span>
-      			<span class="star" onclick="rate(4, <%= prodotto.getID() %>)">&#9733;</span>
-      			<span class="star" onclick="rate(5, <%= prodotto.getID() %>)">&#9733;</span>
-    			</div>
+			<form action="ordine" method="GET">
+		  <input type="hidden" name="action" value="valuta">
+		  <input type="hidden" name="prodotto" value="<%= prodotto.getID() %>">
+		  <input type="hidden" name="stelle" id="stelle-<%= prodotto.getID() %>" value="">
+		  
+		  
+		  <div class="stars" id="stars-<%= prodotto.getID() %>">
+		    <span class="star" onclick="rate(1, this, <%= prodotto.getID() %>)">&#9733;</span>
+<span class="star" onclick="rate(2, this, <%= prodotto.getID() %>)">&#9733;</span>
+<span class="star" onclick="rate(3, this, <%= prodotto.getID() %>)">&#9733;</span>
+<span class="star" onclick="rate(4, this, <%= prodotto.getID() %>)">&#9733;</span>
+<span class="star" onclick="rate(5, this, <%= prodotto.getID() %>)">&#9733;</span>
+		    
+		    
+		  </div>
+		  
+		  <input type="submit" value="Invia recensione">
+		</form>
+		
+
+		
+		     
+		     
 			 </td>
 		    </tr>
 		  <% } %>
@@ -571,15 +587,36 @@ a {
   });
 </script>
 <script>
-function rate(stars, productId) {
-	  var starsSelector = '#stars-' + productId + ' .star';
-	  $(starsSelector).removeClass('checked'); // Rimuovi la classe "checked" da tutte le stelle del prodotto
+function rate(stars, element, productId) {
+	  var starsSelector = $(element).closest('.stars');
+	  $(starsSelector).find('.star').removeClass('checked');
 
 	  for (var i = 1; i <= stars; i++) {
-	    $(starsSelector + ':nth-child(' + i + ')').addClass('checked'); // Aggiungi la classe "checked" alle stelle selezionate del prodotto
+	    $(starsSelector).find('.star:nth-child(' + i + ')').addClass('checked');
 	  }
+
+	  $('#stelle-' + productId).val(stars); // Imposta il valore del campo di input "stelle" con il numero di stelle selezionate
 	}
+
 </script>
+<script>
+  $(document).ready(function() {
+    $('.star-rating').click(function() {
+      var stars = $(this).index() + 1; // Ottieni l'indice della stella cliccata
+      $('#stelle').val(stars); // Imposta il valore del campo di input "stelle"
+
+      // Rimuovi la classe "checked" da tutte le stelle
+      $('.star-rating').removeClass('checked');
+
+      // Aggiungi la classe "checked" alle stelle selezionate
+      $(this).addClass('checked');
+      $(this).prevAll('.star-rating').addClass('checked');
+    });
+  });
+</script>
+
+
+
 
 
 </body>
