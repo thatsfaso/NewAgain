@@ -46,7 +46,7 @@ CREATE TABLE ordine (
 
 CREATE TABLE composizione(
 	IVA double not null default 22,
-    quantita int,
+    quantita int default 1,
     totale double,
     codP int,
     numeroO int,
@@ -56,7 +56,7 @@ CREATE TABLE composizione(
 );
 
 CREATE TABLE pagamento(
-	id_pagamento int,
+	id_pagamento int auto_increment,
     tipo ENUM('Carta di Credito', 'PayPal', 'Apple Pay'),
 	titolare varchar(80),
 	numero_carta varchar(16),

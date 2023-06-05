@@ -42,6 +42,13 @@ public class AcquistoDao {
 	    PreparedStatement preparedStatement = null;
 	    String sql1 = "INSERT INTO ordine (dataOrdine, totale, stato, email, indirizzo, citta, provincia, cap)"+
 	    		"VALUES (?, ?, 'In Preparazione',?, ?, ?, ?, ?)";
+	    String sql2 = "SELECT MAX(numeroOrdine) AS numeroOrdineMax FROM ordine";
+	    String sql3 = "INSERT INTO composizione(IVA,totale,codP,numeroO)"+
+	    		"VALUES(?, ?, ?,?)";
+	    String deleteSQL = "UPDATE product SET quantita = 1 WHERE id = ?";
+	    String sql4 = "INSERT INTO pagamento (tipo,titolare,numero_carta,scadenza,CVV,n_Ordine)"+
+	    		"VALUES(?,?,?,?,?,?)";
+
 	    
 	    try {
 	        connection = ds.getConnection();
@@ -54,6 +61,35 @@ public class AcquistoDao {
 	        preparedStatement.setString(6,provincia);
 	        preparedStatement.setString(7,cap);
 	        preparedStatement.executeUpdate();
+	        
+	        ResultSet resultSet = preparedStatement.executeQuery(sql2);
+	        int numeroOrdineMax = -1;
+            // Estrazione del risultato
+            if (resultSet.next()) {
+                 numeroOrdineMax = resultSet.getInt("numeroOrdineMax");
+                }
+            for(Prodotto p : cart.getProducts()) {
+            	preparedStatement = connection.prepareStatement(sql3);
+            	preparedStatement.setDouble(1,p.getIva());
+            	preparedStatement.setDouble(2,p.getPrezzo());
+            	preparedStatement.setInt(3,p.getID());
+            	preparedStatement.setInt(4,numeroOrdineMax);
+            	preparedStatement.executeUpdate();            	
+            }
+            for(Prodotto p: cart.getProducts()) {
+            	preparedStatement = connection.prepareStatement(deleteSQL);
+    			preparedStatement.setInt(1, p.getID());
+    			preparedStatement.executeUpdate();
+            }
+            
+            preparedStatement = connection.prepareStatement(sql4);
+            preparedStatement.setString(1,pagamento);
+            preparedStatement.setString(2,titolareCarta);
+            preparedStatement.setString(3,numeroCarta);
+            preparedStatement.setString(4,scadenzaCarta);
+            preparedStatement.setString(5,cvv);
+            preparedStatement.setInt(6,numeroOrdineMax); 
+            preparedStatement.executeUpdate();
 
     }catch (SQLException e) {
 		// TODO Auto-generated catch block
