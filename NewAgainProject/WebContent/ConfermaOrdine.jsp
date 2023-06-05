@@ -159,7 +159,7 @@
 					<tr data-product-id="<%= p.getID() %>">
 						<td><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100"></td>
 						<td><%= p.getNome() %></td>
-						<td><span id="totalPrice_<%= p.getID() %>"><%= p.getPrezzo() %></span></td>
+						<td><span id="totalPrice_<%= p.getID() %>"><%= p.getPrezzo() %>€</span></td>
 					</tr>
 				<% } %>
 			</table>
