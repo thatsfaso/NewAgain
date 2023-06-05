@@ -10,7 +10,8 @@ CREATE TABLE product (
   foto mediumblob,
   sesso varchar(255),
   nome varchar(50),
-  categoria varchar(50)
+  categoria varchar(50),
+  iva double NOT NULL DEFAULT '22'
 );
 
 CREATE TABLE utente (
@@ -69,12 +70,12 @@ CREATE TABLE pagamento(
 );
 
 
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("Cargo Nike nero",12, 0, 'F', "Cargo Nike Donna", "pantaloni");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Maglietta Nike grigia', 29.99, 0, 'M', "Maglietta Nike Uomo", "maglie");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Polo Ralph Lauren nera ', 59.99, 0, 'M', "Polo Ralph Lauren Uomo", "maglie");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Felpa Nike nera', 49.99, 0, 'U', "Felpa Nike Uomo", "felpe");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Jeans Levi\'s color jeans ', 89.99, 0, 'M', "Jeans Levi\'s Uomo", "pantaloni");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Maglione Lacoste beige', 79.99, 1,'F', "Maglione Lacoste Donna", "maglie");      -- PRODOTTO SETTATO A 1 AS NON DISPONIBILE 
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("Cargo Nike nero",100, 0, 'F', "Cargo Nike Donna", "pantaloni");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Maglietta Nike grigia', 100, 0, 'M', "Maglietta Nike Uomo", "maglie");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Polo Ralph Lauren nera ', 100, 0, 'M', "Polo Ralph Lauren Uomo", "maglie");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Felpa Nike nera', 100, 0, 'U', "Felpa Nike Uomo", "felpe");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Jeans Levi\'s color jeans ', 100, 0, 'M', "Jeans Levi\'s Uomo", "pantaloni");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Maglione Lacoste beige', 100, 1,'F', "Maglione Lacoste Donna", "maglie");      -- PRODOTTO SETTATO A 1 AS NON DISPONIBILE 
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
