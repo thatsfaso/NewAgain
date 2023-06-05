@@ -49,7 +49,7 @@ public class OrdineDAO {
 
 	        ResultSet rs = preparedStatement.executeQuery();
 
-	        if (rs.next()) {
+	        while (rs.next()) {
                 int numeroOrdine = rs.getInt("numeroOrdine");
                 Date data = rs.getDate("dataOrdine");
                 double totale = rs.getDouble("totale");

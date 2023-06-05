@@ -11,11 +11,23 @@
 <title>Profilo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 <style>
 
+<style>
+.star {
+  color: black;
+  cursor: pointer;
+}
+
+.checked {
+  color: orange;
+}
+
 *, *::before, *::after {
-   box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
@@ -459,6 +471,7 @@ a {
 		    <th>ID</th>
 		    <th>Nome</th>
 		    <th>Foto</th>
+		    <th>Recensisci</th>
 		  </tr>
 		  <% 
 		  // Esegui la query per ottenere i dettagli dei prodotti associati all'ordine
@@ -474,6 +487,15 @@ a {
 		      <td><%= prodotto.getNome() %></td>
 		      <td><% String base64Image = Base64.getEncoder().encodeToString(prodotto.getImg()); %>
 		      <img src="data:image/jpeg;base64, <%= base64Image %>" width="40" height="40"></td>
+		      <td> 
+		      	<div class="stars" id="stars-<%= prodotto.getID() %>">
+     			<span class="star" onclick="rate(1, <%= prodotto.getID() %>)">&#9733;</span>
+      			<span class="star" onclick="rate(2, <%= prodotto.getID() %>)">&#9733;</span>
+      			<span class="star" onclick="rate(3, <%= prodotto.getID() %>)">&#9733;</span>
+      			<span class="star" onclick="rate(4, <%= prodotto.getID() %>)">&#9733;</span>
+      			<span class="star" onclick="rate(5, <%= prodotto.getID() %>)">&#9733;</span>
+    			</div>
+			 </td>
 		    </tr>
 		  <% } %>
 		</table>
@@ -484,20 +506,7 @@ a {
   %>
 </table>
 
- <table>
  
-    <%
-    if (prodotti != null && !prodotti.isEmpty()) {
-    for(Prodotto bean: prodotti) {
-      byte[] imageB = bean.getImg();
-      String base64img = Base64.getEncoder().encodeToString(imageB); %>
-      <tr>
-        <td><a href="product?action=read&id=<%=bean.getID()%>"><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100"></a></td>
-        <td><%= bean.getNome() %></td>
-      </tr>
-    <% }}
-    %>
-  </table>
  
 
 
@@ -560,6 +569,16 @@ a {
       mostraRicevuta(numeroOrdine);
     });
   });
+</script>
+<script>
+function rate(stars, productId) {
+	  var starsSelector = '#stars-' + productId + ' .star';
+	  $(starsSelector).removeClass('checked'); // Rimuovi la classe "checked" da tutte le stelle del prodotto
+
+	  for (var i = 1; i <= stars; i++) {
+	    $(starsSelector + ':nth-child(' + i + ')').addClass('checked'); // Aggiungi la classe "checked" alle stelle selezionate del prodotto
+	  }
+	}
 </script>
 
 
