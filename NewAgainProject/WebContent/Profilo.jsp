@@ -10,10 +10,10 @@
 <head>
 <title>Profilo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
 
-Primary Styles */
 *, *::before, *::after {
    box-sizing: border-box;
 }
@@ -22,6 +22,7 @@ body {
    font-family: sans-serif;
    font-size: 1em;
    color: #333;
+   overflow-x: hidden;
 }
 
 h1 {
@@ -204,31 +205,40 @@ a {
   }
 }
 
-
-  .order-table {
-    font-size: 12px;
-  }
-
-  .order-table th,
-  .order-table td {
-    padding: 5px;
-  }
-
-  .order-table th:not(:last-child),
-  .order-table td:not(:last-child) {
-    margin-right: 5px;
-  }
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-top: 10px;
 }
-
 
 .order-table th,
 .order-table td {
-  padding: 8px; /* Aggiungi uno spazio di 8px all'interno delle celle */
+  padding: 10px;
+  text-align: left;
+}
+
+.order-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.order-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.order-table tr:hover {
+  background-color: #f2f2f2;
+}
+
+.order-table a {
+  text-decoration: none;
+  color: #333;
 }
 
 .order-table th:not(:last-child),
 .order-table td:not(:last-child) {
-  margin-right: 10px; /* Aggiungi uno spazio di 10px tra le colonne, eccetto l'ultima colonna */
+  border-right: 1px solid #ddd;
 }
 
 .profile-form {
@@ -258,39 +268,46 @@ a {
 	    position: absolute;
     top: 10px;
     left: 20px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .order-table {
   width: 100%;
   border-collapse: collapse;
+  background-color: #fff;
+  font-size: 14px;
 }
 
 .order-table th,
 .order-table td {
-  padding: 8px;
-}
-
-.order-table th:not(:last-child),
-.order-table td:not(:last-child) {
-  margin-right: 10px;
-}
-
-.order-table th {
-  background-color: #f5f5f5;
+  padding: 10px;
   text-align: left;
 }
 
-.order-table tr:nth-child(even) {
+.order-table th {
   background-color: #f9f9f9;
+  font-weight: bold;
+}
+
+.order-table tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
 .order-table tr:hover {
-  background-color: #f2f2f2;
+  background-color: #e5e5e5;
 }
 
 .order-table a {
   text-decoration: none;
   color: #333;
+}
+
+.order-table th:not(:last-child),
+.order-table td:not(:last-child) {
+  border-right: 1px solid #ddd;
 }
 
 	.banner {
@@ -321,6 +338,15 @@ a {
 	height: 40px;
 	margin-left: 15px;
 	margin-right: 15px;
+}
+
+  .hidden {
+    display: none;
+  }
+
+.centrato-tabella {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 </style>
@@ -405,30 +431,59 @@ a {
   <br>
   <div class="order-form">
   <h2>I tuoi ordini</h2>
-  <table class="order-table">
-    <tr>
-      <th>Numero ordine</th>
-      <th>Data</th>
-      <th>Totale</th>
-      <th>Stato</th>
-      <th>Dettagli</th>
-    </tr>
-    
-    <% 
-    if (ordini != null && !ordini.isEmpty()) {
-      for (Ordine ordine : ordini) { %>
-        <tr>
-          <td><%= ordine.getNumeroOrdine() %></td>
-          <td><%= ordine.getData() %></td>
-          <td><%= ordine.getTotale() %>€</td>
-          <td><%= ordine.getStato() %></td>
-          <td><a href="ordine?action=Dettagli&NumeroOrdine=<%=ordine.getNumeroOrdine()%>&email=<%=session.getAttribute("email")%>">Mostra</a></td>
-          
-        </tr>
-      <% }
-    }
-    %>
-  </table>
+<table class="order-table">
+  <tr>
+    <th>Numero ordine</th>
+    <th>Data</th>
+    <th>Totale</th>
+    <th>Stato</th>
+    <th>Dettagli</th>
+    <th>Ricevuta</th>
+  </tr>
+  
+  <% 
+  if (ordini != null && !ordini.isEmpty()) {
+    for (Ordine ordine : ordini) { %>
+      <tr>
+        <td><%= ordine.getNumeroOrdine() %></td>
+        <td><%= ordine.getData() %></td>
+        <td><%= ordine.getTotale() %>€</td>
+        <td><%= ordine.getStato() %></td>
+        <td><a href="#" class="mostra-dettagli" data-numero-ordine="<%= ordine.getNumeroOrdine() %>">Mostra</a></td>
+        <td><a href="#" class="mostra-ricevuta" data-numero-ordine="<%= ordine.getNumeroOrdine() %>">Visualizza</a></td>
+      </tr>
+      <tr class="dettagli-ordine hidden" id="dettagli-<%= ordine.getNumeroOrdine() %>">
+        <td colspan="6">
+		 <table class="centrato-tabella">
+		  <tr>
+		    <th>ID</th>
+		    <th>Nome</th>
+		    <th>Foto</th>
+		  </tr>
+		  <% 
+		  // Esegui la query per ottenere i dettagli dei prodotti associati all'ordine
+		  OrdineDAO ordineDAO = new OrdineDAO();
+		  List<Prodotto> dettagliProdotti = ordineDAO.getProdotti(ordine.getNumeroOrdine());
+		  
+		  // Itera sui prodotti e mostra i dettagli
+		  for (Prodotto prodotto : dettagliProdotti) { 
+			  
+		  %>
+		    <tr>
+		      <td><%= prodotto.getID() %></td>
+		      <td><%= prodotto.getNome() %></td>
+		      <td><% String base64Image = Base64.getEncoder().encodeToString(prodotto.getImg()); %>
+		      <img src="data:image/jpeg;base64, <%= base64Image %>" width="40" height="40"></td>
+		    </tr>
+		  <% } %>
+		</table>
+        </td>
+      </tr>
+    <% }
+  }
+  %>
+</table>
+
  <table>
  
     <%
@@ -473,5 +528,40 @@ a {
     ordiniSection.style.display = "block";
   });
 </script>
+
+<script>
+  $(document).ready(function() {
+    // Funzione per mostrare/nascondere i dettagli dell'ordine
+    $('.mostra-dettagli').click(function() {
+      var numeroOrdine = $(this).data('numero-ordine');
+      $('#dettagli-' + numeroOrdine).toggleClass('hidden');
+    });
+  });
+</script>
+
+<script>
+  // Funzione per gestire il click sul link "Visualizza" per la ricevuta
+  function mostraRicevuta(numeroOrdine) {
+    // Effettua una chiamata AJAX per ottenere la ricevuta in formato PDF
+    // Sostituisci l'URL con l'endpoint corretto per ottenere la ricevuta dal tuo server
+    var ricevutaURL = "https://www.google.it/" + numeroOrdine;
+    
+    // Apri la ricevuta in un nuovo pannello
+    // Sostituisci '_blank' con il nome del tuo pannello di destinazione
+    window.open(ricevutaURL, '_blank');
+  }
+
+  // Aggiungi un listener per il click sul link "Visualizza" per la ricevuta
+  var ricevutaLinks = document.querySelectorAll(".mostra-ricevuta");
+  ricevutaLinks.forEach(function(link) {
+    link.addEventListener("click", function(e) {
+      e.preventDefault();
+      var numeroOrdine = link.getAttribute("data-numero-ordine");
+      mostraRicevuta(numeroOrdine);
+    });
+  });
+</script>
+
+
 </body>
 </html>
