@@ -15,6 +15,7 @@ Collection<?> products = (Collection<?>) request.getAttribute("products");
 	<style>
 body {
 	margin: 0;
+	overflow-x: hidden;
 }
 /* Stile per il contenitore dello slideshow */
 .slideshow-container {
@@ -99,6 +100,10 @@ body {
     width: 40vw;
     margin: 10px;
   }
+  
+    body {
+    overflow-x: hidden;
+  }
 }
 
 .banner {
@@ -118,10 +123,15 @@ body {
 }
 
 .dx {
+    display: flex;
+    justify-content: center; /* Centra orizzontalmente gli elementi */
+    align-items: center;
 	position: absolute;
+	width: auto;
 	top: 20px;
 	right: 5px;
 	z-index: 1;
+ 
 }
 
 .dx img {
@@ -133,11 +143,6 @@ body {
 
 .cerca {
     display: none;
-    justify-content: center;
-    position: relative; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%);
 }
 
 #searchInput{
@@ -153,6 +158,12 @@ border-radius: 5px;
 	<div class="dx">
     <% if (session.getAttribute("email") == null) { %>
         <a href="#0" id="cercap"><img src="cerca.png"></a>
+        		<div class="cerca">
+				<form action="product" method="GET">
+				    <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
+				    <button type="submit" onclick="submitSearch(event)">Cerca</button>
+				</form>
+				</div>
         <a href="Accedi.jsp"><img src="utente.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
     <% } else { %>
@@ -163,13 +174,7 @@ border-radius: 5px;
     <% } %>
 	</div>
 	</div>
-	<br><br>
-		<div class="cerca">
-	<form action="product" method="GET">
-	    <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
-	    <button type="submit" onclick="submitSearch(event)">Cerca</button>
-	</form>
-	</div>
+
 	  <br>
 	<!-- Contenitore dello slideshow -->
 	<div class="slideshow-container">
@@ -260,12 +265,16 @@ border-radius: 5px;
     }
     
     var cercaLink = document.getElementById("cercap");
-    var cercaSection = document.querySelector(".cerca");
-
-    cercaLink.addEventListener("click", function(event) {
-        event.preventDefault();
-        cercaSection.style.display = "flex";
-    });
+	var cercaSection = document.querySelector(".cerca");
+		 
+			cercaLink.addEventListener("click", function(event) {
+			event.preventDefault();
+		if (cercaSection.style.display === "flex") {
+			cercaSection.style.display = "none"; // Se la barra di ricerca è già visibile, nascondila
+		} else {
+			cercaSection.style.display = "flex"; // Altrimenti, mostra la barra di ricerca
+		}
+		});
 
 </script>
 
