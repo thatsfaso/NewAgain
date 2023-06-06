@@ -180,6 +180,7 @@ overflow-x:hidden;
 	@media screen and (max-width: 750px) {
   table {
     display: block;
+    margin-left:40px;
   }
   th,
   td {
@@ -425,9 +426,9 @@ if (products != null && !products.isEmpty()) {
 		    <h3>Ricerca Cliente</h3>
 			<div class="search">
 			    <form id="search" action="ordine" method="GET">
-			        <input type="text" id="user-email-input" name="email" placeholder="Inserisci l'email del cliente">
+			        <input type="text" id="user-email-input-orders" name="email" placeholder="Inserisci l'email del cliente">
 			        <button type="submit" id="search-button">Cerca</button>
-			        <button type="button" id="reset-button">Reset</button>
+			        <button type="button" id="reset-button-orders">Reset</button>
 			    </form>
 			</div>
 		</div>
@@ -470,64 +471,62 @@ if (products != null && !products.isEmpty()) {
 <jsp:include page="footer.jsp"/>
 
 <script>
-  var searchForm = document.getElementById("search-form");
-  if (searchForm) {
-    searchForm.addEventListener("submit", function(e) {
-      e.preventDefault(); // Evita l'invio del modulo normale
+var searchForm = document.getElementById("search-form");
+if (searchForm) {
+  searchForm.addEventListener("submit", function(e) {
+    e.preventDefault();
 
-      var email = document.getElementById("user-email-input").value;
-      var table = document.getElementById("user-table");
+    var email = document.getElementById("user-email-input").value;
+    var table = document.getElementById("user-table");
 
-      // Trova le righe corrispondenti all'email nella tabella
-      var rows = table.getElementsByTagName("tr");
-      for (var i = 0; i < rows.length; i++) {
-        var row = rows[i];
-        if (i === 0 || row.getAttribute("data-email") === email) {
-          row.style.display = "table-row"; // Mostra le righe corrispondenti e l'intestazione
-        } else {
-          row.style.display = "none"; // Nascondi le altre righe
-        }
+    var rows = table.getElementsByTagName("tr");
+    for (var i = 0; i < rows.length; i++) {
+      var row = rows[i];
+      if (i === 0 || row.getAttribute("data-email") === email) {
+        row.style.display = "table-row";
+      } else {
+        row.style.display = "none";
       }
-      
-      // Resetta il valore dell'input dopo la ricerca
-      document.getElementById("user-email-input").value = "";
-    });
-  }
+    }
+
+    document.getElementById("user-email-input").value = "";
+  });
+}
+
+var resetButton = document.getElementById("reset-button");
+if (resetButton) {
+  resetButton.addEventListener("click", function() {
+    var table = document.getElementById("user-table");
+    var rows = table.getElementsByTagName("tr");
+    for (var i = 0; i < rows.length; i++) {
+      rows[i].style.display = "table-row";
+    }
+  });
+}
+
   
-  var resetButton = document.getElementById("reset-button");
-  if (resetButton) {
-    resetButton.addEventListener("click", function() {
-      var table = document.getElementById("user-table");
-      var rows = table.getElementsByTagName("tr");
-      for (var i = 0; i < rows.length; i++) {
-        rows[i].style.display = "table-row"; // Mostra tutte le righe
-      }
-    });
-  }
-  
-  var searchFormOrders = document.getElementById("search");
-  if (searchFormOrders) {
-    searchFormOrders.addEventListener("submit", function(e) {
-      e.preventDefault(); // Evita l'invio del modulo normale
+var searchFormOrders = document.getElementById("search");
+if (searchFormOrders) {
+  searchFormOrders.addEventListener("submit", function(e) {
+    e.preventDefault();
 
-      var email = document.getElementById("user-email-input-orders").value;
-      var table = document.getElementById("orderTable");
+    var email = document.getElementById("user-email-input-orders").value;
+    var table = document.getElementById("orderTable");
 
-      // Trova le righe corrispondenti all'email nella tabella
-      var rows = table.getElementsByTagName("tr");
-      for (var i = 0; i < rows.length; i++) {
-        var row = rows[i];
-        if (i === 0 || row.getAttribute("data-email") === email) {
-          row.style.display = "table-row"; // Mostra le righe corrispondenti e l'intestazione
-        } else {
-          row.style.display = "none"; // Nascondi le altre righe
-        }
+    var rows = table.getElementsByTagName("tr");
+    for (var i = 0; i < rows.length; i++) {
+      var row = rows[i];
+      if (i === 0 || row.getAttribute("data-email") === email) {
+        row.style.display = "table-row";
+      } else {
+        row.style.display = "none";
       }
-      
-      // Resetta il valore dell'input dopo la ricerca
-      document.getElementById("user-email-input-orders").value = "";
-    });
-  }
+    }
+
+    document.getElementById("user-email-input-orders").value = "";
+  });
+}
+
   
   var resetButtonOrders = document.getElementById("reset-button-orders");
   if (resetButtonOrders) {

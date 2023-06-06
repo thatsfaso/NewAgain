@@ -16,6 +16,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class ProductDao {
 
 	private static DataSource ds;
@@ -399,12 +402,15 @@ public class ProductDao {
 
 	    Collection<Prodotto> products = new LinkedList<Prodotto>();
 
-	    String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME + " WHERE nome LIKE ?";
 
+	    String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME + " WHERE nome LIKE ?";
+	   
 	    try {
 	        connection = ds.getConnection();
 	        preparedStatement = connection.prepareStatement(selectSQL);
-	        preparedStatement.setString(1, nome + "%");
+	     
+	            preparedStatement.setString(1, "%" + nome + "%");
+	        
 	        ResultSet rs = preparedStatement.executeQuery();
 
 	        while (rs.next()) {
@@ -434,6 +440,62 @@ public class ProductDao {
 	        }
 	    }
 	    return products;
+	}
+	
+	public synchronized String getProductSearchResults(String nome) {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet rs = null;
+
+	    try {
+	        connection = ds.getConnection();
+	        String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME + " WHERE nome LIKE ?";
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setString(1, nome + "%");
+	        rs = preparedStatement.executeQuery();
+
+	        Collection<Prodotto> products = new LinkedList<>();
+
+	        while (rs.next()) {
+	            Prodotto bean = new Prodotto();
+
+	            bean.setID(rs.getInt("id"));
+	            bean.setDescrizione(rs.getString("descrizione"));
+	            bean.setPrezzo(rs.getInt("prezzo"));
+	            bean.setQuantita(rs.getInt("quantita"));
+	            bean.setSesso(rs.getString("sesso"));
+	            bean.setNome(rs.getString("nome"));
+	            bean.setCategoria(rs.getString("categoria"));
+	            bean.setIva(rs.getDouble("iva"));
+	            Blob blob = rs.getBlob("foto");
+	            byte[] imageByte = blob.getBytes(1, (int) blob.length());
+	            bean.setImg(imageByte);
+
+	            products.add(bean);
+	        }
+
+	        // Creazione dell'oggetto Gson
+	        Gson gson = new GsonBuilder().create();
+
+	        // Conversione dei prodotti in una stringa JSON
+	        String jsonResult = gson.toJson(products);
+
+	        return jsonResult;
+	    } catch (SQLException e) {
+	        System.out.println("Error: " + e.getMessage());
+	        return null; // o gestisci l'errore in modo appropriato nel tuo codice
+	    } finally {
+	        try {
+	            if (rs != null)
+	                rs.close();
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	            if (connection != null)
+	                connection.close();
+	        } catch (SQLException e) {
+	            System.out.println("Error: " + e.getMessage());
+	        }
+	    }
 	}
 	
 	public synchronized Collection<Prodotto> doRetrieveByCategoria(String s1) throws SQLException {

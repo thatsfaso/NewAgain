@@ -266,6 +266,9 @@
 		  margin:0;
 		  padding:0;
 		}
+		a{
+			margin-left: 10px;
+		}
 		
 		a:link {
 		  color: #1d1d1f;
@@ -288,6 +291,10 @@
 		  color: #1d1d1f;
 		  font-weight: bold;
 		}
+		.product-list{
+			justify-content: center;
+			align-items: center;
+		}
 </style>
 </head>
 <body>
@@ -305,7 +312,13 @@
         <a href="Accedi.jsp"><img src="utente.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
     <% } else { %>
-        <a href="http://www.google.com"><img src="cerca.png"></a>
+        <a href="#0" id="cercap"><img src="cerca.png"></a>
+        		<div class="cerca">
+				<form action="product" method="GET">
+				    <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
+				    <button type="submit" onclick="submitSearch(event)">Cerca</button>
+				</form>
+				</div>
         <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png"></a>
         <a href="registration?action=logout"><img src="logout.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
@@ -391,6 +404,17 @@ if (count % 4 != 0) { %>
     </div>
   </div>
   <script>
+  function submitSearch(event) {
+      event.preventDefault(); // Previeni il comportamento predefinito del link
+
+      var searchInput = document.getElementById("searchInput");
+      var nome = searchInput.value.trim();
+
+      if (nome !== "") {
+          var url = "product?action=search&nome=" + encodeURIComponent(nome);
+          window.location.href = url;
+      }
+  }
   var cercaLink = document.getElementById("cercap");
 	var cercaSection = document.querySelector(".cerca");
 		 

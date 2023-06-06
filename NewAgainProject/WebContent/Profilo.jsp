@@ -569,7 +569,7 @@ a {
   function mostraRicevuta(numeroOrdine) {
     // Effettua una chiamata AJAX per ottenere la ricevuta in formato PDF
     // Sostituisci l'URL con l'endpoint corretto per ottenere la ricevuta dal tuo server
-    var ricevutaURL = "https://www.google.it/" + numeroOrdine;
+    var ricevutaURL = "fattura?action=viewFattura&numeroOrdine=" + numeroOrdine;
     
     // Apri la ricevuta in un nuovo pannello
     // Sostituisci '_blank' con il nome del tuo pannello di destinazione

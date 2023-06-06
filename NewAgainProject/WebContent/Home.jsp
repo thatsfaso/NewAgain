@@ -150,6 +150,8 @@ border: 2px solid black;
 border-radius: 5px;
 }
 
+
+
 </style>
 </head>
 <body>
@@ -167,7 +169,13 @@ border-radius: 5px;
         <a href="Accedi.jsp"><img src="utente.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
     <% } else { %>
-        <a href="#0" id="cercap"><img src="cerca.png"></a>
+                <a href="#0" id="cercap"><img src="cerca.png"></a>
+        		<div class="cerca">
+				<form action="product" method="GET">
+				    <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
+				    <button type="submit" onclick="submitSearch(event)">Cerca</button>
+				</form>
+				</div>
         <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png"></a>
         <a href="registration?action=logout"><img src="logout.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
@@ -200,7 +208,7 @@ border-radius: 5px;
 
 	</div>
 
-	<br>
+	<br><br><br>
 
 	<!-- Punti per il cambio immagine -->
 	<div style="text-align:center">
