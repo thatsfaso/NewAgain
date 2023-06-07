@@ -193,6 +193,7 @@
 		<% } %>
 						<input type="submit" value="Acquista Ora">
 			</form>
+			
 </div>
 </body>
 </html>
