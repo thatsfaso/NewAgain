@@ -16,6 +16,16 @@ public class Prodotto {
 	byte [] img;
 	ArrayList<immagine> allimg;
 	
+	
+	public Prodotto() {
+		super();
+	}
+	public Prodotto(int id, String nome, double prezzo) {
+		super();
+		this.id = id;
+		Nome = nome;
+		Prezzo = prezzo;
+	}
 	public int getID() {
 		return id;
 	}

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    Cart cart = (Cart) request.getAttribute("cart");
+	Cart cart = (Cart) request.getAttribute("cart");
 %>
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.model.*"%>
 <!DOCTYPE html>
@@ -38,10 +38,12 @@
 		#tab th, td {
 		    padding: 5px;
 			vertical-align: top;
+			
 		  }
 		  
 		  #tab td:first-child {
 		    text-align: left;
+		   
 			
 		  }
 		  
@@ -86,20 +88,24 @@
 	       #image{
 	       width: 10vw;
 	       height: 10vw;
+	       min-width:150px;
+	       min-height: 150px;
 	       }
     </style>
 </head>
+
 <body>
 <img src="./nuovologo.png" id="image">
 <div id="conf">
 	<form action="acquista" method="post">
 		<input type="hidden" name="action" value="completa">
-		<input type="hidden" name="email" value="">
+		<input type="hidden" name="email" value="<%= session.getAttribute("email") %>">
 
 		<h2>Conferma ordine</h2>
 		<table id="tab">
 		
 		<tr>
+		<input type="hidden" name="Tipocons" value="<%= request.getAttribute("TipoC") %>">
 		<td>Tipo di consegna</td>
 		<td><%= request.getAttribute("TipoC") %></td>
 		<% String tipoc = (String) request.getAttribute("TipoC");
@@ -107,10 +113,26 @@
 		</tr>
 		<tr>
 		<td>Indirizzo</td>
-		<td><%= session.getAttribute("indirizzo") %> <%= session.getAttribute("citta") %> <%= session.getAttribute("provincia") %> <%= session.getAttribute("cap") %></p>
-			<% } else if (tipoc.equals("Altro indirizzo")) { %>
-				<p><strong>Indirizzo:</strong> <%= request.getAttribute("indirizzo") %> <%= request.getAttribute("citta") %> <%= request.getAttribute("provincia") %> <%= request.getAttribute("cap") %></p>
-			<% } %></tr>
+		<td><input type="hidden" name="indirizzo" value="<%= session.getAttribute("indirizzo") %>">
+   					<%= session.getAttribute("indirizzo") %>
+  					<input type="hidden" name="citta" value="<%= session.getAttribute("citta") %>">
+                    <%= session.getAttribute("citta") %>
+                    <input type="hidden" name="provincia" value="<%= session.getAttribute("provincia") %>">
+                    <%= session.getAttribute("provincia") %>
+                    <input type="hidden" name="cap" value="<%= session.getAttribute("cap") %>">
+                    <%= session.getAttribute("cap") %></td>
+    <%}else if(tipoc.equals("Altro indirizzo")){ %>
+    <%= request.getAttribute("indirizzo") %>
+    				<input type="hidden" name="indirizzo" value="<%= request.getAttribute("indirizzo") %>">
+   				    <%= request.getAttribute("indirizzo") %>
+   				    <input type="hidden" name="citta" value="<%= request.getAttribute("citta") %>">
+                    <%= request.getAttribute("citta") %>
+                    <input type="hidden" name="provincia" value="<%= request.getAttribute("provincia") %>">
+                    <%= request.getAttribute("provincia") %>
+                    <input type="hidden" name="cap" value="<%= request.getAttribute("cap") %>">
+                    <%= request.getAttribute("cap") %>    	
+    <% }
+    %></tr>
 		<tr>
 		<td></td>
 		<td></td>
@@ -124,25 +146,30 @@
 		<td></td>
 		</tr>
 		<tr>
-		<td>Pagamento</td>
-		<td><%= request.getAttribute("Pagamento") %></td>
+		 <input type="hidden" name="Pagamento" value="<%= request.getAttribute("Pagamento") %>">
+		<td align="left">Pagamento</td>
+		<td><%= request.getAttribute("Pagamento") %>
 		<% String pagamento = (String) request.getAttribute("Pagamento");
-		            if (pagamento.equals("Carta di credito")) { %>
+		            if (pagamento.equals("Carta di credito")) { %> </td>
 		</tr>
 		<tr>
-		<td>Numero Carta</td>
+		 <input type="hidden" name="NumeroC" value="<%= request.getAttribute("numeroCarta") %>">
+		<td align="left">Numero Carta</td>
 		<td><%= request.getAttribute("numeroCarta") %></td>
 		</tr>
 		<tr>
-		<td>Titolare Carta</td>
+		<input type="hidden" name="TitolareC" value="<%= request.getAttribute("card-holder") %>">
+		<td align="left">Titolare Carta</td>
 		<td><%= request.getAttribute("card-holder") %></td>
 		</tr>
 		<tr>
-		<td>Scadenza Carta</td>
+		 <input type="hidden" name="ScadenzaC" value="<%= request.getAttribute("scadenzaCarta") %>">
+		<td align="left">Scadenza Carta</td>
 		<td><%= request.getAttribute("scadenzaCarta") %></td>
 		</tr>
 		<tr>
-		<td>CVV</td>
+		 <input type="hidden" name="cvv" value="<%= request.getAttribute("cvv") %>">
+		<td align="left">CVV</td>
 		<td><%= request.getAttribute("cvv") %></td>
 		</tr>
 		<% } %>
