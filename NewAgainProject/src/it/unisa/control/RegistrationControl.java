@@ -118,11 +118,13 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
                     else if (utente.getTipo_account() == 1) {
                         response.sendRedirect(request.getContextPath() + "/Amministratore.jsp");
                     }
-                    else {
+                    
+            } else {
                 	request.setAttribute("errore", "Email o password non validi");
                     request.getRequestDispatcher("/Accedi.jsp").forward(request, response);
+                    System.out.println("ERRATO");
                 }
-            } }catch (SQLException e) {
+                }catch (SQLException e) {
                 e.printStackTrace();
                 request.setAttribute("errore", "Errore del database: " + e.getMessage());
                 request.getRequestDispatcher("/Accedi.jsp").forward(request, response);

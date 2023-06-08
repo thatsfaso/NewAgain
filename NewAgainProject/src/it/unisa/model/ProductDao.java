@@ -367,7 +367,7 @@ public class ProductDao {
 	public synchronized void doUpdate(Prodotto product) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
-	    String updateSQL = "UPDATE " + ProductDao.TABLE_NAME + " SET descrizione = ?, prezzo = ?, quantita = ?, foto = ?, sesso = ?, nome = ? categoria = ?, iva = ? WHERE id = ?";
+	    String updateSQL = "UPDATE " + ProductDao.TABLE_NAME + " SET descrizione = ?, prezzo = ?, quantita = ?, foto = ?, sesso = ?, nome = ?, categoria = ?, iva = ? WHERE id = ?";
 
 	    try {
 	        connection = ds.getConnection();
@@ -582,6 +582,58 @@ public class ProductDao {
 	                connection.close();
 	        }
 	    }
+	    return products;
+	}
+
+	public synchronized Collection<Prodotto> doRetrieveByOrdine(int numeroOrdine) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    Collection<Prodotto> products = new LinkedList<Prodotto>();
+
+	    String selectSQL = "SELECT * FROM product JOIN composizione ON product.id = composizione.codP WHERE composizione.numeroO = ?";
+
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setInt(1, numeroOrdine);
+
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        while (rs.next()) {
+	            Prodotto bean = new Prodotto();
+
+	            bean.setID(rs.getInt("id"));
+	            bean.setDescrizione(rs.getString("descrizione"));
+	            bean.setPrezzo(rs.getInt("prezzo"));
+	            bean.setQuantita(rs.getInt("quantita"));
+	            bean.setSesso(rs.getString("sesso"));
+	            bean.setNome(rs.getString("nome"));
+	            bean.setCategoria(rs.getString("categoria"));
+	            bean.setIva(rs.getDouble("iva"));
+	            Blob blob = rs.getBlob("foto");
+	            byte[] imageByte = blob.getBytes(1,(int) blob.length());
+	            bean.setImg(imageByte);
+
+	            if (bean.getImg() == null) {
+	                byte[] emptyImage = new byte[0];
+	                bean.setImg(emptyImage);
+	            }
+
+	            products.add(bean);
+	        }
+	    } finally {
+	        try {
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	        } finally {
+	            if (connection != null) {
+	                connection.close();
+	            }
+	        }
+	    }
+
 	    return products;
 	}
 

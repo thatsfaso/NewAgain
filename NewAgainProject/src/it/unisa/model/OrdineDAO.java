@@ -292,4 +292,45 @@ public class OrdineDAO {
         }
     }
 
-}}
+}
+	
+	public synchronized Ordine doRetrieveByKey(int numeroOrdine, String key2) throws SQLException {
+		Connection con = null;
+		PreparedStatement statement = null;
+		Ordine ordine = new Ordine();
+		
+		String query = "SELECT * FROM " + OrdineDAO.TABLE_NAME + " WHERE numeroOrdine = ? AND email = ?";
+		
+		try {
+			con = DriverManagerConnectionPool.getConnection();
+			statement = con.prepareStatement(query);
+			statement.setInt(1, numeroOrdine);
+			statement.setString(2, key2);
+			
+			
+			ResultSet result = statement.executeQuery();
+			
+			while(result.next()) {
+				ordine.setNumeroOrdine(result.getInt("numeroOrdine"));
+				ordine.setEmail(result.getString("email"));
+				ordine.setStato(result.getString("stato"));
+				ordine.setTotale(result.getDouble("totale"));
+				ordine.setData(result.getDate("dataOrdine"));
+				ordine.setCitta(result.getString("citta"));
+				ordine.setCap(result.getString("cap"));
+				ordine.setIndirizzo(result.getString("indirizzo"));
+				ordine.setProvincia(result.getString("provincia"));
+			}
+		} finally {
+			try {
+				if(statement != null) {
+					statement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(con);
+			}
+		}
+
+		return ordine;
+	}
+}

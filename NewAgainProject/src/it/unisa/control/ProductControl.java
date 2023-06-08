@@ -173,6 +173,7 @@ public class ProductControl extends HttpServlet {
 		            String sesso = request.getParameter("sesso");
 		            String nome = request.getParameter("nome");
 		            InputStream inputStream = request.getPart("foto").getInputStream();
+		            String categoria = request.getParameter("categoria");
 		            byte[] bytes = null;
 		            try {
 		                bytes = IOUtils.toByteArray(inputStream);
@@ -188,6 +189,7 @@ public class ProductControl extends HttpServlet {
 		            prodotto.setImg(bytes);
 		            prodotto.setSesso(sesso);
 		            prodotto.setNome(nome);
+		            prodotto.setCategoria(categoria);
 
 		            try {
 		                model.doSave(prodotto);

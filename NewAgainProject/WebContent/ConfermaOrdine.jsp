@@ -34,7 +34,9 @@
 					font-family: Arial, Sans-Serif;
 		        }
 		
-		
+		#tab{
+			width: 400px;
+		}
 		#tab th, td {
 		    padding: 5px;
 			vertical-align: top;
@@ -106,13 +108,13 @@
 		
 		<tr>
 		<input type="hidden" name="Tipocons" value="<%= request.getAttribute("TipoC") %>">
-		<td>Tipo di consegna</td>
+		<td align="left">Tipo di consegna</td>
 		<td><%= request.getAttribute("TipoC") %></td>
 		<% String tipoc = (String) request.getAttribute("TipoC");
 		            if (tipoc.equals("Consegna a casa")) { %>
 		</tr>
 		<tr>
-		<td>Indirizzo</td>
+		<td align="left">Indirizzo</td>
 		<td><input type="hidden" name="indirizzo" value="<%= session.getAttribute("indirizzo") %>">
    					<%= session.getAttribute("indirizzo") %>
   					<input type="hidden" name="citta" value="<%= session.getAttribute("citta") %>">
@@ -121,16 +123,18 @@
                     <%= session.getAttribute("provincia") %>
                     <input type="hidden" name="cap" value="<%= session.getAttribute("cap") %>">
                     <%= session.getAttribute("cap") %></td>
+                    </tr>
     <%}else if(tipoc.equals("Altro indirizzo")){ %>
-    <%= request.getAttribute("indirizzo") %>
-    				<input type="hidden" name="indirizzo" value="<%= request.getAttribute("indirizzo") %>">
+    <tr>
+    <td align="left">Indirizzo</td>
+    				<td><input type="hidden" name="indirizzo" value="<%= request.getAttribute("indirizzo") %>">
    				    <%= request.getAttribute("indirizzo") %>
    				    <input type="hidden" name="citta" value="<%= request.getAttribute("citta") %>">
                     <%= request.getAttribute("citta") %>
                     <input type="hidden" name="provincia" value="<%= request.getAttribute("provincia") %>">
                     <%= request.getAttribute("provincia") %>
                     <input type="hidden" name="cap" value="<%= request.getAttribute("cap") %>">
-                    <%= request.getAttribute("cap") %>    	
+                    <%= request.getAttribute("cap") %>    </td>	
     <% }
     %></tr>
 		<tr>

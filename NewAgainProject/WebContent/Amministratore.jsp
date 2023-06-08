@@ -30,7 +30,7 @@ overflow-x:hidden;
    text-align: center;
    margin-top: 90px;
    height: auto;
-   left: -10vw;
+   left: -15vw;
    
 }
     /* Banner */
@@ -110,6 +110,7 @@ overflow-x:hidden;
          display: none;
          margin-left:10vw;
          margin-top: -70px;
+         margin-bottom: 20vw;
          text-align:center;
     }
 
@@ -173,9 +174,7 @@ overflow-x:hidden;
 	         text-align:center;
 	}
 	
-	#modifica-form{
-	display: none;
-	}
+	
 	
 	@media screen and (max-width: 750px) {
   table {
@@ -339,6 +338,9 @@ if (products != null && !products.isEmpty()) {
 		
 		  <label for="sesso">Sesso:</label><br> 
 		  <input name="sesso" type="text"><br>
+		  
+		  <label for="categoria">Categoria:</label><br> 
+		  <input name="categoria" type="text"><br>
 		  
 		  <label for="foto">Foto:</label><br> 
 		  <input type="file" name="foto" accept="image/*" ><br>

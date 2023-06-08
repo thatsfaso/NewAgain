@@ -284,6 +284,9 @@ a {
   border-radius: 5px;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+   overflow: auto;
+  max-height:500px; /* Altezza massima desiderata */
+  
 }
 
 .order-table {
@@ -291,6 +294,7 @@ a {
   border-collapse: collapse;
   background-color: #fff;
   font-size: 14px;
+ 
 }
 
 .order-table th,
@@ -399,11 +403,6 @@ a {
              <i class="fa fa-user"></i><em>I miei ordini</em>
            </a>
         </li>
-        <li>
-           <a class="s-sidebar__nav-link" href="#0">
-              <i class="fa fa-camera"></i><em>Logout</em>
-           </a>
-        </li>
      </ul>
   </nav>
 </div>
@@ -462,7 +461,7 @@ a {
         <td><%= ordine.getTotale() %>€</td>
         <td><%= ordine.getStato() %></td>
         <td><a href="#" class="mostra-dettagli" data-numero-ordine="<%= ordine.getNumeroOrdine() %>">Mostra</a></td>
-        <td><a href="#" class="mostra-ricevuta" data-numero-ordine="<%= ordine.getNumeroOrdine() %>">Visualizza</a></td>
+        <td><a href="fattura?action=viewFattura&numeroOrdine=<%= ordine.getNumeroOrdine() %>&email=<%=session.getAttribute("email") %>">Visualizza</a></td>
       </tr>
       <tr class="dettagli-ordine hidden" id="dettagli-<%= ordine.getNumeroOrdine() %>">
         <td colspan="6">
@@ -496,22 +495,15 @@ a {
 		  
 		  <div class="stars" id="stars-<%= prodotto.getID() %>">
 		    <span class="star" onclick="rate(1, this, <%= prodotto.getID() %>)">&#9733;</span>
-<span class="star" onclick="rate(2, this, <%= prodotto.getID() %>)">&#9733;</span>
-<span class="star" onclick="rate(3, this, <%= prodotto.getID() %>)">&#9733;</span>
-<span class="star" onclick="rate(4, this, <%= prodotto.getID() %>)">&#9733;</span>
-<span class="star" onclick="rate(5, this, <%= prodotto.getID() %>)">&#9733;</span>
-		    
-		    
+			<span class="star" onclick="rate(2, this, <%= prodotto.getID() %>)">&#9733;</span>
+			<span class="star" onclick="rate(3, this, <%= prodotto.getID() %>)">&#9733;</span>
+			<span class="star" onclick="rate(4, this, <%= prodotto.getID() %>)">&#9733;</span>
+			<span class="star" onclick="rate(5, this, <%= prodotto.getID() %>)">&#9733;</span>
 		  </div>
 		  
 		  <input type="submit" value="Invia recensione">
-		</form>
-		
-
-		
-		     
-		     
-			 </td>
+		</form>		 
+		</td>
 		    </tr>
 		  <% } %>
 		</table>
@@ -564,28 +556,6 @@ a {
   });
 </script>
 
-<script>
-  // Funzione per gestire il click sul link "Visualizza" per la ricevuta
-  function mostraRicevuta(numeroOrdine) {
-    // Effettua una chiamata AJAX per ottenere la ricevuta in formato PDF
-    // Sostituisci l'URL con l'endpoint corretto per ottenere la ricevuta dal tuo server
-    var ricevutaURL = "fattura?action=viewFattura&numeroOrdine=" + numeroOrdine;
-    
-    // Apri la ricevuta in un nuovo pannello
-    // Sostituisci '_blank' con il nome del tuo pannello di destinazione
-    window.open(ricevutaURL, '_blank');
-  }
-
-  // Aggiungi un listener per il click sul link "Visualizza" per la ricevuta
-  var ricevutaLinks = document.querySelectorAll(".mostra-ricevuta");
-  ricevutaLinks.forEach(function(link) {
-    link.addEventListener("click", function(e) {
-      e.preventDefault();
-      var numeroOrdine = link.getAttribute("data-numero-ordine");
-      mostraRicevuta(numeroOrdine);
-    });
-  });
-</script>
 <script>
 function rate(stars, element, productId) {
 	  var starsSelector = $(element).closest('.stars');

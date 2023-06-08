@@ -54,4 +54,13 @@
     <servlet-name>RegistrationControl</servlet-name>
     <url-pattern>/registration</url-pattern>
   </servlet-mapping>
+  
+       <servlet>
+    <servlet-name>FatturaControl</servlet-name>
+    <servlet-class>it.unisa.control.FatturaControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FatturaControl</servlet-name>
+    <url-pattern>/fattura</url-pattern>
+  </servlet-mapping>
 </web-app>
