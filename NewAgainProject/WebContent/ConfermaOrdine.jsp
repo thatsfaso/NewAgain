@@ -4,7 +4,7 @@
 %>
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.model.*"%>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <title>Conferma</title>
