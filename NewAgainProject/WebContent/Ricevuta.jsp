@@ -10,7 +10,7 @@ Ordine ordine = (Ordine) session1.getAttribute("ordine");
 List<Prodotto> listaProdotti = (List<Prodotto>) session.getAttribute("listaProdotti");
 %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <title>Fattura</title>
 <style>
