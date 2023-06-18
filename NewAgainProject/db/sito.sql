@@ -86,6 +86,7 @@ INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("
 INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("NIKE POLO T-SHIRT - M",46, 0, 'M', "T-shirt polo Nike bicolore in blu e nero con un bottone sul davanti del collo.", "maglie");
 INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("NIKE PRINTED T-SHIRT - L",46, 0, 'M', "T-shirt stampata in grigio. Dal marchio Nike.", "maglie");
 INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("MAGLIETTA SPORTIVA DENVER BRONCOS NFL - L",41, 0, 'M', "T-shirt sportiva NFL dei Denver Broncos di colore blu navy.", "maglie");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("MAGLIA ATOMC STAMPA CANADA A MANICHE LUNGHE - L",55, 0, 'M', "Maglia multicolor Canada stampata Atomc a maniche lunghe completa di scollo a V.", "maglie");
 
 
 INSERT INTO immagini (codprodotto) VALUES (1);
