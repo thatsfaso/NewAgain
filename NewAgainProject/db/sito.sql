@@ -80,6 +80,9 @@ CREATE TABLE recensioni (
 INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("IRON MAIDEN BLACK BAND T-SHIRT - M",50, 0, 'M', "Disponibile in colore  Nero.", "maglie");
 INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("REEBOK USA NAVY & RED #9 JAMES JERSEY - L",48, 0, 'M', "Maglia Reebok da basket USA navy e rossa '#9 James' completa di scollo a V.", "maglie");
 INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("T-SHIRT STAMPATA ROSSA TOMMY HILFIGER - L",48, 0, 'M', "T-shirt Tommy Hilfiger stampata in rosso.", "maglie");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("T-SHIRT SPORTIVA BIANCA - XL",30, 0, 'M', "La maglietta sportiva è disponibile in bianco.", "maglie");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("T-SHIRT STAMPATA ADIDAS REEDLEY COLLEGE - S",35, 0, 'M', "T-shirt stampata Reedley College di colore nero. Dal marchio Adidas.", "maglie");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("T-SHIRT POLO ADIDAS - M",44, 0, 'M', "T-shirt polo in rosso con un collo davanti a bottone. Dal marchio Adidas.", "maglie");
 
 
 INSERT INTO immagini (codprodotto) VALUES (1);
