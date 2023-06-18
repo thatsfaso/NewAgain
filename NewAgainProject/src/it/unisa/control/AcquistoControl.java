@@ -26,7 +26,7 @@ public class AcquistoControl extends HttpServlet {
 	AcquistoDao	model = new AcquistoDao();
     public AcquistoControl() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
