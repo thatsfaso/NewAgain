@@ -17,7 +17,8 @@
     if((int) session.getAttribute("tipo_account")== 1){
 %>
 
-<html>
+<!DOCTYPE html>
+<html lang="it">
 <head>
 <title>Pagina Amministratore</title>
 <style>
