@@ -334,7 +334,6 @@
       <a href="product?action=dettaglio&categoria=felpe&sesso=M">Felpe</a>
       <a href="product?action=dettaglio&categoria=maglie&sesso=M">Maglie</a>
       <a href="product?action=dettaglio&categoria=pantaloni&sesso=M">Pantaloni</a>
-      <a href="product?action=dettaglio&categoria=accessori&sesso=M">Accessori</a>
     </div>
   </div>
   <div class="dropdown">
@@ -344,14 +343,12 @@
       <a href="product?action=dettaglio&categoria=felpe&sesso=F">Felpe</a>
       <a href="product?action=dettaglio&categoria=maglie&sesso=F">Maglie</a>
       <a href="product?action=dettaglio&categoria=pantaloni&sesso=F">Pantaloni</a>
-      <a href="product?action=dettaglio&categoria=accessori&sesso=F">Accessori</a>
     </div>
   </div>
   <div class="dropdown">
-    <a href="product?action=dettaglio&tipologia=accessori" class="dropbtn">Accessori</a>
+    <a href="product?action=dettaglio&categoria=accessori&sesso=M" class="dropbtn">Accessori</a>
     <div class="dropdown-content">
-      <a href="#">Cappelli</a>
-      <a href="#">Altro</a>
+      <a href="product?action=dettaglio&categoria=accessori&sesso=M">Cappelli</a>
     </div>
   </div>
   <a href="product?action=all">All</a>

@@ -317,7 +317,7 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
                 <i class="far fa-star"></i>
-                <p>240 recensioni</p>
+                <p>stelle</p>
             </div>
             <div class="price">
                 € <%=product.getPrezzo()%>

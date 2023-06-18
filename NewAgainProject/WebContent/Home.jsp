@@ -289,7 +289,7 @@ border-radius: 5px;
 	<div class="container1">
 		<a href="product?action=dettaglio&sesso=F"><img src="DONNA.png" alt="Immagine 1"></a>
 		<a href="product?action=dettaglio&sesso=M"><img src="uomo.png" alt="Immagine 2"></a>
-		<img src="acc.png" alt="Immagine 3"> 
+		<a href="product?action=dettaglio&categoria=accessori&sesso=M"><img src="acc.png" alt="Immagine 3"></a>
 		<a href="product?action=all"><img src="all.png" alt="Immagine 4"></a>
 	</div>
 <br><br><br>
