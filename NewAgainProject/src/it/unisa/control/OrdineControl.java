@@ -30,7 +30,7 @@ public class OrdineControl extends HttpServlet {
      */
     public OrdineControl() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
