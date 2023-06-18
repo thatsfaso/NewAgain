@@ -77,12 +77,11 @@ CREATE TABLE recensioni (
 );
 
 
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("Cargo Nike nero",100, 0, 'F', "Cargo Nike Donna", "pantaloni");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Maglietta Nike grigia', 100, 0, 'M', "Maglietta Nike Uomo", "maglie");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Polo Ralph Lauren nera ', 100, 0, 'M', "Polo Ralph Lauren Uomo", "maglie");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Felpa Nike nera', 100, 0, 'U', "Felpa Nike Uomo", "felpe");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Jeans Levi\'s color jeans ', 100, 0, 'M', "Jeans Levi\'s Uomo", "pantaloni");
-INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ('Maglione Lacoste beige', 100, 1,'F', "Maglione Lacoste Donna", "maglie");   -- PRODOTTO SETTATO A 1 AS NON DISPONIBILE 
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("IRON MAIDEN BLACK BAND T-SHIRT - M",50, 0, 'M', "Disponibile in colore  Nero.", "maglie");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("REEBOK USA NAVY & RED #9 JAMES JERSEY - L",48, 0, 'M', "Maglia Reebok da basket USA navy e rossa '#9 James' completa di scollo a V.", "maglie");
+INSERT INTO product (nome,prezzo,quantita,sesso,descrizione,categoria) VALUES ("T-SHIRT STAMPATA ROSSA TOMMY HILFIGER - L",48, 0, 'M', "T-shirt Tommy Hilfiger stampata in rosso.", "maglie");
+
+
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
 INSERT INTO immagini (codprodotto) VALUES (1);
