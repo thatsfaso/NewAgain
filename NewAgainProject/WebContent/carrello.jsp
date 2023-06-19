@@ -153,7 +153,7 @@ input[type="submit"]:hover {
 }
 
 .total-price {
-  margin-top: 120px;
+  margin-top: 10px;
 }
 
 .total-price h3 {
@@ -192,6 +192,7 @@ table.cart-table {
     }
     
 #table1 {
+    margin-top: 140px;	
     border-collapse: unset;
     border: unset;
     background-color: unset;
