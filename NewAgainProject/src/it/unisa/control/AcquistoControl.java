@@ -41,12 +41,16 @@ public class AcquistoControl extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
 		Cart cart = (Cart)request.getSession().getAttribute("cart");
 		String action = request.getParameter("action");
 		if (action != null) {
 			
 			if (action.equalsIgnoreCase("visualizza")) {
+				if(cart.getProducts().size()==0) {
+					request.setAttribute("errore", "Il carrello è vuoto. Si prega di inserire almeno un prodotto prima di procedere all'acquisto.\n");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/product?action=viewC");
+					dispatcher.forward(request, response);
+				}
 				if(request.getSession().getAttribute("email")!= null) {
 				String pagamento = request.getParameter("Pagamento");
 				String numeroCarta = request.getParameter("card-number");
