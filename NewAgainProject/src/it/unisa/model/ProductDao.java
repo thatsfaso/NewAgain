@@ -272,7 +272,44 @@ public class ProductDao {
 		}
 		return (result != 0);
 	}
+	
+	public synchronized float media(int code) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		float m = 0;
 
+		String calcolamedia = "SELECT ROUND(AVG(valutazione), 2) AS media_valutazione " +
+				"FROM recensioni " +
+				"WHERE codp = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(calcolamedia);
+			preparedStatement.setInt(1, code);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				m = resultSet.getFloat("media_valutazione");
+			}
+
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+			} finally {
+				try {
+					if (preparedStatement != null)
+						preparedStatement.close();
+				} finally {
+					if (connection != null)
+						connection.close();
+				}
+			}
+		}
+
+		return m;
+	}
 	public synchronized Collection<Prodotto> doRetrieveAll() throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

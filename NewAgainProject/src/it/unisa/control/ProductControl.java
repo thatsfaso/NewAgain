@@ -79,6 +79,7 @@ public class ProductControl extends HttpServlet {
 					int id = Integer.parseInt(request.getParameter("id"));
 					request.removeAttribute("product");
 					request.setAttribute("product", model.doRetrieveByKey(id));
+					request.setAttribute("media", model.media(id));
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductDetails.jsp");
 					dispatcher.forward(request, response); 
 				}

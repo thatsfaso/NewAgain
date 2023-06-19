@@ -4,6 +4,7 @@
 <%
     Prodotto product = (Prodotto) request.getAttribute("product");
     Cart cart = (Cart) session.getAttribute("cart");
+    float media =(float) request.getAttribute("media");
 %>
 
 <!DOCTYPE html>
@@ -25,6 +26,7 @@
         body {
             background: #f5f5f7;
         }
+        
 
         #footer {
             bottom: 0;
@@ -262,10 +264,53 @@
             display: flex;
             justify-content: center;
         }
-
+		
         #col6 {
             margin-left: 20px;
         }
+        .banner {
+	background-color: rgba(235, 235, 240, 0.66);
+	position: relative;
+	height: 90px;
+	width: 100%;
+}
+
+#image {
+	position: absolute;
+	top: -18px;
+	left: 10px;
+	z-index: 1;
+	width: 125px;
+	height: auto;
+}
+
+.dx {
+    display: flex;
+    justify-content: center; /* Centra orizzontalmente gli elementi */
+    align-items: center;
+	position: absolute;
+	width: auto;
+	top: 20px;
+	right: 5px;
+	z-index: 1;
+ 
+}
+
+.dx img {
+	width: 40px;
+	height: 40px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.cerca {
+    display: none;
+}
+
+#searchInput{
+border: 2px solid black;
+border-radius: 5px;
+}
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/zooming/build/zooming.min.js"></script>
@@ -273,6 +318,33 @@
     
 </head>
 <body>
+<div class="banner"> 
+	<a href="Home.jsp"><img src="./nuovologo.png" id="image"></a>
+	<div class="dx">
+    <% if (session.getAttribute("email") == null) { %>
+        <a href="#0" id="cercap"><img src="cerca.png"></a>
+        		<div class="cerca">
+				<form action="product" method="GET">
+				    <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
+				    <button type="submit" onclick="submitSearch(event)">Cerca</button>
+				</form>
+				</div>
+        <a href="Accedi.jsp"><img src="utente.png"></a>
+        <a href="product?action=viewC"><img src="cart.png"></a>
+    <% } else { %>
+                <a href="#0" id="cercap"><img src="cerca.png"></a>
+        		<div class="cerca">
+				<form action="product" method="GET">
+				    <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
+				    <button type="submit" onclick="submitSearch(event)">Cerca</button>
+				</form>
+				</div>
+        <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png"></a>
+        <a href="registration?action=logout"><img src="logout.png"></a>
+        <a href="product?action=viewC"><img src="cart.png"></a>
+    <% } %>
+	</div>
+	</div>
 <%
     if (product != null) {
         byte[] imageB = product.getImg();
@@ -312,15 +384,25 @@
         </div>
         <div class="col-md-6" id="col6">
             <h1 class="product-title"><%= product.getNome() %></h1>
-            <div class="reviews">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <i class="far fa-star"></i>
-                <p>stelle</p>
-            </div>
-            <div class="price">
+ 		<div class="reviews">
+    <% int wholeStars = (int) media; // Numero di stelle intere
+       double fraction = media - wholeStars; // Parte frazionaria della valutazione
+       boolean halfStar = fraction >= 0.5; // Indica se c'è mezza stella
+       for (int i = 0; i < 5; i++) {
+           if (i < wholeStars) { %>
+               <i class="fas fa-star filled-star" style="color: black;"></i>
+           <% } else if (i == wholeStars && halfStar) { %>
+               <i class="fas fa-star-half-alt filled-star" style="color: black;"></i>
+           <% } else { %>
+               <i class="fas fa-star" style="color: white; text-shadow: 0 0 1px black;"></i>
+           <% }
+       } %>
+    <p>stelle</p>
+</div>
+ 		
+ 		
+ 		      
+      <div class="price">
                 € <%=product.getPrezzo()%>
             </div>
             <% int q = product.getQuantita(); %>
@@ -390,6 +472,31 @@
       });
     }
 </script>
+<script>
+    function submitSearch(event) {
+        event.preventDefault(); // Previeni il comportamento predefinito del link
 
+        var searchInput = document.getElementById("searchInput");
+        var nome = searchInput.value.trim();
+
+        if (nome !== "") {
+            var url = "product?action=search&nome=" + encodeURIComponent(nome);
+            window.location.href = url;
+        }
+    }
+    
+    var cercaLink = document.getElementById("cercap");
+	var cercaSection = document.querySelector(".cerca");
+		 
+			cercaLink.addEventListener("click", function(event) {
+			event.preventDefault();
+		if (cercaSection.style.display === "flex") {
+			cercaSection.style.display = "none"; // Se la barra di ricerca è già visibile, nascondila
+		} else {
+			cercaSection.style.display = "flex"; // Altrimenti, mostra la barra di ricerca
+		}
+		});
+
+</script>
 </body>
 </html>
