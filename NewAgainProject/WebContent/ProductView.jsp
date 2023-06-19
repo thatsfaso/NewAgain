@@ -383,7 +383,8 @@
                 <input type="submit" value="Aggiungi al carrello">
             </a>
         <% } else { %>
-            <p>Prodotto già nel carrello</p>
+        	<br>
+            <p style="text-align: center;">Prodotto già nel carrello</p>
         <% } %>
     </a>
 </div>

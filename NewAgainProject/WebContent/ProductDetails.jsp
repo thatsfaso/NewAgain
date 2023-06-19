@@ -289,6 +289,7 @@
                 <!-- Aggiungi l'attributo data-zoomable all'immagine per abilitare lo zoom -->
                 <img src="data:image/jpg;base64, <%=base64img%>" width="400px" id="ProductImg" data-zoomable>
             </div>
+            <br>
             <div class="small-imgs">
                 <% if (product.getAllimg() != null) {
                     ArrayList<immagine> a = product.getAllimg();
@@ -375,17 +376,20 @@
 </script>
 
 <script>
-        function changeProduct(imageId, productId, productName, base64Image) {
-            // Puoi utilizzare i parametri passati per fare ciò che desideri, ad esempio:
-            console.log("Image ID:", imageId);
-            console.log("Product ID:", productId);
-            console.log("Product Name:", productName);
-
-            // Puoi anche aggiornare l'immagine principale o fare altre operazioni, ad esempio:
-            var productImg = document.getElementById("ProductImg");
-            productImg.src = "data:image/jpg;base64," + base64Image;
-        }
+    // Funzione AJAX per lo switch delle immagini
+    function switchImage(imageUrl) {
+      var productImg = document.getElementById('ProductImg');
+      productImg.src = imageUrl;
+    }
+    // event listener alle immagini più piccole
+    var smallImgs = document.getElementsByClassName('small-img');
+    for (var i = 0; i < smallImgs.length; i++) {
+      smallImgs[i].addEventListener('click', function() {
+        var imageUrl = this.src;
+        switchImage(imageUrl);
+      });
+    }
 </script>
-    
+
 </body>
 </html>
