@@ -15,6 +15,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import it.unisa.model.Cart;
 import it.unisa.model.Prodotto;
 
@@ -53,8 +55,8 @@ public class ProductControl extends HttpServlet {
 					dispatcher.forward(request, response);
 				} 
 				else if(action.equalsIgnoreCase("svuotaC")) {
-					Cart nuovo = new Cart();
-					request.setAttribute("cart",nuovo);
+					cart.deleteAllProduct();
+					request.setAttribute("cart", cart);
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/carrello.jsp");
 					dispatcher.forward(request, response);
 				}
