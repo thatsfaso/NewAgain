@@ -2,6 +2,8 @@
 <% 
 String mess = (String) request.getAttribute("errore"); 
 String mess2 = (String) request.getAttribute("errore2");
+String mess3 = (String) request.getAttribute("errore3");
+
 %>
 <!DOCTYPE html>
 <html lang="it">
@@ -50,6 +52,10 @@ String mess2 = (String) request.getAttribute("errore2");
 	<p style="color: red;"><%=mess%></p>
 	
 <% } %>
+<%
+				if (mess3 != null) { %>
+					<p style="color: red;"><%=mess3%></p>
+					<% } %>
 			<button>Accedi</button>
 		</form>
 	</div>
