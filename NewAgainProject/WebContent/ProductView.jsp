@@ -20,7 +20,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <title>New Again</title>
 <style>
 			body {
@@ -298,27 +298,28 @@
 </style>
 </head>
 <body>
+<div id="content">
 	<div class="banner"> 
 	<a href="Home.jsp"><img src="./nuovologo.png" id="image"></a>
 	<div class="dx">
     <% if (session.getAttribute("email") == null) { %>
         <a href="#0" id="cercap"><img src="cerca.png"></a>
-        		<div class="cerca">
-				<form action="product" method="GET">
-				    <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
-				    <button type="submit" onclick="submitSearch(event)">Cerca</button>
-				</form>
-				</div>
+<div class="cerca" style="display: none;">
+    <form onsubmit="submitSearch(event)">
+        <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
+        <button type="submit">Cerca</button>
+    </form>
+</div>
         <a href="Accedi.jsp"><img src="utente.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
     <% } else { %>
         <a href="#0" id="cercap"><img src="cerca.png"></a>
-        		<div class="cerca">
-				<form action="product" method="GET">
-				    <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
-				    <button type="submit" onclick="submitSearch(event)">Cerca</button>
-				</form>
-				</div>
+<div class="cerca">
+    <form onsubmit="submitSearch(event)">
+        <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
+        <button type="submit">Cerca</button>
+    </form>
+</div>
         <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png"></a>
         <a href="registration?action=logout"><img src="logout.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
@@ -403,16 +404,33 @@ if (count % 4 != 0) { %>
   </div>
   <script>
   function submitSearch(event) {
-      event.preventDefault(); // Previeni il comportamento predefinito del link
+	    event.preventDefault(); // Previene il comportamento predefinito del form
 
-      var searchInput = document.getElementById("searchInput");
-      var nome = searchInput.value.trim();
+	    var searchInput = document.getElementById("searchInput");
+	    var nome = searchInput.value.trim();
 
-      if (nome !== "") {
-          var url = "product?action=search&nome=" + encodeURIComponent(nome);
-          window.location.href = url;
-      }
-  }
+	    if (nome !== "") {
+	        // Esegue la richiesta AJAX per la ricerca del prodotto
+	        $.ajax({
+	            url: "product",
+	            type: "GET",
+	            data: {
+	                action: "search",
+	                nome: nome
+	            },
+	            dataType: "html",
+	            success: function(response) {
+	                // Aggiorna il contenuto della pagina con i risultati della ricerca
+	                $("#content").html(response);
+	            },
+	            error: function(xhr, status, error) {
+	                // Gestione degli errori
+	                console.error(error);
+	            }
+	        });
+	    }
+	}
+
   var cercaLink = document.getElementById("cercap");
 	var cercaSection = document.querySelector(".cerca");
 		 
@@ -425,5 +443,6 @@ if (count % 4 != 0) { %>
 		}
 		});
   </script>
+  </div>
 </body>
 </html>
