@@ -88,6 +88,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			bean.setPass(pass);
 			bean.setCognome(cognome);
 			bean.setNome(nome);
+			HttpSession session = request.getSession();
+            session.setAttribute("email", bean.getEmail());
+            session.setAttribute("cognome", bean.getCognome());
+            session.setAttribute("nome", bean.getNome());
+            session.setAttribute("password", bean.getPass());
 		
 			model.doSaveRistretto(bean);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Home.jsp");
@@ -122,7 +127,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             } else {
                 	request.setAttribute("errore", "Email o password non validi");
                     request.getRequestDispatcher("/Accedi.jsp").forward(request, response);
-                    System.out.println("ERRATO");
+                    
                 }
                 }catch (SQLException e) {
                 e.printStackTrace();
@@ -187,7 +192,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 	}}
 	catch (SQLException e) {
 	System.out.println("Error:" + e.getMessage());
-	request.setAttribute("errore2", "Username gia usato" );
+	request.setAttribute("errore2", "Mail gia usata" );
 	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Accedi.jsp");
 	dispatcher.forward(request, response);
 }
