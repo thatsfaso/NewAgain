@@ -23,7 +23,10 @@ public class Cart {
 			}
 		}
  	}
-	
+
+	public void deleteAllProduct() {
+		products.clear();
+		}
 	public List<Prodotto> getProducts() {
 		return  products;
 	}
