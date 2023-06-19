@@ -12,6 +12,71 @@ String mess3 = (String) request.getAttribute("errore3");
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Accedi</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    	<link href="https://fonts.googleapis.com/css?family=Aleo|Slabo+27px" rel="stylesheet">
+    	<style>
+    	.container1 {
+			background-color: white;
+			box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.2);
+			border-radius: 10px;text-align: left;
+			display: none;
+			margin-top: 0;
+			}
+			
+			#count
+			{
+			   display:none;
+			   position:relative ;
+			   margin:4%; margin-bottom:2%;
+			   color:#000; font-size:18px;
+			   text-indent:40px;
+			   font-weight:bolder;
+			   
+			}
+			#see
+			{
+				display:inline-block;
+				color:gray;
+				margin:auto; 
+				float: right;
+				margin-right:40px;
+				margin-top:20px;
+				cursor:pointer; 
+				transition-duration:0.2s;
+			}
+			
+			i
+			{
+				font-size:20px;
+				transition-duration:600ms;    
+			}
+			#check0,#check1,#check2,#check3,#check4
+			{
+			   display:block;
+			   position:relative;
+				padding: 3px;
+			   color:rgb(214, 47, 12); 
+			   font-size:12px;  
+			}
+			span
+			{
+				margin:10px;
+				font-weight: bold;
+				font-size:12px;
+			}
+		@media (max-width: 710px) {
+		  .container1 span{
+			font-size: 10px;
+		  }
+		  #check0,#check1,#check2,#check3,#check4{
+			padding: 0;
+		  }
+		  
+		  .container1 i {
+			font-size: 13px;
+		  }
+		}
+    	</style>
 	</head>
 <body>
 
@@ -29,8 +94,24 @@ String mess3 = (String) request.getAttribute("errore3");
 				  <input type="email" name="email" required placeholder="Email">
 				</div>
 				<div>
-				  <input type="password" name="pass" required placeholder="Password">
+				  <input type="password" name="pass" id="pass" required placeholder="Password" onInput="check()" />
 				</div>
+				<div class="container1">
+			<div id="check4">
+                <i class="far fa-check-circle"></i>  <span>Deve contenere almeno 8 caratteri</span>
+           </div>
+		 <div id="check1">
+                <i class="far fa-check-circle"></i>  <span> Contiene una lettera maiuscola</span>
+           </div>
+           <div id="check2">
+                <i class="far fa-check-circle"></i>  <span> Contiene un carattere numerico</span>
+           </div>
+           <div id="check3">
+                <i class="far fa-check-circle"></i>   <span>Contiene un carattere speciale</span>
+           </div>
+           
+    </div>
+	<br>
 				<div>
 				<%
 				if (mess2 != null) { %>
@@ -80,7 +161,87 @@ String mess3 = (String) request.getAttribute("errore3");
 </div>
 
 
+<script>
+function showContainer() {
+  var passwordInput = document.getElementById('pass');
+  var container = document.querySelector('.container1');
+  
+  passwordInput.addEventListener('click', function() {
+    container.style.display = 'block';
+  });
+}
 
+showContainer();
+
+const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.getElementById('container');
+
+signUpButton.addEventListener('click', () => {
+	container.classList.add("right-panel-active");
+});
+
+signInButton.addEventListener('click', () => {
+	container.classList.remove("right-panel-active");
+});
+</script>
+	<script>
+	var is_visible = false;
+
+
+function check()
+{
+    var input = document.getElementById("pass").value;
+    
+    input=input.trim();
+    document.getElementById("pass").value=input;
+    
+	var passwordInput = document.getElementById('pass');
+  var countMessage = document.getElementById('check4');
+  
+  var password = passwordInput.value;
+  var passwordLength = password.length;
+  
+  if (passwordLength < 8) {
+    countMessage.querySelector("i").className = "far fa-check-circle invalid";
+    countMessage.style.color = "red";
+  } else {
+    countMessage.querySelector("i").className = "far fa-check-circle valid";
+    countMessage.style.color = "green";
+  }
+    if (input.match(/[A-Z]/i)) {
+		document.getElementById("check1").style.color = "green";
+	} 
+	else 
+	{
+    document.getElementById("check1").style.color = "red";
+	}
+	
+    if(input.match(/[0-9]/i))
+    {
+        document.getElementById("check2").style.color="green";
+    }
+    else
+    {
+       document.getElementById("check2").style.color="red"; 
+    }
+	
+	
+
+
+    
+    if(input.match(/[^A-Za-z0-9-' ']/i))
+    {
+        document.getElementById("check3").style.color="green";
+    }
+    else
+    {
+       document.getElementById("check3").style.color="red"; 
+    }
+    
+    
+}
+	</script>
 <script type="text/javascript" src="script.js"></script>
 
 </body>

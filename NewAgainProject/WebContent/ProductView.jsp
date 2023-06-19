@@ -80,10 +80,10 @@
 		}
 		/* Stile per la visualizzazione dei prodotti */
 
-		.product:hover {
-		  transform: translateY(-5px);
-		  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-		}
+	  .product.hover {
+	    transform: translateY(-5px);
+	    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	  }
 		
 		.product h3 {
 		  margin-top: 10px;
@@ -443,6 +443,20 @@ if (count % 4 != 0) { %>
 		}
 		});
   </script>
+  
+  <script>
+  $(document).ready(function() {
+    $(".product").hover(
+      function() {
+        $(this).addClass("hover");
+      },
+      function() {
+        $(this).removeClass("hover");
+      }
+    );
+  });
+</script>
+  
   </div>
 </body>
 </html>

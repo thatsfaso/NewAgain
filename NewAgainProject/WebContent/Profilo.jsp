@@ -374,11 +374,9 @@ a {
 	<a href="Home.jsp"><img src="./nuovologo.png" id="image"></a>
 	<div class="dx">
     <% if (session.getAttribute("email") == null) { %>
-        <a href="http://www.google.com"><img src="cerca.png"></a>
         <a href="Accedi.jsp"><img src="utente.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
     <% } else { %>
-        <a href="http://www.google.com"><img src="cerca.png"></a>
         <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png"></a>
         <a href="registration?action=logout"><img src="logout.png"></a>
         <a href="product?action=viewC"><img src="cart.png"></a>
