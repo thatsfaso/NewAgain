@@ -1,6 +1,7 @@
 <%@ page import = "java.util.Base64" %>
 <%
 	Cart cart = (Cart) request.getAttribute("cart");
+	String mess = (String) request.getAttribute("errore"); 
 %>
 <!DOCTYPE html>
 <html lang="it">
@@ -321,7 +322,10 @@ table.cart-table {
   
 <div class="right-column">
 	<% double prezzotot=0;
-	if(cart != null) { %>
+	if (mess != null) { %>
+					<p style="color: black;"><%=mess%></p>
+					<% } %>
+	<%if(cart != null) { %>
 		
 		<table class="cart-table" border="1" id="table1">
   <%  	
@@ -454,6 +458,8 @@ table.cart-table {
          totalPriceElement.textContent = totalPrice.toFixed(2);
          updateCartTotal(); // Aggiorna il totale del carrello
        }
+       
+
 
        // Chiamata iniziale per visualizzare il totale all'avvio della pagina
        updateCartTotal();
