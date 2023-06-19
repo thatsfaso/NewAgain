@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 import it.unisa.model.*;
 
@@ -41,12 +41,13 @@ public class AcquistoControl extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession();
 		Cart cart = (Cart)request.getSession().getAttribute("cart");
 		String action = request.getParameter("action");
 		if (action != null) {
 			
 			if (action.equalsIgnoreCase("visualizza")) {
+				if(request.getSession().getAttribute("email")!= null) {
 				String pagamento = request.getParameter("Pagamento");
 				String numeroCarta = request.getParameter("card-number");
 				String titolareCarta = request.getParameter("card-holder");
@@ -70,6 +71,11 @@ public class AcquistoControl extends HttpServlet {
 				request.setAttribute("cvv", cvv);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/ConfermaOrdine.jsp");
 				dispatcher.forward(request, response);
+				}
+				else {
+					request.setAttribute("errore3", "Per completare la procedura devi accedere");
+                    request.getRequestDispatcher("/Accedi.jsp").forward(request, response);
+				}
 			}
 			if (action.equalsIgnoreCase("completa")) {
 				String pagamento = request.getParameter("Pagamento");
@@ -97,8 +103,8 @@ public class AcquistoControl extends HttpServlet {
 				request.setAttribute("cvv", cvv);
 				model.inserimentoaq(provincia, indirizzo, cap, citta, cart, email,
 			    		 pagamento, numeroCarta , titolareCarta , scadenzaCarta , cvv);
-				Cart nuovo = new Cart();
-				request.setAttribute("cart",nuovo);
+				cart.deleteAllProduct();
+				request.setAttribute("cart", cart);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/Home.jsp");
 				dispatcher.forward(request, response);
 				
