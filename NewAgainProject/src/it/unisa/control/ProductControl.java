@@ -46,14 +46,20 @@ public class ProductControl extends HttpServlet {
 
 		try {
 			if (action != null) {
-				
 				if (action.equalsIgnoreCase("addC")) {
-					int id =Integer.parseInt(request.getParameter("id"));
-					cart.addProduct(model.doRetrieveByKey(id));
-					request.setAttribute("cart",cart);
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/carrello.jsp");
-					dispatcher.forward(request, response);
-				} 
+					if (action.equalsIgnoreCase("addC")) {
+					    int id = Integer.parseInt(request.getParameter("id"));
+					    cart.addProduct(model.doRetrieveByKey(id));
+					    request.setAttribute("cart", cart);
+					    
+					    // Ottieni il riferimento alla pagina precedente
+					    String referer = request.getHeader("Referer");
+					    
+					    // Reindirizza la richiesta alla pagina precedente
+					    response.sendRedirect(referer);
+					}
+				    
+				}
 				else if(action.equalsIgnoreCase("svuotaC")) {
 					cart.deleteAllProduct();
 					request.setAttribute("cart", cart);
