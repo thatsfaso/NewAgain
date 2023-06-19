@@ -153,7 +153,7 @@ input[type="submit"]:hover {
 }
 
 .total-price {
-  margin-top: 20px;
+  margin-top: 120px;
 }
 
 .total-price h3 {
