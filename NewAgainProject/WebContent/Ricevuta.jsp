@@ -110,7 +110,7 @@ List<Prodotto> listaProdotti = (List<Prodotto>) session.getAttribute("listaProdo
 
     <div class="pagina">
     <p id="titolo">Ricevuta d'acquisto</p>
-		<img src="./nuovologo.png">
+		<img src="./nuovologo.png" alt="#">
 		<br>
 <%= utente.getNome() %> <%= utente.getCognome() %>
 <%= utente.getIndirizzo() %>
