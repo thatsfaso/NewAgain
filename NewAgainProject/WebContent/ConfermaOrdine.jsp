@@ -97,7 +97,7 @@
 </head>
 
 <body>
-<img src="./nuovologo.png" id="image">
+<img src="./nuovologo.png" id="image" alt="#">
 <div id="conf">
 	<form action="acquista" method="post">
 		<input type="hidden" name="action" value="completa">
@@ -188,7 +188,7 @@
 					}
 				%>
 					<tr data-product-id="<%= p.getID() %>">
-						<td><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100"></td>
+						<td><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100" alt="#"></td>
 						<td><%= p.getNome() %></td>
 						<td><span id="totalPrice_<%= p.getID() %>"><%= p.getPrezzo() %>€</span></td>
 					</tr>
