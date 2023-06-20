@@ -401,34 +401,32 @@ public class ProductDao {
 		return products;
 	}
 	
-	public synchronized void doUpdate(Prodotto product) throws SQLException {
+	public void doUpdate(Prodotto prodotto) throws SQLException {
 	    Connection connection = null;
-	    PreparedStatement preparedStatement = null;
-	    String updateSQL = "UPDATE " + ProductDao.TABLE_NAME + " SET descrizione = ?, prezzo = ?, quantita = ?, foto = ?, sesso = ?, nome = ?, categoria = ?, iva = ? WHERE id = ?";
+	    PreparedStatement statement = null;
 
 	    try {
 	        connection = ds.getConnection();
-	        preparedStatement = connection.prepareStatement(updateSQL);
-	        preparedStatement.setString(1, product.getDescrizione());
-	        preparedStatement.setDouble(2, product.getPrezzo());
-	        preparedStatement.setInt(3, product.getQuantita());
-	        InputStream inputStream = new ByteArrayInputStream(product.getImg());
-	        preparedStatement.setBinaryStream(4, inputStream, product.getImg().length);
-	        preparedStatement.setString(5, product.getSesso());
-	        preparedStatement.setString(6, product.getNome());
-	        preparedStatement.setString(7, product.getCategoria());
-	        preparedStatement.setInt(8, product.getID());
-	        preparedStatement.setDouble(9, product.getIva());
-	        preparedStatement.executeUpdate();
+
+	        // Query di aggiornamento
+	        String query = "UPDATE product SET descrizione = ?, prezzo = ?, quantita = ?, sesso = ?, nome = ? WHERE id = ?";
+
+	        statement = connection.prepareStatement(query);
+	        statement.setString(1, prodotto.getDescrizione());
+	        statement.setDouble(2, prodotto.getPrezzo());
+	        statement.setInt(3, prodotto.getQuantita());
+	        statement.setString(4, prodotto.getSesso());
+	        statement.setString(5, prodotto.getNome());
+	        statement.setInt(6, prodotto.getID());
+
+	        statement.executeUpdate();
 	    } finally {
-	        try {
-	            if (preparedStatement != null) {
-	                preparedStatement.close();
-	            }
-	        } finally {
-	            if (connection != null) {
-	                connection.close();
-	            }
+	        // Chiudi le risorse
+	        if (statement != null) {
+	            statement.close();
+	        }
+	        if (connection != null) {
+	            connection.close();
 	        }
 	    }
 	}
@@ -673,6 +671,45 @@ public class ProductDao {
 
 	    return products;
 	}
-
-
-}
+	public synchronized void cambiaprezzo(String id, String prezzo) {
+		 Connection conn = null;
+		    PreparedStatement stmt = null;
+		    
+		    try {
+		        conn = ds.getConnection(); // Ottieni la connessione al tuo database
+		        
+		        // Query per aggiornare il prezzo del prodotto
+		        String sql = "UPDATE product SET prezzo = ? WHERE id = ?";
+		        stmt = conn.prepareStatement(sql);
+		        
+		        // Imposta i parametri nella query
+		        stmt.setString(1, prezzo);
+		        stmt.setString(2, id);
+		        
+		        // Esegui la query di aggiornamento
+		        stmt.executeUpdate();
+		        
+		        // Eventuali altre operazioni o logica dopo l'aggiornamento del prezzo
+		        
+		    } catch (SQLException e) {
+		        // Gestisci l'eccezione SQL
+		        e.printStackTrace();
+		    } finally {
+		        // Chiudi la connessione e gli statement
+		        if (stmt != null) {
+		            try {
+		                stmt.close();
+		            } catch (SQLException e) {
+		                e.printStackTrace();
+		            }
+		        }
+		        if (conn != null) {
+		            try {
+		                conn.close();
+		            } catch (SQLException e) {
+		                e.printStackTrace();
+		            }
+		        }
+		    }
+		}
+	}
