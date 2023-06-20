@@ -156,29 +156,29 @@ border-radius: 5px;
 </head>
 <body>
 	<div class="banner"> 
-	<a href="Home.jsp"><img src="./nuovologo.png" id="image"></a>
+	<a href="Home.jsp"><img src="./nuovologo.png" id="image" alt="#"></a>
 	<div class="dx">
     <% if (session.getAttribute("email") == null) { %>
-        <a href="#0" id="cercap"><img src="cerca.png"></a>
+        <a href="#0" id="cercap"><img src="cerca.png" alt="#"></a>
         		<div class="cerca">
 				<form action="product" method="GET">
 				    <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
 				    <button type="submit" onclick="submitSearch(event)">Cerca</button>
 				</form>
 				</div>
-        <a href="Accedi.jsp"><img src="utente.png"></a>
-        <a href="product?action=viewC"><img src="cart.png"></a>
+        <a href="Accedi.jsp"><img src="utente.png" alt="#"></a>
+        <a href="product?action=viewC"><img src="cart.png" alt="#"></a>
     <% } else { %>
-                <a href="#0" id="cercap"><img src="cerca.png"></a>
+                <a href="#0" id="cercap"><img src="cerca.png" alt="#"></a>
         		<div class="cerca">
 				<form action="product" method="GET">
 				    <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
 				    <button type="submit" onclick="submitSearch(event)">Cerca</button>
 				</form>
 				</div>
-        <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png"></a>
-        <a href="registration?action=logout"><img src="logout.png"></a>
-        <a href="product?action=viewC"><img src="cart.png"></a>
+        <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png" alt="#"></a>
+        <a href="registration?action=logout"><img src="logout.png" alt="#"></a>
+        <a href="product?action=viewC"><img src="cart.png" alt="#"></a>
     <% } %>
 	</div>
 	</div>
@@ -189,15 +189,15 @@ border-radius: 5px;
 
 		<!-- Prima immagine -->
 		<div class="mySlides">
-			<img src="slideshow1.png" style="width:100%">
+			<img src="slideshow1.png" style="width:100%" alt="#">
 		</div>
 		<!-- Seconda immagine -->
 		<div class="mySlides">
-			<img src="slideshow3.png" style="width:100%">
+			<img src="slideshow3.png" style="width:100%" alt="#">
 		</div>
 		<!-- terza immagine -->
 		<div class="mySlides">
-			<img src="slideshow4.png" style="width:100%">
+			<img src="slideshow4.png" style="width:100%" alt="#">
 		</div>
 
 		<!-- Pulsante per la visualizzazione dell'immagine precedente -->
@@ -287,8 +287,8 @@ border-radius: 5px;
 </script>
 
 	<div class="container1">
-		<a href="product?action=dettaglio&sesso=F"><img src="DONNA.png" alt="Immagine 1"></a>
-		<a href="product?action=dettaglio&sesso=M"><img src="uomo.png" alt="Immagine 2"></a>
+		<a href="product?action=dettaglio&sesso=F"><img src="DONNA.png" alt="Immagine 1" alt="#"></a>
+		<a href="product?action=dettaglio&sesso=M"><img src="uomo.png" alt="Immagine 2" alt="#"></a>
 		<a href="product?action=dettaglio&categoria=accessori&sesso=M"><img src="acc.png" alt="Immagine 3"></a>
 		<a href="product?action=all"><img src="all.png" alt="Immagine 4"></a>
 	</div>
