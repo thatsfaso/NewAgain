@@ -303,7 +303,7 @@ td a:hover {
             <td><%= bean.getSesso() %></td>
             <td>
                 <a href="#" onclick="mostraInputPrezzo('<%= bean.getID() %>'); return false;">
-                    <input type="button" value="Modifica">
+                    <input type="submit" value="Modifica">
                 </a>
                 <%if(bean.getQuantita()==0){ %>
                     <br>
