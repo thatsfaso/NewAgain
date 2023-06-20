@@ -217,15 +217,15 @@ input[type="file"]{
 
 <body>
 <div class="banner">
-    <a href="Home.jsp"><img src="./nuovologo.png" id="image"></a>
+    <a href="Home.jsp"><img src="./nuovologo.png" id="image" alt="#"></a>
     <div class="dx">
         <% if (session.getAttribute("email") == null) { %>
-            <a href="Accedi.jsp"><img src="utente.png"></a>
-            <a href="product?action=viewC"><img src="cart.png"></a>
+            <a href="Accedi.jsp"><img src="utente.png" alt="#"></a>
+            <a href="product?action=viewC"><img src="cart.png" alt="#"></a>
         <% } else { %>
-            <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png"></a>
-            <a href="registration?action=logout"><img src="logout.png"></a>
-            <a href="product?action=viewC"><img src="cart.png"></a>
+            <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png" alt="#"></a>
+            <a href="registration?action=logout"><img src="logout.png" alt="#"></a>
+            <a href="product?action=viewC"><img src="cart.png" alt="#"></a>
         <% } %>
     </div>
 </div>
@@ -304,7 +304,7 @@ input[type="file"]{
                 <%} %>
             </td>
             <% if (base64img != null) { %>
-                <td><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100"></td>
+                <td><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100" alt="#"></td>
             <% } %>
             <td><%= bean.getSesso() %></td>
             <td>
