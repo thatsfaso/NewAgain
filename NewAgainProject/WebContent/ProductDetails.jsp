@@ -319,29 +319,29 @@ border-radius: 5px;
 </head>
 <body>
 <div class="banner"> 
-	<a href="Home.jsp"><img src="./nuovologo.png" id="image"></a>
+	<a href="Home.jsp"><img src="./nuovologo.png" id="image" alt="#"></a>
 	<div class="dx">
     <% if (session.getAttribute("email") == null) { %>
-        <a href="#0" id="cercap"><img src="cerca.png"></a>
+        <a href="#0" id="cercap"><img src="cerca.png" alt="#"></a>
         		<div class="cerca">
 				<form action="product" method="GET">
 				    <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
 				    <button type="submit" onclick="submitSearch(event)">Cerca</button>
 				</form>
 				</div>
-        <a href="Accedi.jsp"><img src="utente.png"></a>
-        <a href="product?action=viewC"><img src="cart.png"></a>
+        <a href="Accedi.jsp"><img src="utente.png" alt="#"></a>
+        <a href="product?action=viewC"><img src="cart.png" alt="#"></a>
     <% } else { %>
-                <a href="#0" id="cercap"><img src="cerca.png"></a>
+                <a href="#0" id="cercap"><img src="cerca.png" alt="#"></a>
         		<div class="cerca">
 				<form action="product" method="GET">
 				    <input type="text" name="nome" id="searchInput" placeholder="Cerca prodotto">
 				    <button type="submit" onclick="submitSearch(event)">Cerca</button>
 				</form>
 				</div>
-        <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png"></a>
-        <a href="registration?action=logout"><img src="logout.png"></a>
-        <a href="product?action=viewC"><img src="cart.png"></a>
+        <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png" alt="#"></a>
+        <a href="registration?action=logout"><img src="logout.png" alt="#"></a>
+        <a href="product?action=viewC"><img src="cart.png" alt="#"></a>
     <% } %>
 	</div>
 	</div>
@@ -359,7 +359,7 @@ border-radius: 5px;
         <div class="col-md-4">
             <div class="img1" id="zoomableImageContainer">
                 <!-- Aggiungi l'attributo data-zoomable all'immagine per abilitare lo zoom -->
-                <img src="data:image/jpg;base64, <%=base64img%>" width="400px" id="ProductImg" data-zoomable>
+                <img src="data:image/jpg;base64, <%=base64img%>" alt="#" width="400px" id="ProductImg" data-zoomable>
             </div>
             <br>
             <div class="small-imgs">
@@ -374,7 +374,7 @@ border-radius: 5px;
                         }
                 %>
 			    <a href="#" onclick="changeProduct('<%=im.getId()%>', '<%=product.getID()%>', '<%=product.getNome()%>', '<%=base64foto%>')">
-			        <img src="data:image/jpg;base64, <%=base64foto%>" class="small-img" width="80px">
+			        <img src="data:image/jpg;base64, <%=base64foto%>" class="small-img" width="80px" alt="#">
 			    </a>
                 <%
                         }
