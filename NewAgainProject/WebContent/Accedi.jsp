@@ -76,6 +76,11 @@ String mess3 = (String) request.getAttribute("errore3");
 			font-size: 13px;
 		  }
 		}
+		#err{
+			color: red;
+			display: none;
+			font-size: 12px;
+		}
     	</style>
 	</head>
 <body>
@@ -95,6 +100,7 @@ String mess3 = (String) request.getAttribute("errore3");
 				</div>
 				<div>
 				  <input type="password" name="pass" id="pass" required placeholder="Password" onInput="check()" />
+					<div id="err">Password non valida</div>
 				</div>
 				<div class="container1">
 			<div id="check4">
@@ -117,7 +123,7 @@ String mess3 = (String) request.getAttribute("errore3");
 				if (mess2 != null) { %>
 					<p style="color: red;"><%=mess2%></p>
 					<% } %>
-				 <button  type="submit" value="Crea">Crea </button>
+				 <button  type="submit" value="Crea" onclick="validatePassword()">Crea </button>
 				</div>
 			  </div>
 		</form>
@@ -223,11 +229,7 @@ function check()
     {
        document.getElementById("check2").style.color="red"; 
     }
-	
-	
 
-
-    
     if(input.match(/[^A-Za-z0-9-' ']/i))
     {
         document.getElementById("check3").style.color="green";
@@ -241,6 +243,30 @@ function check()
 }
 	</script>
 <script type="text/javascript" src="script.js"></script>
+<script>
+    function validatePassword() {
+      var isPasswordValid = true; // Inizialmente, considera la password come valida
 
+      // Verifica i colori dei check e controlla se tutti i requisiti sono soddisfatti
+      var check1Color = document.getElementById("check1").style.color;
+      var check2Color = document.getElementById("check2").style.color;
+      var check3Color = document.getElementById("check3").style.color;
+      var check4Color = document.getElementById("check4").style.color;
+
+      if (check1Color !== "green" || check2Color !== "green" || check3Color !== "green" || check4Color !== "green") {
+        isPasswordValid = false; // La password non è valida se uno dei requisiti non è soddisfatto
+        document.getElementById("pass").style.border = "2px solid red"; // Colora il bordo di rosso
+		document.getElementById("pass").style.borderRadius = "5px";
+	  } else {
+        document.getElementById("pass").style.border = "2px solid red"; // Ripristina lo stile del bordo predefinito
+		document.getElementById("pass").style.borderRadius = "5px";
+	  }
+
+      if (!isPasswordValid) {
+       document.getElementById("err").style.display = "block";
+        event.preventDefault(); // Blocca l'invio del form
+      }
+    }
+  </script>
 </body>
 </html>
