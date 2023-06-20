@@ -66,45 +66,41 @@ overflow-x:hidden;
     }
 
 	/* Product table */
-	td {
-        width: auto;
-    }
-    
-    table {
-        width:100%;
-        border-collapse: collapse;
-    }
-    
-    th,td {
-        padding: 8px;
-        text-align: center;
-        width: auto;
-       
-    }
-    
-    th {
-        background-color: #f2f2f2;
-        font-weight: bold;
-        
-    }
-    
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-    
-    tr:hover {
-        background-color: #e9e9e9;
-    }
-    
-    td a {
-        color: #0066cc;
-        text-decoration: none;
-        text-align: center;
-    }
-    
-    td a:hover {
-        text-decoration: underline;
-    }
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px; /* Imposta la larghezza massima desiderata per la tabella */
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #e9e9e9;
+}
+
+td a {
+    color: #0066cc;
+    text-decoration: none;
+    text-align: center;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+	
 
     /* Order Form */
     .order-form {
@@ -218,11 +214,9 @@ overflow-x:hidden;
     <a href="Home.jsp"><img src="./nuovologo.png" id="image"></a>
     <div class="dx">
         <% if (session.getAttribute("email") == null) { %>
-            <a href="http://www.google.com"><img src="cerca.png"></a>
             <a href="Accedi.jsp"><img src="utente.png"></a>
             <a href="product?action=viewC"><img src="cart.png"></a>
         <% } else { %>
-            <a href="http://www.google.com"><img src="cerca.png"></a>
             <a href="ordine?action=ViewOrdini&email=<%=session.getAttribute("email") %>"><img src="utente.png"></a>
             <a href="registration?action=logout"><img src="logout.png"></a>
             <a href="product?action=viewC"><img src="cart.png"></a>
@@ -259,67 +253,93 @@ overflow-x:hidden;
 
     <main class="s-layout__content">
         <div class="profile-form">
-          <h2>Catalogo Prodotti</h2>
-			<table class="product-table">
-        <tr>
-            <th>ID</th>
-            <th>Nome Prodotto</th>
-            <th>Descrizione</th>
-            <th>Prezzo</th>
-            <th>Disponibilità</th>
-            <th>Foto</th>
-            <th>Sesso</th>
-            <th>Azioni</th>
-        </tr>
-			<% 
-if (products != null && !products.isEmpty()) {
-    Iterator<?> it = products.iterator();
-    int count = 0;
-    while (it.hasNext()) {
-        if (count % 4 == 0) { %>
-            <tr>
-        <% }
-        Prodotto bean = (Prodotto) it.next();
-        String base64img = null;
-        if (bean.getImg() != null) {
-            byte[] imageB = bean.getImg();
-            base64img = Base64.getEncoder().encodeToString(imageB);
-        }
-        %>
-        <td><%= bean.getID() %></td>
-        <td><%= bean.getNome() %></td>
-        <td><%= bean.getDescrizione() %></td>
-        <td><%= bean.getPrezzo() %>€</td>
-        <td><%= bean.getQuantita() %></td>
-        <% if (base64img != null) { %>
-            <td><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100"></td>
-        <% } %>
-        <td><%= bean.getSesso() %></td>
-        <td>
-            <input type="hidden" id="modificaId" value="<%= bean.getID() %>">
-            <a><input type="submit" value="Modifica" ></a>
-            <br><input type="hidden" id="deleteId" value="<%= bean.getID() %>">
-            <a href="product?action=delete&id=<%=bean.getID()%>"><input type="submit" value="Cancella" id="deleteButton" ></a>
-        	<br><input type="hidden" id="updateId" value="<%= bean.getID() %>">
-            <a href="product?action=updateq&id=<%=bean.getID()%>"><input type="submit" value="Aggiungi" id="updateq"></a>
-        	
-        </td>
-        </tr>
-        <% 
-        count++;
-    }
-    if (count % 4 != 0) { %>
-        <% for (int i = 0; i < 8 - (count % 8); i++) { %>
-        <% } %>
-    </tr>
-    <% }
-} else { %>
+          <h2>Catalogo </h2>
+			<table class="product-table" id="productTable">
     <tr>
-        <td colspan="8">Nessun prodotto disponibile</td>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Descrizione</th>
+        <th>Prezzo</th>
+        <th>Disponibilità</th>
+        <th>Foto</th>
+        <th>Sesso</th>
+        <th>Azioni</th>
     </tr>
-<% } %>
-
-    </table>
+    <% 
+    if (products != null && !products.isEmpty()) {
+        Iterator<?> it = products.iterator();
+        int count = 0;
+        while (it.hasNext()) {
+            if (count % 4 == 0) { %>
+                <tr>
+            <% }
+            Prodotto bean = (Prodotto) it.next();
+            String base64img = null;
+            if (bean.getImg() != null) {
+                byte[] imageB = bean.getImg();
+                base64img = Base64.getEncoder().encodeToString(imageB);
+            }
+            %>
+            <td><%= bean.getID() %></td>
+            <td><%= bean.getNome() %></td>
+            <td><%= bean.getDescrizione() %></td>
+            <td>
+                <form action="product" method="GET">
+                    <input type="hidden" name="action" value="edit">
+                    <input type="hidden" name="id" value="<%= bean.getID() %>">
+                    <span id="spanPrezzo<%= bean.getID() %>"><%= bean.getPrezzo() %>€</span>
+                    <br>
+                    <input type="submit" value="Salva" style="display: none;" id="salvaButton<%= bean.getID() %>">
+                </form>
+            </td>
+            <td>
+                <%if(bean.getQuantita()==0){ %><p>SI</p>
+                <%}else{ %> <p>NO</p>
+                <%} %>
+            </td>
+            <% if (base64img != null) { %>
+                <td><img src="data:image/jpg;base64, <%= base64img %>" width="100" height="100"></td>
+            <% } %>
+            <td><%= bean.getSesso() %></td>
+            <td>
+                <a href="#" onclick="mostraInputPrezzo('<%= bean.getID() %>'); return false;">
+                    <input type="button" value="Modifica">
+                </a>
+                <%if(bean.getQuantita()==0){ %>
+                    <br>
+                    <input type="hidden" id="deleteId" value="<%= bean.getID() %>">
+                    <a href="product?action=delete&id=<%=bean.getID()%>">
+                        <input type="submit" value="Cancella" id="deleteButton">
+                    </a>
+                <%}else{ %>
+                    <br>
+                    <input type="hidden" id="updateId" value="<%= bean.getID() %>">
+                    <a href="product?action=updateq&id=<%=bean.getID()%>">
+                        <input type="submit" value="Aggiungi" id="updateq">
+                    </a>
+                <%} %>
+            </td>
+            </tr>
+            <% 
+            count++;
+        }
+        if (count % 4 != 0) { %>
+            <% for (int i = 0; i < 8 - (count % 8); i++) { %>
+            <% } %>
+        </tr>
+        <% }
+    } else { %>
+        <tr>
+            <td colspan="8">Nessun prodotto disponibile</td>
+        </tr>
+    <% } %>
+    <tr id="addProductRow">
+    <td colspan="8">
+        <button onclick="aggiungiProdotto()">+</button>
+    </td>
+</tr>
+    
+</table>
 
 		<h2>Inserimento</h2>
 		 <form action="product?action=insert" method="post" enctype="multipart/form-data">
@@ -350,31 +370,6 @@ if (products != null && !products.isEmpty()) {
 		 </form>
 		 <br>
 		 
-		
-		<form id="modifica-form" action="" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="action" value="modifica">
-		   <h2 id="modifica">Modifica</h2>
-		  <label for="nome">Nome:</label><br> 
-		  <input name="nome" type="text"><br>
-		  
-		  <label for="quantita">Quantità:</label><br> 
-		  <input name="quantita" type="number" min="1" value="1"><br>
-		  
-		  <label for="descrizione">Descrizione:</label><br>
-		  <textarea name="descrizione" maxlength="100" rows="3" placeholder="inserisci descrizione"></textarea><br>
-		  
-		  <label for="prezzo">Prezzo:</label><br> 
-		  <input name="prezzo" type="number" min="0" value="0" step="0.01"><br>
-		
-		  <label for="sesso">Sesso:</label><br> 
-		  <input name="sesso" type="text"><br>
-		  
-		  <label for="foto">Foto:</label><br> 
-		  <input type="file" name="foto" accept="image/*" ><br>
-		
-		 <a href="product?action=modifica"><input type="submit" value="Modifica" form="modifica-form"  id="modificaButton" onclick="noneForm"></a>
-		 </form>
-		 <br>
 
         </div>
 
@@ -627,6 +622,43 @@ if (searchFormOrders) {
 			  }
 		
 </script>
+<script>
+function mostraInputPrezzo(id) {
+    var spanPrezzo = document.getElementById('spanPrezzo' + id);
+    var inputPrezzo = document.createElement('input');
+    inputPrezzo.type = 'text';
+    inputPrezzo.name = 'prezzo';
+    inputPrezzo.value = spanPrezzo.textContent.trim();
+    spanPrezzo.textContent = '';
+    spanPrezzo.appendChild(inputPrezzo);
+    
+    var salvaButton = document.getElementById('salvaButton' + id);
+    salvaButton.style.display = 'block';
+}
+
+function aggiungiProdotto() {
+    var newRow = document.createElement("tr");
+
+    newRow.innerHTML = `
+        <td><input type="text" name="nuovoProdottoID"></td>
+        <td><input type="text" name="nuovoProdottoNome"></td>
+        <td><input type="text" name="nuovoProdottoDescrizione"></td>
+        <td><input type="text" name="nuovoProdottoPrezzo"></td>
+        <td><input type="text" name="nuovoProdottoDisponibilita"></td>
+        <td><input type="text" name="nuovoProdottoFoto"></td>
+        <td><input type="text" name="nuovoProdottoSesso"></td>
+        <td>
+            <button onclick="salvaNuovoProdotto()">Salva</button>
+        </td>
+    `;
+
+    var table = document.getElementById("productTable");
+    table.appendChild(newRow);
+}
+</script>
+
+
+
 </body>
 </html>
 <%} 
