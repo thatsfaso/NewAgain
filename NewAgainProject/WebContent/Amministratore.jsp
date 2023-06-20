@@ -121,7 +121,7 @@ td a:hover {
         margin-right: 10px;
     }
     
-    input[type="submit"] {
+    input[type="submit"], input[type="button"] {
 	  background-color: #333;
 	  color: #fff;
 	  border: none;
@@ -131,7 +131,7 @@ td a:hover {
 	  transition: all 0.3s ease-in-out;
 	}
 	
-	input[type="submit"]:hover {
+	input[type="submit"]:hover, input[type="button"]:hover {
 	  background-color: #FF6848;
 	  border-radius: 14px;
 	}
