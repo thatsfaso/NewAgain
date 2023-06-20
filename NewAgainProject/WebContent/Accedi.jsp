@@ -209,12 +209,10 @@ function check()
     countMessage.querySelector("i").className = "far fa-check-circle valid";
     countMessage.style.color = "green";
   }
-    if (input.match(/[A-Z]/i)) {
-		document.getElementById("check1").style.color = "green";
-	} 
-	else 
-	{
-    document.getElementById("check1").style.color = "red";
+  if (/[A-Z]/.test(input)) {
+	    document.getElementById("check1").style.color = "green";
+	} else {
+	    document.getElementById("check1").style.color = "red";
 	}
 	
     if(input.match(/[0-9]/i))
