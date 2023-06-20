@@ -204,7 +204,13 @@ td a:hover {
     text-align: center;
   }
 }
-	
+input[type="text"], input[type="file"]{
+	width: 80px;
+}
+
+input[type="file"]{
+	color:transparent;
+}	
 </style>
 <link href="styleAreautente.css" rel="stylesheet" type="text/css">
 </head>
@@ -340,38 +346,8 @@ td a:hover {
 </tr>
     
 </table>
-
-		<h2>Inserimento</h2>
-		 <form action="product?action=insert" method="post" enctype="multipart/form-data">
-		  <input type="hidden" name="action" value="insert"> 
-		  
-		  <label for="nome">Nome:</label><br> 
-		  <input name="nome" type="text"><br>
-		  
-		  <label for="quantita">Quantità:</label><br> 
-		  <input name="quantita" type="number" min="1" value="1"><br>
-		  
-		  <label for="descrizione">Descrizione:</label><br>
-		  <textarea name="descrizione" maxlength="100" rows="3" placeholder="inserisci descrizione"></textarea><br>
-		  
-		  <label for="prezzo">Prezzo:</label><br> 
-		  <input name="prezzo" type="number" min="0" value="0" step="0.01"><br>
-		
-		  <label for="sesso">Sesso:</label><br> 
-		  <input name="sesso" type="text"><br>
-		  
-		  <label for="categoria">Categoria:</label><br> 
-		  <input name="categoria" type="text"><br>
-		  
-		  <label for="foto">Foto:</label><br> 
-		  <input type="file" name="foto" accept="image/*" ><br>
-		
-		 <input type="submit" value="Aggiungi"><input type="reset" value="Reset">
-		 </form>
-		 <br>
-		 
-
-        </div>
+<br>
+</div>
 
         <div class="order-form">
             <!-- Seconda sottopagina: Lista Utenti -->
@@ -640,20 +616,58 @@ function aggiungiProdotto() {
     var newRow = document.createElement("tr");
 
     newRow.innerHTML = `
-        <td><input type="text" name="nuovoProdottoID"></td>
-        <td><input type="text" name="nuovoProdottoNome"></td>
-        <td><input type="text" name="nuovoProdottoDescrizione"></td>
-        <td><input type="text" name="nuovoProdottoPrezzo"></td>
-        <td><input type="text" name="nuovoProdottoDisponibilita"></td>
-        <td><input type="text" name="nuovoProdottoFoto"></td>
-        <td><input type="text" name="nuovoProdottoSesso"></td>
+        <td><input type="text" name="nuovoProdottoID" placeholder="ID"></td>
+        <td><input type="text" name="nuovoProdottoNome" placeholder="Nome"></td>
+        <td><input type="text" name="nuovoProdottoDescrizione" placeholder="Descrizione"></td>
+        <td><input type="text" name="nuovoProdottoPrezzo" placeholder="Prezzo"></td>
+        <td><input type="text" name="nuovoProdottoDisponibilita" placeholder="Disponibilità"></td>
+        <td><input type="file" name="nuovoProdottoFoto" accept="image/*" ></td>
+        <td><input type="text" name="nuovoProdottoSesso" placeholder="Sesso"></td>
         <td>
-            <button onclick="salvaNuovoProdotto()">Salva</button>
+        <form action="product" method="post" enctype="multipart/form-data">
+        <input type="submit" onclick="salvaNuovoProdotto()" value="Salva" id="salva">
+    	</form>
         </td>
     `;
 
     var table = document.getElementById("productTable");
     table.appendChild(newRow);
+}
+
+function salvaNuovoProdotto() {
+    var nome = document.querySelector('input[name="nuovoProdottoNome"]').value;
+    var quantita = document.querySelector('input[name="nuovoProdottoDisponibilita"]').value;
+    var descrizione = document.querySelector('input[name="nuovoProdottoDescrizione"]').value;
+    var prezzo = document.querySelector('input[name="nuovoProdottoPrezzo"]').value;
+    var sesso = document.querySelector('input[name="nuovoProdottoSesso"]').value;
+    var foto = document.querySelector('input[name="nuovoProdottoFoto"]').files[0];
+
+    var disponibilitaInt = disponibilita === "1" ? 1 : 0;
+    
+    var formData = new FormData();
+    formData.append("action", "insert");
+    formData.append("nome", nome);
+    formData.append("quantita", quantita);
+    formData.append("descrizione", descrizione);
+    formData.append("prezzo", prezzo);
+    formData.append("sesso", sesso);
+    formData.append("foto", foto);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "product", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Successo: il prodotto è stato salvato nel database
+                alert("Prodotto salvato con successo");
+                // Esegui altre azioni di successo o aggiorna la pagina
+            } else {
+                // Errore: gestisci l'errore
+                alert("Si è verificato un errore durante il salvataggio del prodotto");
+            }
+        }
+    };
+    xhr.send(formData);
 }
 </script>
 
