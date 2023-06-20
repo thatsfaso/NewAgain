@@ -219,7 +219,7 @@ table.cart-table {
 <div class="cont">
 <div class="left-column">
     <div class="logo-container">
-        <a href="Home.jsp"><img src="nuovologo.png" width="130px"></a>
+        <a href="Home.jsp"><img src="nuovologo.png" width="130px" alt="#"></a>
     </div>
 <form action="acquista" method="post">
     <input type="hidden" name="action" value="visualizza">	
@@ -281,9 +281,9 @@ table.cart-table {
                 <label for="CartaDiCredito">Carta di Credito</label>
             </td>
             <td style="text-align: right;">
-                <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/0169695890db3db16bfe.svg" role="img" width="48" height="34">
-                <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/ae9ceec48b1dc489596c.svg" role="img" width="48" height="34">
-                <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/37fc65d0d7ac30da3b0c.svg" role="img" width="48" height="34">
+                <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/0169695890db3db16bfe.svg" role="img" width="48" height="34" alt="#">
+                <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/ae9ceec48b1dc489596c.svg" role="img" width="48" height="34" alt="#">
+                <img alt="" src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/37fc65d0d7ac30da3b0c.svg" role="img" width="48" height="34" alt="#">
             </td>
         </tr>
         <tr>
@@ -292,7 +292,7 @@ table.cart-table {
                 <label for="Paypal">Paypal</label>
             </td>
             <td style="text-align: right;">
-                <img alt="" src="https://cdn.pixabay.com/photo/2015/05/26/09/37/paypal-784404_1280.png" role="img" width="90" height="50">
+                <img alt="" src="https://cdn.pixabay.com/photo/2015/05/26/09/37/paypal-784404_1280.png" role="img" width="90" height="50" alt="#">
             </td>
         </tr>
         <tr>
@@ -301,7 +301,7 @@ table.cart-table {
                 <label for="ApplePay">Apple Pay</label>
             </td>
             <td style="text-align: right;">
-                <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1024px-Apple_Pay_logo.svg.png?20170518220303" role="img" width="75" height="30">
+                <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1024px-Apple_Pay_logo.svg.png?20170518220303" role="img" width="75" height="30" alt="#">
             </td>
         </tr>
     </table>
@@ -340,7 +340,7 @@ table.cart-table {
        int maxQuantity = p.getQuantita(); // Ottieni il valore massimo
   %>
   <tr data-product-id="<%=p.getID()%>">
-    <td><img src="data:image/jpg;base64, <%=base64img%>"  width="100" height="100"></td>
+    <td><img src="data:image/jpg;base64, <%=base64img%>"  width="100" height="100" alt="#"></td>
     <td><%= p.getNome() %></td>
 	<td><span id="totalPrice_<%=p.getID()%>"><%=p.getPrezzo()%></span></td>
 	  <td><a href="product?action=DeleteC&id=<%=p.getID()%>">Rimuovi</a></td>
