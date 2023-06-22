@@ -175,9 +175,10 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             utente.setCap(cap);
             utente.setPass(pass);
             
+            OrdineDAO ordine = new OrdineDAO();
             UtenteDao utenteDao = new UtenteDao();
             utenteDao.doUpdate(utente);
-            
+            ArrayList<Ordine> ordini= (ArrayList<Ordine>) ordine.searchByEmail(email);
             HttpSession session = request.getSession();
             session.setAttribute("nome", nome);
             session.setAttribute("cognome", cognome);
@@ -185,6 +186,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             session.setAttribute("citta", citta);
             session.setAttribute("provincia", provincia);
             session.setAttribute("cap", cap);
+            request.setAttribute("ordini", ordini);
             
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Profilo.jsp");
             dispatcher.forward(request, response);
