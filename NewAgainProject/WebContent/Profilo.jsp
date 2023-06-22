@@ -424,16 +424,16 @@ a {
     <input type="text" name="citta" value="<%=session.getAttribute("citta") %>"><br>
     
     <label>Provincia:</label>
-    <input type="text" name="provincia" value="<%=session.getAttribute("provincia") %>"><br>
+    <input type="text" name="provincia" value="<%=session.getAttribute("provincia") %>" maxlength="2" ><br>
     
     <label>CAP:</label>
-    <input type="text" name="cap" value="<%=session.getAttribute("cap") %>"><br>
+    <input type="text" name="cap" value="<%=session.getAttribute("cap") %>" maxlength="5" ><br>
     
     <label>Email:</label>
     <input type="text" name="email" value="<%=session.getAttribute("email") %>"><br>
     
     <label>Password:</label>
-    <input type="password" name="pass"><br>
+    <input type="password" name="pass" value="<%=session.getAttribute("pass") %>"><br>
       
       <input type="submit" value="Salva modifiche">
     </form>
