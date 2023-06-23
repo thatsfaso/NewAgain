@@ -4,12 +4,12 @@ USE sito;
 
 CREATE TABLE product ( 
   id int primary key auto_increment,
-  descrizione varchar(100),
+  descrizione varchar(255),
   prezzo double,
   quantita tinyint DEFAULT '0' ,
   foto mediumblob,
   sesso varchar(255),
-  nome varchar(50),
+  nome varchar(255),
   categoria ENUM('giacche', 'maglie', 'felpe', 'pantaloni', 'accessori', 'cappelli'),
   iva double NOT NULL DEFAULT '22'
 );
