@@ -145,6 +145,26 @@ INSERT INTO immagini (codprodotto) VALUES (14);
 INSERT INTO immagini (codprodotto) VALUES (14);
 INSERT INTO immagini (codprodotto) VALUES (14);
 INSERT INTO immagini (codprodotto) VALUES (14);
+INSERT INTO immagini (codprodotto) VALUES (15);
+INSERT INTO immagini (codprodotto) VALUES (15);
+INSERT INTO immagini (codprodotto) VALUES (15);
+INSERT INTO immagini (codprodotto) VALUES (15);
+INSERT INTO immagini (codprodotto) VALUES (16);
+INSERT INTO immagini (codprodotto) VALUES (16);
+INSERT INTO immagini (codprodotto) VALUES (16);
+INSERT INTO immagini (codprodotto) VALUES (16);
+INSERT INTO immagini (codprodotto) VALUES (17);
+INSERT INTO immagini (codprodotto) VALUES (17);
+INSERT INTO immagini (codprodotto) VALUES (17);
+INSERT INTO immagini (codprodotto) VALUES (17);
+INSERT INTO immagini (codprodotto) VALUES (18);
+INSERT INTO immagini (codprodotto) VALUES (18);
+INSERT INTO immagini (codprodotto) VALUES (18);
+INSERT INTO immagini (codprodotto) VALUES (18);
+INSERT INTO immagini (codprodotto) VALUES (19);
+INSERT INTO immagini (codprodotto) VALUES (19);
+INSERT INTO immagini (codprodotto) VALUES (19);
+INSERT INTO immagini (codprodotto) VALUES (19);
 
 
 INSERT INTO utente (email, nome, cognome,tipo_account, indirizzo, citta, provincia, cap, pass) VALUES ('mario.rossi@gmail.com', 'Mario', 'Rossi', 0, 'Via Roma 1', 'Milano', 'MI', '20121', 'mario123');
