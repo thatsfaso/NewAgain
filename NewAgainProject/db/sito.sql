@@ -249,15 +249,13 @@ INSERT INTO immagini (codprodotto) VALUES (39);
 
 INSERT INTO utente (email, nome, cognome,tipo_account, indirizzo, citta, provincia, cap, pass) VALUES ('mario.rossi@gmail.com', 'Mario', 'Rossi', 0, 'Via Roma 1', 'Milano', 'MI', '20121', 'mario123');
 INSERT INTO utente (email, nome, cognome,tipo_account, indirizzo, citta, provincia, cap, pass) VALUES ('giulia.verdi@gmail.com', 'Giulia', 'Verdi',0, 'Via Garibaldi 2', 'Firenze', 'FI', '50122', 'giulia123');
-INSERT INTO utente (email, nome, cognome,tipo_account, indirizzo, citta, provincia, cap, pass) VALUES ('palmadaniela218@gmail.com', 'Daniela', 'Palma', 1, 'Contrada Carrara 13', 'Castelpoto', 'BN', '82030', 'dani123');
-INSERT INTO utente (email, nome, cognome,tipo_account, indirizzo, citta, provincia, cap, pass) VALUES ('angelo.genito.000@gmail.com', 'Angelo', 'Genito', 0, 'Contrada Olmeri 1', 'Benevento', 'BN', '82100', 'angelo123');
+INSERT INTO utente (email, nome, cognome,tipo_account, indirizzo, citta, provincia, cap, pass) VALUES ('palmadaniela218@gmail.com', 'Daniela', 'Palma', 0, 'Contrada Carrara 13', 'Castelpoto', 'BN', '82030', 'dani123');
+INSERT INTO utente (email, nome, cognome,tipo_account, indirizzo, citta, provincia, cap, pass) VALUES ('giuseppesorrentino@gmail.com', 'Giuseppe Pio', 'Sorrentino', 1, 'Via Roma 118', 'Sarno', 'SA', '84087', 'giuseppe123');
+INSERT INTO utente (email, nome, cognome,tipo_account, indirizzo, citta, provincia, cap, pass) VALUES ('ilianofasolino@gmail.com', 'Iliano', 'Fasolino', 1, 'Via Vecchia Lavorate 47', 'Sarno', 'SA', '84087', 'iliano123');
+INSERT INTO utente (email, nome, cognome,tipo_account, indirizzo, citta, provincia, cap, pass) VALUES ('utente@gmail.com', 'Franco', 'Riina', 0, 'Via Cannellone 11', 'Sarno', 'SA', '84087', 'utente123');
 INSERT INTO ordine (dataOrdine, totale, stato, email, indirizzo, citta, provincia, cap) VALUES ("2022-11-10",22,'Consegnato', "palmadaniela218@gmail.com", 'Contrada Carrara 13', 'Castelpoto', 'BN', '82030');
-INSERT INTO composizione (quantita, totale, codP, numeroO) values (1, 22.6, 1, 1);
-INSERT INTO composizione (quantita, totale, codP, numeroO) values (1, 22.6, 2, 1);
-INSERT INTO composizione (quantita, totale, codP, numeroO) values (1, 22.6, 6, 2);
-INSERT INTO composizione (quantita, totale, codP, numeroO) values (1, 22.6, 3, 2);
+
 
 INSERT INTO pagamento (id_pagamento, tipo, titolare, numero_carta, scadenza, CVV, n_Ordine) VALUES (1, 'Carta di Credito', 'Iliano Fasolino', '5354566943441223', 12-24, 666, 1);
 INSERT INTO ordine (dataOrdine, totale, stato, email, indirizzo, citta, provincia, cap) VALUES ("2023-11-10",22,'In Preparazione', "giulia.verdi@gmail.com", 'Via Garibaldi 2', 'Firenze', 'FI', '50122');
 INSERT INTO ordine (dataOrdine, totale, stato, email, indirizzo, citta, provincia, cap) VALUES ("2021-11-10",22,'In Preparazione', "giulia.verdi@gmail.com", 'Contrada Carrara 13', 'Castelpoto', 'BN', '82030');
-
