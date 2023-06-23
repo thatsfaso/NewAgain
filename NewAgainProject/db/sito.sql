@@ -237,6 +237,14 @@ INSERT INTO immagini (codprodotto) VALUES (37);
 INSERT INTO immagini (codprodotto) VALUES (37);
 INSERT INTO immagini (codprodotto) VALUES (37);
 INSERT INTO immagini (codprodotto) VALUES (37);
+INSERT INTO immagini (codprodotto) VALUES (38);
+INSERT INTO immagini (codprodotto) VALUES (38);
+INSERT INTO immagini (codprodotto) VALUES (38);
+INSERT INTO immagini (codprodotto) VALUES (38);
+INSERT INTO immagini (codprodotto) VALUES (39);
+INSERT INTO immagini (codprodotto) VALUES (39);
+INSERT INTO immagini (codprodotto) VALUES (39);
+INSERT INTO immagini (codprodotto) VALUES (39);
 
 
 INSERT INTO utente (email, nome, cognome,tipo_account, indirizzo, citta, provincia, cap, pass) VALUES ('mario.rossi@gmail.com', 'Mario', 'Rossi', 0, 'Via Roma 1', 'Milano', 'MI', '20121', 'mario123');
