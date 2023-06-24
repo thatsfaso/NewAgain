@@ -295,6 +295,9 @@
 			justify-content: center;
 			align-items: center;
 		}
+                .det{
+		height: 300px;
+		}
 </style>
 </head>
 <body>
@@ -372,9 +375,11 @@
                     String base64img = Base64.getEncoder().encodeToString(imageB);
                     %>
                     <div class="product">
+                    <div class="det">
     <a href="product?action=read&id=<%=bean.getID()%>">
         <img src="data:image/jpg;base64, <%=base64img%>" width="300" height="300" alt="#">
         <p align="center"><%=bean.getNome()%></p>
+        </div>
         <p align="center"><%=bean.getPrezzo()%>€</p>
         <% if (bean.getQuantita() == 1) { %>
         	<br>
