@@ -15,7 +15,7 @@ Il sito che vogliamo realizzare vuole proporre un'esperienza d’acquisto facile
 Infine, il nostro focus è quello di promuovere lo stile di vita sostenibile, incoraggiando i clienti a scegliere l'abbigliamento vintage come un'alternativa alla moda veloce e alla produzione di massa, contribuendo così a ridurre l'impatto ambientale della moda.
 
 
-# Autori: 
+# Autori 
 
 Iliano Fasolino - https://github.com/thatsfaso
 
@@ -24,3 +24,12 @@ Giuseppe Pio Sorrentino - https://github.com/GiuSeppE898
 Daniela Palma - https://github.com/daniipa02
 
 Emanuele Vitale - https://github.com/emaanuueele11
+
+# Sneak Peak
+
+<img width="1440" alt="Schermata 2023-06-25 alle 11 50 27" src="https://github.com/thatsfaso/NewAgain/assets/127889824/b896d131-2249-4983-9331-c1d367106a0c">
+<img width="1345" alt="Schermata 2023-06-25 alle 11 48 18" src="https://github.com/thatsfaso/NewAgain/assets/127889824/0ab9cbfa-5148-4e01-9666-ebd420c6d47c">
+![Schermata 2023-06-25 alle 11 49 18](https://github.com/thatsfaso/NewAgain/assets/127889824/53799cbe-01f5-41cf-b139-ba406f5a7f1a)
+
+<img width="450" alt="Schermata 2023-06-25 alle 11 47 47" src="https://github.com/thatsfaso/NewAgain/assets/127889824/a8926b25-32c6-42ff-a8d9-2e475c53aead">
+
