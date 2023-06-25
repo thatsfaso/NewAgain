@@ -29,7 +29,7 @@ Emanuele Vitale - https://github.com/emaanuueele11
 
 <img width="1440" alt="Schermata 2023-06-25 alle 11 50 27" src="https://github.com/thatsfaso/NewAgain/assets/127889824/b896d131-2249-4983-9331-c1d367106a0c">
 <img width="1345" alt="Schermata 2023-06-25 alle 11 48 18" src="https://github.com/thatsfaso/NewAgain/assets/127889824/0ab9cbfa-5148-4e01-9666-ebd420c6d47c">
-![Schermata 2023-06-25 alle 11 49 18](https://github.com/thatsfaso/NewAgain/assets/127889824/53799cbe-01f5-41cf-b139-ba406f5a7f1a)
-
+<img width="1341" alt="details" src="https://github.com/thatsfaso/NewAgain/assets/127889824/1c363a7a-778a-45cf-a6ec-87b0cfa49a34">
+<img width="1440" alt="view" src="https://github.com/thatsfaso/NewAgain/assets/127889824/5a61e9c8-a210-4351-88fa-dbfc5543d344">
 <img width="450" alt="Schermata 2023-06-25 alle 11 47 47" src="https://github.com/thatsfaso/NewAgain/assets/127889824/a8926b25-32c6-42ff-a8d9-2e475c53aead">
 
